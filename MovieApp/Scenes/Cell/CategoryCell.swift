@@ -14,6 +14,7 @@ class CategoryCell: UICollectionViewCell {
         var config = UIButton.Configuration.plain()
         config.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12)
         config.baseBackgroundColor = .clear
+        config.baseForegroundColor = .clear
         let categoryButton = UIButton(configuration: config)
         categoryButton.layer.borderWidth = Constants.CategoryButton.borderWidth
         categoryButton.layer.cornerRadius = Constants.CategoryButton.cornerRadius

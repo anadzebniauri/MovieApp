@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     
     //MARK: - Properties
     private let searchBar = SearchBar()
+    private var titleLabelTopConstraint: NSLayoutConstraint!
     
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -26,9 +27,33 @@ class HomeViewController: UIViewController {
         categoryCollectionView.backgroundColor = .clear
         categoryCollectionView.clipsToBounds = true
         categoryCollectionView.isHidden = true
+        categoryCollectionView.allowsMultipleSelection = false
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
         return categoryCollectionView
     }()
+
+    private let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = Constants.TitleLabel.text
+        titleLabel.textColor = Constants.Color.titleLabel
+        titleLabel.setHeight(Constants.TitleLabel.height)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    }()
+    
+    private lazy var moviesCollectionView: UICollectionView = {
+        let moviesCollectionViewLayout = UICollectionViewFlowLayout()
+        moviesCollectionViewLayout.scrollDirection = .vertical
+        let moviesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: moviesCollectionViewLayout)
+        moviesCollectionView.numberOfItems(inSection: 2)
+        moviesCollectionView.delegate = self
+        moviesCollectionView.dataSource = self
+        moviesCollectionView.register(
+            MovieCell.self,
+            forCellWithReuseIdentifier: Constants.MovieCollectionView.cell
+        )
+    }()
+    
     
     //MARK: - Override Func
     override func viewDidLoad() {
@@ -42,6 +67,9 @@ class HomeViewController: UIViewController {
         keyboardDismiss()
         setUpSearchBar()
         setUpCategoryCollectionView()
+        setUpTitleLabel()
+//        setUpMovieView()
+        setUpMovieCollectionView()
     }
     
     private func keyboardDismiss() {
@@ -94,12 +122,57 @@ class HomeViewController: UIViewController {
             )
         ])
     }
+    
+    private func setUpTitleLabel() {
+        view.addSubview(titleLabel)
+        
+        titleLabelTopConstraint = titleLabel.topAnchor.constraint(
+            equalTo: searchBar.bottomAnchor,
+            constant: Constants.TitleLabel.topPadding
+        )
+        titleLabelTopConstraint.isActive = true
+        
+        titleLabel.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor,
+            constant: Constants.TitleLabel.leadingPadding
+        ).isActive = true
+    }
+    
+//    private let movieView = MovieView()
+//
+//    private func setUpMovieView() {
+//        view.addSubview(movieView)
+//
+//        NSLayoutConstraint.activate([
+//            movieView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            movieView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+//        ])
+//        movieView.translatesAutoresizingMaskIntoConstraints = false
+//    }
+    
+    private func setUpMovieCollectionView() {
+        view.addSubview(moviesCollectionView)
+        
+        NSLayoutConstraint.activate([
+            moviesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            moviesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            moviesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            moviesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -62)
+        ])
+    }
 }
 
 //MARK: - Filter Button
 extension HomeViewController: SearchBarDelegate {
     func filterButtonTap() {
         categoryCollectionView.isHidden.toggle()
+        
+        if !categoryCollectionView.isHidden {
+            titleLabelTopConstraint.constant = Constants.TitleLabel.newTopPadding
+        } else {
+            titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
+        }
+        view.layoutIfNeeded()
     }
 }
 
@@ -108,7 +181,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         10
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Constants.CategoryCollectionView.cell,
@@ -133,6 +206,19 @@ private extension HomeViewController {
             static let leadingPadding = 20.0
             static let cell = "CategoryCell"
             static let height = 40.0
+        }
+        enum MovieCollectionView {
+            static let cell = "MovieCell"
+        }
+        enum TitleLabel {
+            static let text = "Movies"
+            static let height = 18.0
+            static let topPadding = 22.0
+            static let newTopPadding = 62.0
+            static let leadingPadding = 16.0
+        }
+        enum Color {
+            static let titleLabel = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
         }
     }
 }
