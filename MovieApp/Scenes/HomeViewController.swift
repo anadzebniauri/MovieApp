@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     
     //MARK: - Properties
     private let searchBar = SearchBar()
+    private let navigationBar = NavigationBar()
     private var titleLabelTopConstraint: NSLayoutConstraint!
     private var movieCollectionViewTopConstraint: NSLayoutConstraint!
     
@@ -45,7 +46,15 @@ class HomeViewController: UIViewController {
     private lazy var moviesCollectionView: UICollectionView = {
         let moviesCollectionViewLayout = UICollectionViewFlowLayout()
         moviesCollectionViewLayout.scrollDirection = .vertical
-        let moviesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: moviesCollectionViewLayout)
+        moviesCollectionViewLayout.minimumInteritemSpacing = 16
+        moviesCollectionViewLayout.minimumLineSpacing = 16
+        
+        let numberOfItemsPerRow: CGFloat = Constants.MovieCollectionView.numberOfItemsPerRow
+        let moviesCollectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: moviesCollectionViewLayout
+        )
+        
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
         moviesCollectionView.register(
@@ -54,9 +63,16 @@ class HomeViewController: UIViewController {
         )
         moviesCollectionView.backgroundColor = .clear
         moviesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        let totalSpacingWidth = moviesCollectionViewLayout.minimumInteritemSpacing * (numberOfItemsPerRow - 1)
+        let availableWidth = UIScreen.main.bounds.width - totalSpacingWidth
+        let itemWidth = availableWidth / numberOfItemsPerRow - 16
+        moviesCollectionViewLayout.itemSize = CGSize(
+            width: itemWidth,
+            height: Constants.MovieCollectionView.cellHeight
+        )
         return moviesCollectionView
     }()
-    
     
     //MARK: - Override Func
     override func viewDidLoad() {
@@ -66,12 +82,14 @@ class HomeViewController: UIViewController {
     
     //MARK: - SetUp
     private func setUp() {
+        navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .black
         keyboardDismiss()
         setUpSearchBar()
         setUpCategoryCollectionView()
         setUpTitleLabel()
         setUpMovieCollectionView()
+        setUpNavigationBar()
     }
     
     private func keyboardDismiss() {
@@ -143,15 +161,41 @@ class HomeViewController: UIViewController {
     private func setUpMovieCollectionView() {
         view.addSubview(moviesCollectionView)
         
-        movieCollectionViewTopConstraint = moviesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.MovieCollectionView.topPadding)
+        movieCollectionViewTopConstraint = moviesCollectionView.topAnchor.constraint(
+            equalTo: titleLabel.bottomAnchor,
+            constant: Constants.MovieCollectionView.topPadding
+        )
         movieCollectionViewTopConstraint.isActive = true
         
         NSLayoutConstraint.activate([
-            moviesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            moviesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            moviesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -62)
+            moviesCollectionView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: Constants.MovieCollectionView.leadingPadding
+            ),
+            moviesCollectionView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: Constants.MovieCollectionView.trailingPadding
+            ),
+            moviesCollectionView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor,
+                constant: Constants.MovieCollectionView.bottomPadding
+            )
         ])
-
+    }
+    
+    private func setUpNavigationBar() {
+        view.addSubview(navigationBar)
+        navigationBar.delegate = self
+        navigationBar.homeButton.isSelected = true
+        navigationBar.homeButton.backgroundColor = Constants.Color.yellow
+        
+        NSLayoutConstraint.activate([
+            navigationBar.topAnchor.constraint(equalTo: moviesCollectionView.bottomAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -171,34 +215,45 @@ extension HomeViewController: SearchBarDelegate {
     }
 }
 
-//MARK: - Category Collection View
+//MARK: - Navigation Bar Buttons
+extension HomeViewController: NavigationBarDelegate {
+    func homeButtonTap() {
+        let homeViewController = HomeViewController()
+        navigationController?.pushViewController(homeViewController, animated: false)
+    }
+    
+    func favoritesButtonTap() {
+        let favoriteMoviesViewController = FavoriteMoviesViewController()
+        navigationController?.pushViewController(favoriteMoviesViewController, animated: false)
+    }
+}
+
+//MARK: - Collection View
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == categoryCollectionView {
             return 10
         } else if collectionView == moviesCollectionView {
-            return 4
+            return 10
         }
-        return 0
+        return 10
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == categoryCollectionView {
-            let categoryCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Constants.CategoryCollectionView.cell,
-                for: indexPath) as! CategoryCell
-            return categoryCell
+        let categoryCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Constants.CategoryCollectionView.cell,
+            for: indexPath) as! CategoryCell
+        return categoryCell
         } else if collectionView == moviesCollectionView {
             let movieCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: Constants.MovieCollectionView.cell,
                 for: indexPath) as! MovieCell
             return movieCell
         }
-        
         return UICollectionViewCell()
     }
 }
-
 
 //MARK: - Constants
 private extension HomeViewController {
@@ -221,6 +276,12 @@ private extension HomeViewController {
             static let cell = "MovieCell"
             static let topPadding = 16.0
             static let newTopPadding = 56.0
+            static let numberOfItemsPerRow = 2.0
+            static let spacing = 16.0
+            static let cellHeight = 270.0
+            static let leadingPadding = 16.0
+            static let trailingPadding = -16.0
+            static let bottomPadding = -62.0
         }
         enum TitleLabel {
             static let text = "Movies"
@@ -231,6 +292,9 @@ private extension HomeViewController {
         }
         enum Color {
             static let titleLabel = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
+            static let homeButton = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
+            static let favoritesButton = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
+            static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
         }
     }
 }

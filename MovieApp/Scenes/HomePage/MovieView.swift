@@ -14,6 +14,7 @@ class MovieView: UIView {
         let movieImage = UIImageView()
         movieImage.image = Constants.Image.movieImage
         movieImage.setHeight(Constants.MovieImage.height)
+//        movieImage.setWidth(150)
         movieImage.translatesAutoresizingMaskIntoConstraints = false
         return movieImage
     }()
@@ -26,7 +27,7 @@ class MovieView: UIView {
 //        UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
         categoryLabel.textAlignment = .center
         categoryLabel.backgroundColor = Constants.Color.categoryLabel
-        categoryLabel.setHeight(Constants.CategoryLabel.height)
+//        categoryLabel.setHeight(Constants.CategoryLabel.height)
         categoryLabel.layer.cornerRadius = Constants.CategoryLabel.cornerRadius
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         return categoryLabel
@@ -37,7 +38,7 @@ class MovieView: UIView {
         movieName.text = Constants.MovieName.text
         movieName.textColor = .white
         movieName.textAlignment = .left
-        movieName.setHeight(Constants.MovieName.height)
+//        movieName.setHeight(Constants.MovieName.height)
         movieName.translatesAutoresizingMaskIntoConstraints = false
         return movieName
     }()
@@ -47,7 +48,7 @@ class MovieView: UIView {
         movieYear.text = Constants.MovieYear.text
         movieYear.textColor = Constants.Color.movieYear
         movieYear.textAlignment = .left
-        movieYear.setHeight(Constants.MovieYear.height)
+//        movieYear.setHeight(Constants.MovieYear.height)
         movieYear.translatesAutoresizingMaskIntoConstraints = false
         return movieYear
     }()
@@ -128,7 +129,9 @@ class MovieView: UIView {
             movieYear.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: Constants.MovieYear.leadingPadding
-            )
+            ),
+//            movieYear.bottomAnchor.constraint(
+//                equalTo: bottomAnchor)
         ])
     }
     
@@ -143,7 +146,9 @@ class MovieView: UIView {
             favoritesButton.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: Constants.FavoritesButton.trailingPadding
-            )
+            ),
+//            favoritesButton.bottomAnchor.constraint(
+//                lessThanOrEqualTo: movieName.bottomAnchor)
         ])
         favoritesButton.addTarget(self, action: #selector(favoritesButtonTap), for: .touchUpInside)
     }
@@ -156,7 +161,6 @@ class MovieView: UIView {
 
 
 //MARK: - Constants
-
 private extension MovieView {
     enum Constants {
         enum MovieImage{

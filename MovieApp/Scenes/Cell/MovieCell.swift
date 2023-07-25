@@ -19,6 +19,7 @@ class MovieCell: UICollectionViewCell {
         backgroundColor = .clear
         setUpMovieView()
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
