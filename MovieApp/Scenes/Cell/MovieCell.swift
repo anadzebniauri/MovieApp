@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol MovieCellDelegate: AnyObject {
+    func movieViewTap()
+}
+
 class MovieCell: UICollectionViewCell {
+    
+    weak var delegate: MovieCellDelegate?
     
     //MARK: - Properties
     private let movieView = MovieView()
@@ -25,7 +31,6 @@ class MovieCell: UICollectionViewCell {
     }
     
     //MARK: - Methods
-    
     private func setUpMovieView() {
         addSubview(movieView)
         
@@ -36,5 +41,13 @@ class MovieCell: UICollectionViewCell {
             movieView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         movieView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(movieViewTap))
+        movieView.addGestureRecognizer(tapGestureRecognizer)
+        movieView.isUserInteractionEnabled = true
+    }
+    
+    @objc private func movieViewTap() {
+        delegate?.movieViewTap()
     }
 }

@@ -19,8 +19,8 @@ class NavigationBar: UIView {
     //MARK: - Properties
     var config: UIButton.Configuration = {
         var config = UIButton.Configuration.plain()
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30)
-        config.imagePadding = 3.0
+        config.contentInsets = Constants.Config.contentInsets
+        config.imagePadding = Constants.Config.imagePadding
         config.baseBackgroundColor = .clear
         config.baseForegroundColor = .clear
         return config
@@ -33,7 +33,7 @@ class NavigationBar: UIView {
         homeButton.translatesAutoresizingMaskIntoConstraints = false
         homeButton.setImage(Constants.Image.selectedHome, for: .selected)
         homeButton.setImage(Constants.Image.home, for: .normal)
-        homeButton.setTitle("Home", for: .normal)
+        homeButton.setTitle(Constants.HomeButton.text, for: .normal)
         homeButton.setTitleColor(.white, for: .normal)
         homeButton.setTitleColor(.black, for: .selected)
         homeButton.backgroundColor = Constants.Color.grey
@@ -48,7 +48,7 @@ class NavigationBar: UIView {
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesButton.setImage(Constants.Image.favorites, for: .normal)
         favoritesButton.setImage(Constants.Image.selectedFavorites, for: .selected)
-        favoritesButton.setTitle("Favorites", for: .normal)
+        favoritesButton.setTitle(Constants.FavoritesButton.text, for: .normal)
         favoritesButton.setTitleColor(.white, for: .normal)
         favoritesButton.setTitleColor(.black, for: .selected)
         favoritesButton.backgroundColor = Constants.Color.grey
@@ -75,13 +75,22 @@ class NavigationBar: UIView {
     
     private func setUpHomeButton() {
         addSubview(homeButton)
-        homeButton.setWidth(163)
         
         NSLayoutConstraint.activate([
-            homeButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            homeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            homeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
+            homeButton.topAnchor.constraint(
+                equalTo: topAnchor,
+                constant: Constants.HomeButton.topPadding
+            ),
+            homeButton.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: Constants.HomeButton.leadingPadding
+            ),
+            homeButton.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: Constants.HomeButton.bottomPadding
+            ),
         ])
+        homeButton.setWidth(UIScreen.main.bounds.width/2 - 24)
     }
     
     @objc private func homeButtonTap() {
@@ -96,12 +105,24 @@ class NavigationBar: UIView {
     
     private func setUpFavoritesButton() {
         addSubview(favoritesButton)
-        favoritesButton.setWidth(163)
         
         NSLayoutConstraint.activate([
-            favoritesButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            favoritesButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            favoritesButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            favoritesButton.topAnchor.constraint(
+                equalTo: topAnchor,
+                constant: Constants.FavoritesButton.topPadding
+            ),
+            favoritesButton.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: Constants.FavoritesButton.trailingPadding
+            ),
+            favoritesButton.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: Constants.FavoritesButton.bottomPadding
+            ),
+            favoritesButton.leadingAnchor.constraint(
+                equalTo: homeButton.trailingAnchor,
+                constant: Constants.FavoritesButton.leadingPadding
+            )
         ])
     }
     
@@ -119,13 +140,24 @@ class NavigationBar: UIView {
 //MARK: - Constants
 private extension NavigationBar {
     enum Constants {
+        enum Config {
+            static let contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 30, bottom: 10, trailing: 30)
+            static let imagePadding = 3.0
+        }
         enum HomeButton {
             static let cornerRadius = 8.0
-
+            static let text = "Home"
+            static let topPadding = 12.0
+            static let leadingPadding = 16.0
+            static let bottomPadding = -12.0
         }
         enum FavoritesButton {
             static let cornerRadius = 8.0
-
+            static let text = "Favorites"
+            static let topPadding = 12.0
+            static let leadingPadding = 16.0
+            static let trailingPadding = -16.0
+            static let bottomPadding = -12.0
         }
         enum Image {
             static let selectedHome = UIImage(named: "SelectedHome")

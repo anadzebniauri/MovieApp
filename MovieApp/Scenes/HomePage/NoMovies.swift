@@ -44,7 +44,6 @@ class NoMovies: UIView {
     
     private func setUpNoMoviesIcon() {
         addSubview(noMoviesIcon)
-        noMoviesIcon.setHeight(106)
         
         NSLayoutConstraint.activate([
             noMoviesIcon.topAnchor.constraint(equalTo: topAnchor),
@@ -56,7 +55,10 @@ class NoMovies: UIView {
         addSubview(noMoviesTitle)
         
         NSLayoutConstraint.activate([
-            noMoviesTitle.topAnchor.constraint(equalTo: noMoviesIcon.bottomAnchor, constant: 25),
+            noMoviesTitle.topAnchor.constraint(
+                equalTo: noMoviesIcon.bottomAnchor,
+                constant: Constants.Title.topPadding
+            ),
             noMoviesTitle.centerXAnchor.constraint(equalTo: centerXAnchor),
             noMoviesTitle.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
@@ -64,10 +66,11 @@ class NoMovies: UIView {
 }
 
 //MARK: - Constants
-extension NoMovies {
+private extension NoMovies {
     enum Constants {
         enum Title {
             static let noMovies = "No movies added yet"
+            static let topPadding = 25.0
         }
         enum Image {
             static let noMovies = UIImage(named: "No Results")

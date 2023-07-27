@@ -79,7 +79,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setUp()
     }
-    
+
     //MARK: - SetUp
     private func setUp() {
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -215,6 +215,14 @@ extension HomeViewController: SearchBarDelegate {
     }
 }
 
+//MARK: - Movie Cell Delegate
+extension HomeViewController: MovieCellDelegate {
+    func movieViewTap() {
+        let detailsViewController = DetailsViewController()
+        navigationController?.pushViewController(detailsViewController, animated: false)
+    }
+}
+
 //MARK: - Navigation Bar Buttons
 extension HomeViewController: NavigationBarDelegate {
     func homeButtonTap() {
@@ -249,6 +257,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let movieCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: Constants.MovieCollectionView.cell,
                 for: indexPath) as! MovieCell
+            movieCell.delegate = self
             return movieCell
         }
         return UICollectionViewCell()

@@ -13,6 +13,9 @@
 		C1032AFB2A6565DA00DC8C7F /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1032AFA2A6565DA00DC8C7F /* SearchBar.swift */; };
 		C11B66F52A6FCF5E006D320E /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B66F42A6FCF5E006D320E /* NavigationBar.swift */; };
 		C11B66F72A700DFB006D320E /* NoMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B66F62A700DFB006D320E /* NoMovies.swift */; };
+		C11B66F92A714104006D320E /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B66F82A714104006D320E /* DetailsViewController.swift */; };
+		C11B66FB2A728242006D320E /* DetailsComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B66FA2A728242006D320E /* DetailsComponentsView.swift */; };
+		C11B66FD2A72863D006D320E /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B66FC2A72863D006D320E /* DetailsView.swift */; };
 		C15764FC2A66B7EF000D9C08 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15764FB2A66B7EF000D9C08 /* CategoryCell.swift */; };
 		C1A967062A65438E00694CC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A967052A65438E00694CC7 /* AppDelegate.swift */; };
 		C1A967082A65438E00694CC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A967072A65438E00694CC7 /* SceneDelegate.swift */; };
@@ -33,6 +36,9 @@
 		C1032AFA2A6565DA00DC8C7F /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		C11B66F42A6FCF5E006D320E /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		C11B66F62A700DFB006D320E /* NoMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMovies.swift; sourceTree = "<group>"; };
+		C11B66F82A714104006D320E /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		C11B66FA2A728242006D320E /* DetailsComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsComponentsView.swift; sourceTree = "<group>"; };
+		C11B66FC2A72863D006D320E /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		C15764FB2A66B7EF000D9C08 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		C1A967022A65438E00694CC7 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A967052A65438E00694CC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +72,8 @@
 				C1F772632A6840C7009BD0B8 /* MovieView.swift */,
 				C11B66F42A6FCF5E006D320E /* NavigationBar.swift */,
 				C11B66F62A700DFB006D320E /* NoMovies.swift */,
+				C11B66FA2A728242006D320E /* DetailsComponentsView.swift */,
+				C11B66FC2A72863D006D320E /* DetailsView.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -89,6 +97,7 @@
 				C1A967092A65438E00694CC7 /* SplashViewController.swift */,
 				C1032AF82A6555C000DC8C7F /* HomeViewController.swift */,
 				C1F7726D2A6BDF95009BD0B8 /* FavoriteMoviesViewController.swift */,
+				C11B66F82A714104006D320E /* DetailsViewController.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -248,7 +257,10 @@
 				C1032AF32A6548D700DC8C7F /* UIView+Extension.swift in Sources */,
 				C11B66F52A6FCF5E006D320E /* NavigationBar.swift in Sources */,
 				C15764FC2A66B7EF000D9C08 /* CategoryCell.swift in Sources */,
+				C11B66FB2A728242006D320E /* DetailsComponentsView.swift in Sources */,
+				C11B66FD2A72863D006D320E /* DetailsView.swift in Sources */,
 				C1F772642A6840C7009BD0B8 /* MovieView.swift in Sources */,
+				C11B66F92A714104006D320E /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

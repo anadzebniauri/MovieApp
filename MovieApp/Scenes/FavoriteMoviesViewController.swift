@@ -39,7 +39,6 @@ class FavoriteMoviesViewController: UIViewController {
     
     private func setUpNavigationBar() {
         view.addSubview(navigationBar)
-        navigationBar.setHeight(62)
         navigationBar.delegate = self
         navigationBar.favoritesButton.isSelected = true
         navigationBar.favoritesButton.backgroundColor = Constants.Color.yellow
@@ -54,10 +53,12 @@ class FavoriteMoviesViewController: UIViewController {
     
     private func setUpTitleLabel() {
         view.addSubview(titleLabel)
-        titleLabel.setHeight(18)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 11),
+            titleLabel.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: Constants.Title.topPadding
+            ),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -86,10 +87,12 @@ extension FavoriteMoviesViewController: NavigationBarDelegate {
     }
 }
 
+//MARK: - Constants
 private extension FavoriteMoviesViewController {
     enum Constants {
         enum Title {
             static let navigationBarTitle = "Favorite Movies"
+            static let topPadding = 11.0
         }
         enum Color {
             static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
