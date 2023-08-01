@@ -15,6 +15,7 @@ class NoMovies: UIView {
         noMoviesTitle.text = Constants.Title.noMovies
         noMoviesTitle.textColor = Constants.Color.noMoviesColor
         noMoviesTitle.textAlignment = .center
+        noMoviesTitle.font = Constants.Font.text
         noMoviesTitle.translatesAutoresizingMaskIntoConstraints = false
         return noMoviesTitle
     }()
@@ -77,6 +78,9 @@ private extension NoMovies {
         }
         enum Color {
             static let noMoviesColor = UIColor(red: 93, green: 93, blue: 93, alpha: 1)
+        }
+        enum Font {
+            static let text = UIFont.boldSystemFont(ofSize: 16)
         }
     }
 }

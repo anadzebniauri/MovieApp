@@ -124,7 +124,10 @@ class ErrorViewController: UIViewController {
         view.addSubview(refreshButton)
         
         NSLayoutConstraint.activate([
-            refreshButton.topAnchor.constraint(equalTo: internetLabel.bottomAnchor, constant: 110),
+            refreshButton.topAnchor.constraint(
+                equalTo: internetLabel.bottomAnchor,
+                constant: Constants.refreshButton.topPadding
+            ),
             refreshButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         refreshButton.addTarget(self, action: #selector(refreshButtonTap), for: .touchUpInside)
@@ -137,10 +140,22 @@ class ErrorViewController: UIViewController {
         refreshButton.addSubview(refreshLabel)
         
         NSLayoutConstraint.activate([
-            refreshLabel.topAnchor.constraint(equalTo: refreshButton.topAnchor, constant: 14),
-            refreshLabel.leadingAnchor.constraint(equalTo: refreshButton.leadingAnchor, constant: 30),
-            refreshLabel.trailingAnchor.constraint(equalTo: refreshButton.trailingAnchor, constant: -48),
-            refreshLabel.bottomAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: -14)
+            refreshLabel.topAnchor.constraint(
+                equalTo: refreshButton.topAnchor,
+                constant: Constants.refreshLabel.topPadding
+            ),
+            refreshLabel.leadingAnchor.constraint(
+                equalTo: refreshButton.leadingAnchor,
+                constant: Constants.refreshLabel.leadingPadding
+            ),
+            refreshLabel.trailingAnchor.constraint(
+                equalTo: refreshButton.trailingAnchor,
+                constant: Constants.refreshLabel.trailingPadding
+            ),
+            refreshLabel.bottomAnchor.constraint(
+                equalTo: refreshButton.bottomAnchor,
+                constant: Constants.refreshLabel.bottomPadding
+            )
         ])
     }
     
@@ -148,10 +163,22 @@ class ErrorViewController: UIViewController {
         refreshButton.addSubview(refreshIcon)
         
         NSLayoutConstraint.activate([
-            refreshIcon.topAnchor.constraint(equalTo: refreshButton.topAnchor, constant: 14),
-            refreshIcon.leadingAnchor.constraint(equalTo: refreshLabel.trailingAnchor, constant: 2),
-            refreshIcon.trailingAnchor.constraint(equalTo: refreshButton.trailingAnchor, constant: -30),
-            refreshIcon.bottomAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: -14)
+            refreshIcon.topAnchor.constraint(
+                equalTo: refreshButton.topAnchor,
+                constant: Constants.refreshIcon.topPadding
+            ),
+            refreshIcon.leadingAnchor.constraint(
+                equalTo: refreshLabel.trailingAnchor,
+                constant: Constants.refreshIcon.leadingPadding
+            ),
+            refreshIcon.trailingAnchor.constraint(
+                equalTo: refreshButton.trailingAnchor,
+                constant: Constants.refreshIcon.trailingPadding
+            ),
+            refreshIcon.bottomAnchor.constraint(
+                equalTo: refreshButton.bottomAnchor,
+                constant: Constants.refreshIcon.bottomPadding
+            )
         ])
     }
 }
@@ -177,6 +204,19 @@ private extension ErrorViewController {
         }
         enum refreshButton {
             static let cornerRadius = 16.0
+            static let topPadding = 110.0
+        }
+        enum refreshLabel {
+            static let topPadding = 14.0
+            static let leadingPadding = 30.0
+            static let trailingPadding = -48.0
+            static let bottomPadding = -14.0
+        }
+        enum refreshIcon {
+            static let topPadding = 14.0
+            static let leadingPadding = 2.0
+            static let trailingPadding = -30.0
+            static let bottomPadding = -14.0
         }
         enum Image {
             static let errorIcon = UIImage(named: "Caution")

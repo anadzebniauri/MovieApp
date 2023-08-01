@@ -36,9 +36,6 @@ class SplashViewController: UIViewController {
     private func navigateToHomeScreen() {
         let homeViewController = HomeViewController()
         navigationController?.pushViewController(homeViewController, animated: false)
-
-//        homeViewController.modalPresentationStyle = .fullScreen
-//        self.present(homeViewController, animated: false, completion: nil)
     }
     
     private func setUpImdbLogo() {

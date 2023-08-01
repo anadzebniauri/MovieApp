@@ -77,9 +77,7 @@
 				C1032AFA2A6565DA00DC8C7F /* SearchBar.swift */,
 				C1F772632A6840C7009BD0B8 /* MovieView.swift */,
 				C11B66F42A6FCF5E006D320E /* NavigationBar.swift */,
-				C11B66F62A700DFB006D320E /* NoMovies.swift */,
-				C11B66FA2A728242006D320E /* DetailsComponentsView.swift */,
-				C11B66FC2A72863D006D320E /* DetailsView.swift */,
+				C1032AF82A6555C000DC8C7F /* HomeViewController.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -99,13 +97,12 @@
 				C10A0BAA2A65478100A946D7 /* Extensions */,
 				C10A0BA62A6546D000A946D7 /* Launch */,
 				C15764F62A6693AD000D9C08 /* Cell */,
+				C1A053CA2A78FB93000A1009 /* SplashPage */,
 				C1032AFC2A65708F00DC8C7F /* HomePage */,
-				C1A967092A65438E00694CC7 /* SplashViewController.swift */,
-				C1032AF82A6555C000DC8C7F /* HomeViewController.swift */,
-				C1F7726D2A6BDF95009BD0B8 /* FavoriteMoviesViewController.swift */,
-				C11B66F82A714104006D320E /* DetailsViewController.swift */,
-				C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */,
-				C1A053C52A78E577000A1009 /* LoadingViewController.swift */,
+				C1A053C72A78FB41000A1009 /* FavoritesPage */,
+				C1A053C82A78FB5C000A1009 /* DetailsPage */,
+				C1A053C92A78FB6C000A1009 /* ErrorPage */,
+				C1A053CB2A78FBB2000A1009 /* LoadingPage */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -153,6 +150,49 @@
 				C1F772652A685DCA009BD0B8 /* MovieCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		C1A053C72A78FB41000A1009 /* FavoritesPage */ = {
+			isa = PBXGroup;
+			children = (
+				C11B66F62A700DFB006D320E /* NoMovies.swift */,
+				C1F7726D2A6BDF95009BD0B8 /* FavoriteMoviesViewController.swift */,
+			);
+			path = FavoritesPage;
+			sourceTree = "<group>";
+		};
+		C1A053C82A78FB5C000A1009 /* DetailsPage */ = {
+			isa = PBXGroup;
+			children = (
+				C11B66FC2A72863D006D320E /* DetailsView.swift */,
+				C11B66FA2A728242006D320E /* DetailsComponentsView.swift */,
+				C11B66F82A714104006D320E /* DetailsViewController.swift */,
+			);
+			path = DetailsPage;
+			sourceTree = "<group>";
+		};
+		C1A053C92A78FB6C000A1009 /* ErrorPage */ = {
+			isa = PBXGroup;
+			children = (
+				C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */,
+			);
+			path = ErrorPage;
+			sourceTree = "<group>";
+		};
+		C1A053CA2A78FB93000A1009 /* SplashPage */ = {
+			isa = PBXGroup;
+			children = (
+				C1A967092A65438E00694CC7 /* SplashViewController.swift */,
+			);
+			path = SplashPage;
+			sourceTree = "<group>";
+		};
+		C1A053CB2A78FBB2000A1009 /* LoadingPage */ = {
+			isa = PBXGroup;
+			children = (
+				C1A053C52A78E577000A1009 /* LoadingViewController.swift */,
+			);
+			path = LoadingPage;
 			sourceTree = "<group>";
 		};
 		C1A966F92A65438E00694CC7 = {

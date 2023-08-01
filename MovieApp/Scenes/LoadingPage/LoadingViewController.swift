@@ -21,7 +21,6 @@ class LoadingViewController: UIViewController {
     private func setUp() {
         view.backgroundColor = .black
     }
-    
 }
 
 //MARK: - Constants
