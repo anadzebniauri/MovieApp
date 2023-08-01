@@ -42,6 +42,16 @@ class SearchBar: UIView {
         return searchIconImageView
     }()
     
+    private let cancelButton: UIButton = {
+        let cancelButton = UIButton()
+        cancelButton.setTitle(Constants.CancelButton.text, for: .normal)
+        cancelButton.titleLabel?.textColor = .white
+        cancelButton.titleLabel?.font = Constants.Font.cancelText
+        cancelButton.backgroundColor = .clear
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        return cancelButton
+    }()
+    
     //MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -57,6 +67,7 @@ class SearchBar: UIView {
         setUpSearchBar()
         setUpSearchIconImageView()
         setUpFilterButton()
+//        setUpCancelButton()
         setUpSearchBarSpaces()
         setUpPlaceholder()
     }
@@ -130,6 +141,27 @@ class SearchBar: UIView {
         filterButton.isSelected.toggle()
         delegate?.filterButtonTap()
     }
+    
+    private func setUpCancelButton() {
+        addSubview(cancelButton)
+        
+        NSLayoutConstraint.activate([
+            cancelButton.topAnchor.constraint(equalTo: topAnchor),
+            cancelButton.leadingAnchor.constraint(
+                equalTo: searchBar.trailingAnchor,
+                constant: Constants.CancelButton.leadingPadding
+            ),
+            cancelButton.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: Constants.CancelButton.trailingPadding
+            )
+        ])
+        cancelButton.addTarget(self, action: #selector(cancelButtonTap), for: .touchUpInside)
+    }
+    
+    @objc private func cancelButtonTap() {
+        cancelButton.isSelected.toggle()
+    }
 }
 
 //MARK: - Constants
@@ -152,6 +184,11 @@ private extension SearchBar {
             static let bottomPadding = -10.0
             static let leadingPadding = 24.0
         }
+        enum CancelButton {
+            static let text = "Cancel"
+            static let leadingPadding = 5.0
+            static let trailingPadding = 4.0
+        }
         enum Color {
             static let searchBar = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
             static let textColor = UIColor(red: 165, green: 165, blue: 165, alpha: 1)
@@ -160,6 +197,9 @@ private extension SearchBar {
             static let searchIcon = UIImage(named: "searchIcon")
             static let filterIcon = UIImage(named: "filterIcon")
             static let filterIconClicked = UIImage(named: "filterIconClicked")
+        }
+        enum Font {
+            static let cancelText = UIFont(name: "Montserrat-Medium", size: 5)
         }
     }
 }
