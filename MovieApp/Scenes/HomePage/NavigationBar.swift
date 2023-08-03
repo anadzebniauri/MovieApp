@@ -33,9 +33,6 @@ class NavigationBar: UIView {
         homeButton.translatesAutoresizingMaskIntoConstraints = false
         homeButton.setImage(Constants.Image.selectedHome, for: .selected)
         homeButton.setImage(Constants.Image.home, for: .normal)
-        homeButton.setTitle(Constants.HomeButton.text, for: .normal)
-        homeButton.setTitleColor(.white, for: .normal)
-        homeButton.setTitleColor(.black, for: .selected)
         homeButton.backgroundColor = Constants.Color.grey
         homeButton.addTarget(self, action: #selector(homeButtonTap), for: .touchUpInside)
         return homeButton
@@ -48,9 +45,6 @@ class NavigationBar: UIView {
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesButton.setImage(Constants.Image.favorites, for: .normal)
         favoritesButton.setImage(Constants.Image.selectedFavorites, for: .selected)
-        favoritesButton.setTitle(Constants.FavoritesButton.text, for: .normal)
-        favoritesButton.setTitleColor(.white, for: .normal)
-        favoritesButton.setTitleColor(.black, for: .selected)
         favoritesButton.backgroundColor = Constants.Color.grey
         favoritesButton.addTarget(self, action: #selector(favoritesButtonTap), for: .touchUpInside)
         return favoritesButton
@@ -73,8 +67,31 @@ class NavigationBar: UIView {
         setUpFavoritesButton()
     }
     
+    private func setUpHomeButtonTitle() {
+        let normalAttributes: [NSAttributedString.Key: Any] = [
+            .font: Constants.Font.medium,
+            .foregroundColor: UIColor.white
+        ]
+        let selectedAttributes: [NSAttributedString.Key: Any] = [
+            .font: Constants.Font.medium,
+            .foregroundColor: UIColor.black
+        ]
+        
+        let normalAttributedTitle = NSAttributedString(
+         string: Constants.HomeButton.text,
+         attributes: normalAttributes
+        )
+        let selectedAttributedTitle = NSAttributedString(
+         string: Constants.HomeButton.text,
+         attributes: selectedAttributes
+        )
+        homeButton.setAttributedTitle(normalAttributedTitle, for: .normal)
+        homeButton.setAttributedTitle(selectedAttributedTitle, for: .selected)
+    }
+    
     private func setUpHomeButton() {
         addSubview(homeButton)
+        setUpHomeButtonTitle()
         
         NSLayoutConstraint.activate([
             homeButton.topAnchor.constraint(
@@ -103,8 +120,31 @@ class NavigationBar: UIView {
         }
     }
     
+    private func setUpFavoritesButtonTitle() {
+        let normalAttributes: [NSAttributedString.Key: Any] = [
+            .font: Constants.Font.medium,
+            .foregroundColor: UIColor.white
+        ]
+        let selectedAttributes: [NSAttributedString.Key: Any] = [
+            .font: Constants.Font.medium,
+            .foregroundColor: UIColor.black
+        ]
+        
+        let normalAttributedTitle = NSAttributedString(
+         string: Constants.FavoritesButton.text,
+         attributes: normalAttributes
+        )
+        let selectedAttributedTitle = NSAttributedString(
+         string: Constants.FavoritesButton.text,
+         attributes: selectedAttributes
+        )
+        favoritesButton.setAttributedTitle(normalAttributedTitle, for: .normal)
+        favoritesButton.setAttributedTitle(selectedAttributedTitle, for: .selected)
+    }
+    
     private func setUpFavoritesButton() {
         addSubview(favoritesButton)
+        setUpFavoritesButtonTitle()
         
         NSLayoutConstraint.activate([
             favoritesButton.topAnchor.constraint(
@@ -168,6 +208,9 @@ private extension NavigationBar {
         enum Color {
             static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
             static let grey = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
+        }
+        enum Font {
+            static let medium = UIFont(name: "Montserrat-Medium", size: 14)!
         }
     }
 }

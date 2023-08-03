@@ -46,7 +46,7 @@ class SearchBar: UIView {
         let cancelButton = UIButton()
         cancelButton.setTitle(Constants.CancelButton.text, for: .normal)
         cancelButton.titleLabel?.textColor = .white
-        cancelButton.titleLabel?.font = Constants.Font.cancelText
+        cancelButton.titleLabel?.font = Constants.Font.medium
         cancelButton.backgroundColor = .clear
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         return cancelButton
@@ -111,10 +111,12 @@ class SearchBar: UIView {
     
     private func setUpPlaceholder() {
         let paragraphStyle = NSMutableParagraphStyle()
+        let font = Constants.Font.placeholder
         
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
-            .foregroundColor: Constants.Color.textColor
+            .foregroundColor: Constants.Color.textColor,
+            .font: font ?? .systemFont(ofSize: 40)
         ]
         let attributedPlaceholder = NSAttributedString(
             string: Constants.SearchBar.placeholderText,
@@ -146,7 +148,10 @@ class SearchBar: UIView {
         addSubview(cancelButton)
         
         NSLayoutConstraint.activate([
-            cancelButton.topAnchor.constraint(equalTo: topAnchor),
+            cancelButton.topAnchor.constraint(
+                equalTo: topAnchor,
+                constant: Constants.CancelButton.topPadding
+            ),
             cancelButton.leadingAnchor.constraint(
                 equalTo: searchBar.trailingAnchor,
                 constant: Constants.CancelButton.leadingPadding
@@ -154,7 +159,7 @@ class SearchBar: UIView {
             cancelButton.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: Constants.CancelButton.trailingPadding
-            )
+            ),
         ])
         cancelButton.addTarget(self, action: #selector(cancelButtonTap), for: .touchUpInside)
     }
@@ -188,6 +193,7 @@ private extension SearchBar {
             static let text = "Cancel"
             static let leadingPadding = 5.0
             static let trailingPadding = 4.0
+            static let topPadding = 4.0
         }
         enum Color {
             static let searchBar = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
@@ -199,7 +205,9 @@ private extension SearchBar {
             static let filterIconClicked = UIImage(named: "filterIconClicked")
         }
         enum Font {
-            static let cancelText = UIFont(name: "Montserrat-Medium", size: 5)
+            static let medium = UIFont(name: "Montserrat-Medium", size: 12)
+            static let placeholder = UIFont(name: "Montserrat-Medium", size: 16)
+            static let regular = UIFont(name: "Montserrat-Regular", size: 14)
         }
     }
 }

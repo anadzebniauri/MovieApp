@@ -13,7 +13,6 @@ class MovieView: UIView {
     private let movieImage: UIImageView = {
         let movieImage = UIImageView()
         movieImage.image = Constants.Image.movieImage
-        movieImage.setHeight(Constants.MovieImage.height)
         movieImage.translatesAutoresizingMaskIntoConstraints = false
         return movieImage
     }()
@@ -32,6 +31,7 @@ class MovieView: UIView {
         categoryText.text = Constants.CategoryLabel.text
         categoryText.textColor = .black
         categoryText.textAlignment = .center
+        categoryText.font = Constants.Font.semiBold
         categoryText.translatesAutoresizingMaskIntoConstraints = false
         return categoryText
     }()
@@ -41,6 +41,8 @@ class MovieView: UIView {
         movieName.text = Constants.MovieName.text
         movieName.textColor = .white
         movieName.textAlignment = .left
+        movieName.font = Constants.Font.medium
+        movieName.setHeight(Constants.MovieName.height)
         movieName.translatesAutoresizingMaskIntoConstraints = false
         return movieName
     }()
@@ -50,13 +52,13 @@ class MovieView: UIView {
         movieYear.text = Constants.MovieYear.text
         movieYear.textColor = Constants.Color.movieYear
         movieYear.textAlignment = .left
+        movieYear.font = Constants.Font.regular
         movieYear.translatesAutoresizingMaskIntoConstraints = false
         return movieYear
     }()
     
     private let favoritesButton: UIButton = {
         let favoritesButton = UIButton()
-        favoritesButton.isUserInteractionEnabled = true
         favoritesButton.setImage(Constants.Image.favoritesButton, for: .normal)
         favoritesButton.setImage(Constants.Image.checkedFavoritesButton, for: .selected)
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
@@ -154,7 +156,8 @@ class MovieView: UIView {
             movieYear.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: Constants.MovieYear.leadingPadding
-            )
+            ),
+            movieYear.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
@@ -222,6 +225,11 @@ private extension MovieView {
             static let movieImage = UIImage(named: "homeMovieImage")
             static let favoritesButton = UIImage(named: "homeFavoritesButton")
             static let checkedFavoritesButton = UIImage(named: "homeFavoritesCheckedButton")
+        }
+        enum Font {
+            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
+            static let medium = UIFont(name: "Montserrat-Medium", size: 16)
+            static let regular = UIFont(name: "Montserrat-Regular", size: 12)
         }
     }
 }

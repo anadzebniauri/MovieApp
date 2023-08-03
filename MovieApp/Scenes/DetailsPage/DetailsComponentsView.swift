@@ -14,6 +14,7 @@ class DetailsComponentsView: UIView {
         let movieName = UILabel()
         movieName.text = Constants.Title.movieName
         movieName.textColor = .white
+        movieName.font = Constants.Font.bold
         movieName.translatesAutoresizingMaskIntoConstraints = false
         return movieName
     }()
@@ -42,6 +43,7 @@ class DetailsComponentsView: UIView {
         let imdbLabel = UILabel()
         imdbLabel.text = Constants.Title.imdb
         imdbLabel.textColor = Constants.Color.componentsColor
+        imdbLabel.font = Constants.Font.medium
         imdbLabel.translatesAutoresizingMaskIntoConstraints = false
         return imdbLabel
     }()
@@ -50,6 +52,7 @@ class DetailsComponentsView: UIView {
         let genreLabel = UILabel()
         genreLabel.text = Constants.Title.genre
         genreLabel.textColor = Constants.Color.componentsColor
+        genreLabel.font = Constants.Font.medium
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
         return genreLabel
     }()
@@ -65,6 +68,7 @@ class DetailsComponentsView: UIView {
         let hourLabel = UILabel()
         hourLabel.text = Constants.Title.hour
         hourLabel.textColor = Constants.Color.componentsColor
+        hourLabel.font = Constants.Font.medium
         hourLabel.translatesAutoresizingMaskIntoConstraints = false
         return hourLabel
     }()
@@ -73,6 +77,7 @@ class DetailsComponentsView: UIView {
         let yearLabel = UILabel()
         yearLabel.text = Constants.Title.year
         yearLabel.textColor = Constants.Color.componentsColor
+        yearLabel.font = Constants.Font.medium
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
         return yearLabel
     }()
@@ -382,6 +387,12 @@ private extension DetailsComponentsView {
         enum Color {
             static let componentsColor = UIColor(red: 202, green: 202, blue: 202, alpha: 1)
             static let backgroundViewColor = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
+        }
+        enum Font {
+            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
+            static let medium = UIFont(name: "Montserrat-Medium", size: 14)
+            static let regular = UIFont(name: "Montserrat-Regular", size: 12)
+            static let bold = UIFont(name: "Montserrat-SemiBold", size: 20)
         }
     }
 }

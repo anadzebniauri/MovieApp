@@ -21,6 +21,7 @@ class ErrorViewController: UIViewController {
         let dataLabel = UILabel()
         dataLabel.text = Constants.Text.dataText
         dataLabel.textColor = .white
+        dataLabel.font = Constants.Font.bold
         dataLabel.translatesAutoresizingMaskIntoConstraints = false
         return dataLabel
     }()
@@ -32,6 +33,7 @@ class ErrorViewController: UIViewController {
         internetLabel.textAlignment = .center
         internetLabel.lineBreakMode = .byTruncatingMiddle
         internetLabel.numberOfLines = 0
+        internetLabel.font = Constants.Font.medium
         internetLabel.translatesAutoresizingMaskIntoConstraints = false
         return internetLabel
     }()
@@ -49,6 +51,7 @@ class ErrorViewController: UIViewController {
         let refreshLabel = UILabel()
         refreshLabel.text = Constants.Text.buttonText
         refreshLabel.textColor = .black
+        refreshLabel.font = Constants.Font.semiBold
         refreshLabel.translatesAutoresizingMaskIntoConstraints = false
         return refreshLabel
     }()
@@ -224,6 +227,11 @@ private extension ErrorViewController {
         }
         enum Color {
             static let buttonColor = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
+        }
+        enum Font {
+            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
+            static let medium = UIFont(name: "Montserrat-Medium", size: 16)
+            static let bold = UIFont(name: "Montserrat-Bold", size: 18)
         }
     }
 }

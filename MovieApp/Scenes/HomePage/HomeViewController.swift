@@ -30,6 +30,7 @@ class HomeViewController: UIViewController {
         categoryCollectionView.clipsToBounds = true
         categoryCollectionView.isHidden = true
         categoryCollectionView.allowsMultipleSelection = false
+        categoryCollectionView.allowsSelection = true
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
         return categoryCollectionView
     }()
@@ -39,6 +40,7 @@ class HomeViewController: UIViewController {
         titleLabel.text = Constants.TitleLabel.text
         titleLabel.textColor = Constants.Color.titleLabel
         titleLabel.setHeight(Constants.TitleLabel.height)
+        titleLabel.font = Constants.Font.semiBold
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
     }()
@@ -49,28 +51,19 @@ class HomeViewController: UIViewController {
         moviesCollectionViewLayout.minimumInteritemSpacing = 16
         moviesCollectionViewLayout.minimumLineSpacing = 16
         
-        let numberOfItemsPerRow: CGFloat = Constants.MovieCollectionView.numberOfItemsPerRow
         let moviesCollectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: moviesCollectionViewLayout
         )
-        
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
+        
         moviesCollectionView.register(
             MovieCell.self,
             forCellWithReuseIdentifier: Constants.MovieCollectionView.cell
         )
         moviesCollectionView.backgroundColor = .clear
         moviesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-
-        let totalSpacingWidth = moviesCollectionViewLayout.minimumInteritemSpacing * (numberOfItemsPerRow - 1)
-        let availableWidth = UIScreen.main.bounds.width - totalSpacingWidth
-        let itemWidth = availableWidth / numberOfItemsPerRow - 16
-        moviesCollectionViewLayout.itemSize = CGSize(
-            width: itemWidth,
-            height: Constants.MovieCollectionView.cellHeight
-        )
         return moviesCollectionView
     }()
     
@@ -197,6 +190,8 @@ class HomeViewController: UIViewController {
         ])
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
+    private var selectedIndexPath: IndexPath?
+
 }
 
 //MARK: - Filter Button
@@ -239,21 +234,21 @@ extension HomeViewController: NavigationBarDelegate {
 //MARK: - Collection View
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == categoryCollectionView {
+        if collectionView === categoryCollectionView {
             return 10
-        } else if collectionView == moviesCollectionView {
+        } else if collectionView === moviesCollectionView {
             return 10
         }
         return 10
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == categoryCollectionView {
+        if collectionView === categoryCollectionView {
         let categoryCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Constants.CategoryCollectionView.cell,
             for: indexPath) as! CategoryCell
         return categoryCell
-        } else if collectionView == moviesCollectionView {
+        } else if collectionView === moviesCollectionView {
             let movieCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: Constants.MovieCollectionView.cell,
                 for: indexPath) as! MovieCell
@@ -261,6 +256,34 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return movieCell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView === categoryCollectionView {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+                cell.isSelectedCategoryCell = true
+            }
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if collectionView === categoryCollectionView {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+                cell.isSelectedCategoryCell = false
+            }
+        }
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView === moviesCollectionView {
+            let width = (collectionView.frame.size.width - Constants.MovieCollectionView.leadingPadding - Constants.MovieCollectionView.trailingPadding - Constants.MovieCollectionView.spacing) / 2
+            return CGSize(width: width, height: width * 1.64)
+        } else if collectionView === categoryCollectionView {
+            return categoryCollectionView.contentSize
+        }
+        return CGSize()
     }
 }
 
@@ -279,7 +302,7 @@ private extension HomeViewController {
             static let topPadding = 8.0
             static let leadingPadding = 20.0
             static let cell = "CategoryCell"
-            static let height = 40.0
+            static let height = 27.0
         }
         enum MovieCollectionView {
             static let cell = "MovieCell"
@@ -304,6 +327,9 @@ private extension HomeViewController {
             static let homeButton = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
             static let favoritesButton = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
             static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
+        }
+        enum Font {
+            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 18)
         }
     }
 }

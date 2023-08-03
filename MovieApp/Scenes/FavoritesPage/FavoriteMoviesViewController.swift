@@ -17,7 +17,7 @@ class FavoriteMoviesViewController: UIViewController {
         titleLabel.text = Constants.Title.navigationBarTitle
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
-        titleLabel.font = Constants.Font.text
+        titleLabel.font = Constants.Font.semiBold
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
     }()
@@ -99,7 +99,7 @@ private extension FavoriteMoviesViewController {
             static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
         }
         enum Font {
-            static let text = UIFont.boldSystemFont(ofSize: 16)
+            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 16)
         }
     }
 }

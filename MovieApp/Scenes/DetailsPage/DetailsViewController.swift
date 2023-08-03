@@ -26,6 +26,7 @@ class DetailsViewController: UIViewController {
         let detailsLabel = UILabel()
         detailsLabel.text = Constants.Title.detailsTitle
         detailsLabel.textColor = .white
+        detailsLabel.font = Constants.Font.semiBold
         detailsLabel.translatesAutoresizingMaskIntoConstraints = false
         return detailsLabel
     }()
@@ -41,6 +42,7 @@ class DetailsViewController: UIViewController {
         let aboutMovieLabel = UILabel()
         aboutMovieLabel.text = Constants.Title.aboutMovie
         aboutMovieLabel.textColor = .white
+        aboutMovieLabel.font = Constants.Font.semiBold
         aboutMovieLabel.translatesAutoresizingMaskIntoConstraints = false
         return aboutMovieLabel
     }()
@@ -52,6 +54,7 @@ class DetailsViewController: UIViewController {
         movieTextView.textAlignment = .left
         movieTextView.lineBreakMode = .byClipping
         movieTextView.numberOfLines = 0
+        movieTextView.font = Constants.Font.medium
         movieTextView.translatesAutoresizingMaskIntoConstraints = false
         return movieTextView
     }()
@@ -230,6 +233,10 @@ private extension DetailsViewController {
         enum Image {
             static let backArrow = UIImage(named: "back arrow")
             static let movieDetailsImage = UIImage(named: "movieDetailsImage")
+        }
+        enum Font {
+            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 16)
+            static let medium = UIFont(name: "Montserrat-Medium", size: 14)
         }
     }
 }

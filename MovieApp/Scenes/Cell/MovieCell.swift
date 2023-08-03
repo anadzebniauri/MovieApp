@@ -42,12 +42,12 @@ class MovieCell: UICollectionViewCell {
         ])
         movieView.translatesAutoresizingMaskIntoConstraints = false
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(movieViewTap))
-        movieView.addGestureRecognizer(tapGestureRecognizer)
-        movieView.isUserInteractionEnabled = true
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(movieViewTap))
+//        movieView.addGestureRecognizer(tapGestureRecognizer)
+//        movieView.isUserInteractionEnabled = true
     }
     
-    @objc private func movieViewTap() {
-        delegate?.movieViewTap()
-    }
+//    @objc private func movieViewTap() {
+//        delegate?.movieViewTap()
+//    }
 }

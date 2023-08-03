@@ -20,6 +20,8 @@
 		C1A053C22A77DEBC000A1009 /* Montserrat in Resources */ = {isa = PBXBuildFile; fileRef = C1A053C12A77DEBC000A1009 /* Montserrat */; };
 		C1A053C42A77FC3C000A1009 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */; };
 		C1A053C62A78E578000A1009 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A053C52A78E577000A1009 /* LoadingViewController.swift */; };
+		C1A053CF2A791C56000A1009 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1A053CD2A791C56000A1009 /* Montserrat-Medium.ttf */; };
+		C1A053D02A791C56000A1009 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1A053CE2A791C56000A1009 /* Montserrat-SemiBold.ttf */; };
 		C1A967062A65438E00694CC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A967052A65438E00694CC7 /* AppDelegate.swift */; };
 		C1A967082A65438E00694CC7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A967072A65438E00694CC7 /* SceneDelegate.swift */; };
 		C1A9670A2A65438E00694CC7 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A967092A65438E00694CC7 /* SplashViewController.swift */; };
@@ -46,6 +48,11 @@
 		C1A053C12A77DEBC000A1009 /* Montserrat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Montserrat; sourceTree = "<group>"; };
 		C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		C1A053C52A78E577000A1009 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		C1A053CD2A791C56000A1009 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		C1A053CE2A791C56000A1009 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		C1A053D12A792CCA000A1009 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		C1A053D22A793524000A1009 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		C1A053D32A79770D000A1009 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
 		C1A967022A65438E00694CC7 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A967052A65438E00694CC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1A967072A65438E00694CC7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,7 +128,6 @@
 			children = (
 				C1A967112A65439000694CC7 /* Assets.xcassets */,
 				C1A9670E2A65438E00694CC7 /* MovieApp.xcdatamodeld */,
-				C1A053C12A77DEBC000A1009 /* Montserrat */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -129,6 +135,8 @@
 		C10A0BA92A65473000A946D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C1A053CC2A791C47000A1009 /* Fonts */,
+				C1A053C12A77DEBC000A1009 /* Montserrat */,
 				C1A967162A65439000694CC7 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -193,6 +201,18 @@
 				C1A053C52A78E577000A1009 /* LoadingViewController.swift */,
 			);
 			path = LoadingPage;
+			sourceTree = "<group>";
+		};
+		C1A053CC2A791C47000A1009 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C1A053CD2A791C56000A1009 /* Montserrat-Medium.ttf */,
+				C1A053CE2A791C56000A1009 /* Montserrat-SemiBold.ttf */,
+				C1A053D12A792CCA000A1009 /* Montserrat-Regular.ttf */,
+				C1A053D22A793524000A1009 /* Montserrat-Bold.ttf */,
+				C1A053D32A79770D000A1009 /* Montserrat-ExtraBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C1A966F92A65438E00694CC7 = {
@@ -280,7 +300,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1A053D02A791C56000A1009 /* Montserrat-SemiBold.ttf in Resources */,
 				C1A967152A65439000694CC7 /* LaunchScreen.storyboard in Resources */,
+				C1A053CF2A791C56000A1009 /* Montserrat-Medium.ttf in Resources */,
 				C1A053C22A77DEBC000A1009 /* Montserrat in Resources */,
 				C1A967122A65439000694CC7 /* Assets.xcassets in Resources */,
 				C1A9670D2A65438E00694CC7 /* Main.storyboard in Resources */,
@@ -459,6 +481,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U7NA35NV7T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MovieApp/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -486,6 +509,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U7NA35NV7T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MovieApp/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
