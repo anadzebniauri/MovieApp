@@ -23,16 +23,16 @@ class CategoryCell: UICollectionViewCell {
     //<MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpCell()
-        setUpCategoryCell()
-        setUpCategoryLabel()
+        setUp()
+        setUpCategoryCellConstraints()
+        setUpCategoryLabelConstraints()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     //MARK: - Methods
-    private func setUpCell() {
+    private func setUp() {
         clipsToBounds = true
         selectedBackgroundView = .none
         backgroundColor = .clear
@@ -63,7 +63,7 @@ class CategoryCell: UICollectionViewCell {
         }
     }
     
-    private func setUpCategoryLabel() {
+    private func setUpCategoryLabelConstraints() {
         addSubview(categoryLabel)
         
         NSLayoutConstraint.activate([
@@ -85,8 +85,8 @@ class CategoryCell: UICollectionViewCell {
             )
         ])
     }
-    //setupconstraints
-    private func setUpCategoryCell() {
+
+    private func setUpCategoryCellConstraints() {
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: topAnchor),
             leadingAnchor.constraint(equalTo: leadingAnchor),
