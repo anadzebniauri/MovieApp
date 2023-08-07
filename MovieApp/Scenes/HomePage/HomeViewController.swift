@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
@@ -90,6 +90,7 @@ class HomeViewController: UIViewController {
             action: #selector(UIView.endEditing)
         )
         view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false
     }
     
     private func setUpSearchBar() {
@@ -182,10 +183,9 @@ class HomeViewController: UIViewController {
         navigationBar.homeButton.backgroundColor = Constants.Color.yellow
         
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: moviesCollectionView.bottomAnchor),
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            navigationBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -230,11 +230,11 @@ extension HomeViewController: NavigationBarDelegate {
     }
 }
 
-//MARK: - Collection View
+//MARK: - Collection View DataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView === categoryCollectionView {
-            return 10
+            return 2
         } else if collectionView === moviesCollectionView {
             return 10
         }
@@ -258,6 +258,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 }
 
+//MARK: - Collection View Delegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView === categoryCollectionView {
@@ -265,9 +266,9 @@ extension HomeViewController: UICollectionViewDelegate {
                 categoryCell.isSelectedCategoryCell = true
             }
         } else if collectionView === moviesCollectionView {
-            if let MovieCell = collectionView.cellForItem(at: indexPath) as? MovieCell {
-                print("here")
-            }
+            if collectionView.cellForItem(at: indexPath) is MovieCell {
+                let detailsViewController = DetailsViewController()
+                navigationController?.pushViewController(detailsViewController, animated: false)            }
         }
     }
     
@@ -280,15 +281,20 @@ extension HomeViewController: UICollectionViewDelegate {
     }
 }
 
+//MARK: Collection View Delegate Flow Layout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView === moviesCollectionView {
             let width = (collectionView.frame.size.width - Constants.MovieCollectionView.leadingPadding - Constants.MovieCollectionView.trailingPadding - Constants.MovieCollectionView.spacing) / 2
             return CGSize(width: width, height: width * 1.64)
         } else if collectionView === categoryCollectionView {
-            return categoryCollectionView.contentSize
+            let categoryCell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.CategoryCollectionView.cell, for: indexPath) as! CategoryCell
+            categoryCell.layoutIfNeeded()
+            let cellSize = categoryCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            return cellSize
         }
         return CGSize()
+    
     }
 }
 

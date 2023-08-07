@@ -30,7 +30,6 @@ class NavigationBar: UIView {
         let homeButton = UIButton(configuration: config)
         homeButton.clipsToBounds = true
         homeButton.layer.cornerRadius = Constants.HomeButton.cornerRadius
-        homeButton.translatesAutoresizingMaskIntoConstraints = false
         homeButton.setImage(Constants.Image.selectedHome, for: .selected)
         homeButton.setImage(Constants.Image.home, for: .normal)
         homeButton.backgroundColor = Constants.Color.grey
@@ -42,12 +41,21 @@ class NavigationBar: UIView {
         let favoritesButton = UIButton(configuration: config)
         favoritesButton.clipsToBounds = true
         favoritesButton.layer.cornerRadius = Constants.FavoritesButton.cornerRadius
-        favoritesButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesButton.setImage(Constants.Image.favorites, for: .normal)
         favoritesButton.setImage(Constants.Image.selectedFavorites, for: .selected)
         favoritesButton.backgroundColor = Constants.Color.grey
         favoritesButton.addTarget(self, action: #selector(favoritesButtonTap), for: .touchUpInside)
         return favoritesButton
+    }()
+    
+    private let buttonStackView: UIStackView = {
+        let buttonStackView = UIStackView()
+        buttonStackView.spacing = Constants.ButtonStackView.spacing
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.isLayoutMarginsRelativeArrangement = true
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.layoutMargins = Constants.ButtonStackView.layoutMargins
+        return buttonStackView
     }()
     
     //MARK: - Init
@@ -63,8 +71,9 @@ class NavigationBar: UIView {
     //MARK: - Methods
     private func setUp() {
         backgroundColor = .black
-        setUpHomeButton()
-        setUpFavoritesButton()
+        setUpHomeButtonTitle()
+        setUpFavoritesButtonTitle()
+        setUpButtonStackView()
     }
     
     private func setUpHomeButtonTitle() {
@@ -87,27 +96,6 @@ class NavigationBar: UIView {
         )
         homeButton.setAttributedTitle(normalAttributedTitle, for: .normal)
         homeButton.setAttributedTitle(selectedAttributedTitle, for: .selected)
-    }
-    
-    private func setUpHomeButton() {
-        addSubview(homeButton)
-        setUpHomeButtonTitle()
-        
-        NSLayoutConstraint.activate([
-            homeButton.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: Constants.HomeButton.topPadding
-            ),
-            homeButton.leadingAnchor.constraint(
-                equalTo: leadingAnchor,
-                constant: Constants.HomeButton.leadingPadding
-            ),
-            homeButton.bottomAnchor.constraint(
-                equalTo: bottomAnchor,
-                constant: Constants.HomeButton.bottomPadding
-            ),
-        ])
-        homeButton.setWidth(UIScreen.main.bounds.width/2 - 24)
     }
     
     @objc private func homeButtonTap() {
@@ -142,30 +130,6 @@ class NavigationBar: UIView {
         favoritesButton.setAttributedTitle(selectedAttributedTitle, for: .selected)
     }
     
-    private func setUpFavoritesButton() {
-        addSubview(favoritesButton)
-        setUpFavoritesButtonTitle()
-        
-        NSLayoutConstraint.activate([
-            favoritesButton.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: Constants.FavoritesButton.topPadding
-            ),
-            favoritesButton.trailingAnchor.constraint(
-                equalTo: trailingAnchor,
-                constant: Constants.FavoritesButton.trailingPadding
-            ),
-            favoritesButton.bottomAnchor.constraint(
-                equalTo: bottomAnchor,
-                constant: Constants.FavoritesButton.bottomPadding
-            ),
-            favoritesButton.leadingAnchor.constraint(
-                equalTo: homeButton.trailingAnchor,
-                constant: Constants.FavoritesButton.leadingPadding
-            )
-        ])
-    }
-    
     @objc private func favoritesButtonTap() {
         if !favoritesButton.isSelected {
             favoritesButton.isSelected = true
@@ -174,6 +138,13 @@ class NavigationBar: UIView {
             homeButton.backgroundColor = Constants.Color.grey
             delegate?.favoritesButtonTap()
         }
+    }
+    
+    private func setUpButtonStackView() {
+        addSubview(buttonStackView)
+        buttonStackView.stretchOnParent()
+        buttonStackView.addArrangedSubview(homeButton)
+        buttonStackView.addArrangedSubview(favoritesButton)
     }
 }
 
@@ -198,6 +169,10 @@ private extension NavigationBar {
             static let leadingPadding = 16.0
             static let trailingPadding = -16.0
             static let bottomPadding = -12.0
+        }
+        enum ButtonStackView {
+            static let spacing = 16.0
+            static let layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         }
         enum Image {
             static let selectedHome = UIImage(named: "SelectedHome")

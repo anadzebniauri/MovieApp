@@ -41,13 +41,5 @@ class MovieCell: UICollectionViewCell {
             movieView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         movieView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(movieViewTap))
-//        movieView.addGestureRecognizer(tapGestureRecognizer)
-//        movieView.isUserInteractionEnabled = true
     }
-    
-//    @objc private func movieViewTap() {
-//        delegate?.movieViewTap()
-//    }
 }

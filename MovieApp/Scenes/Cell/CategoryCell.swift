@@ -17,7 +17,6 @@ final class CategoryCell: UICollectionViewCell {
         categoryLabel.textColor = .white
         categoryLabel.font = Constants.Font.medium
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        categoryLabel.isUserInteractionEnabled = false
         return categoryLabel
     }()
     
