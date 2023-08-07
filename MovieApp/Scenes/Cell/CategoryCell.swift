@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoryCell: UICollectionViewCell {
+final class CategoryCell: UICollectionViewCell {
     
     //MARK: - Properties
     private lazy var categoryLabel: UILabel = {
@@ -17,6 +17,7 @@ class CategoryCell: UICollectionViewCell {
         categoryLabel.textColor = .white
         categoryLabel.font = Constants.Font.medium
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        categoryLabel.isUserInteractionEnabled = false
         return categoryLabel
     }()
     
@@ -36,7 +37,6 @@ class CategoryCell: UICollectionViewCell {
         clipsToBounds = true
         selectedBackgroundView = .none
         backgroundColor = .clear
-        isUserInteractionEnabled = false
         layer.cornerRadius = Constants.CategoryLabel.cornerRadius
         layer.borderWidth = Constants.CategoryLabel.borderWidth
         layer.borderColor = Constants.Color.borderColor

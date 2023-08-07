@@ -29,9 +29,8 @@ class HomeViewController: UIViewController {
         categoryCollectionView.backgroundColor = .clear
         categoryCollectionView.clipsToBounds = true
         categoryCollectionView.isHidden = true
-        categoryCollectionView.allowsMultipleSelection = false
-        categoryCollectionView.allowsSelection = true
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        categoryCollectionView.showsHorizontalScrollIndicator = false
         return categoryCollectionView
     }()
 
@@ -232,7 +231,7 @@ extension HomeViewController: NavigationBarDelegate {
 }
 
 //MARK: - Collection View
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView === categoryCollectionView {
             return 10
@@ -257,15 +256,21 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         return UICollectionViewCell()
     }
-    
+}
+
+extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView === categoryCollectionView {
-            if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-                cell.isSelectedCategoryCell = true
+            if let categoryCell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+                categoryCell.isSelectedCategoryCell = true
+            }
+        } else if collectionView === moviesCollectionView {
+            if let MovieCell = collectionView.cellForItem(at: indexPath) as? MovieCell {
+                print("here")
             }
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if collectionView === categoryCollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
