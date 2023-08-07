@@ -294,7 +294,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             return cellSize
         }
         return CGSize()
-    
     }
 }
 

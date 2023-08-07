@@ -108,10 +108,9 @@ class DetailsViewController: UIViewController {
     }
 
     @objc private func backButtonTap() {
-        let homeViewController = HomeViewController()
-        navigationController?.pushViewController(homeViewController, animated: false)
+        navigationController?.popViewController(animated: false)
     }
-    
+
     private func setUpDetailsTitle() {
         view.addSubview(detailsLabel)
         
