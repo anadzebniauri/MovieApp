@@ -17,4 +17,7 @@ extension UIFont {
     static func mainFont(ofSize size: CGFloat) -> UIFont {
         return customFont(name: "MyLovely-CustomFont", size: size)
     }
+    
+    mdmskks
+    
 }
