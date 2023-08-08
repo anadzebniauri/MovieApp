@@ -14,22 +14,8 @@ final class HomeViewController: UIViewController {
     private let navigationBar = NavigationBar()
     private var titleLabelTopConstraint: NSLayoutConstraint!
     private var movieCollectionViewTopConstraint: NSLayoutConstraint!
+    private var searchBarHeightConstraint: NSLayoutConstraint!
     
-    private lazy var categoryCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(CategoryCell.self)
-        collectionView.backgroundColor = .clear
-        collectionView.clipsToBounds = true
-        collectionView.isHidden = true
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.showsHorizontalScrollIndicator = false
-        return collectionView
-    }()
-
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.TitleLabel.text
@@ -69,7 +55,6 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .black
         keyboardDismiss()
         setUpSearchBar()
-        setUpCategoryCollectionView()
         setUpTitleLabel()
         setUpMovieCollectionView()
         setUpNavigationBar()
@@ -102,29 +87,10 @@ final class HomeViewController: UIViewController {
                 constant: Constants.SearchBar.trailingPadding
             )
         ])
-        searchBar.setHeight(Constants.SearchBar.height)
+        searchBarHeightConstraint = searchBar.heightAnchor.constraint(
+            equalToConstant: Constants.SearchBar.height)
+        searchBarHeightConstraint.isActive = true
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    private func setUpCategoryCollectionView() {
-        view.addSubview(categoryCollectionView)
-        
-        NSLayoutConstraint.activate([
-            categoryCollectionView.topAnchor.constraint(
-                equalTo: searchBar.bottomAnchor,
-                constant: Constants.CategoryCollectionView.topPadding
-            ),
-            categoryCollectionView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: Constants.CategoryCollectionView.leadingPadding
-            ),
-            categoryCollectionView.trailingAnchor.constraint(
-                greaterThanOrEqualTo: view.trailingAnchor
-            ),
-            categoryCollectionView.heightAnchor.constraint(
-                equalToConstant: Constants.CategoryCollectionView.height
-            )
-        ])
     }
     
     private func setUpTitleLabel() {
@@ -184,25 +150,15 @@ final class HomeViewController: UIViewController {
 
 // MARK: - Search Bar Delegate
 extension HomeViewController: SearchBarDelegate {
-    func filterButtonTap(_ searchBar: SearchBar) {
-        categoryCollectionView.isHidden.toggle()
-        
-        if categoryCollectionView.isHidden {
-            titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
-            movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
-        } else {
-            titleLabelTopConstraint.constant = Constants.TitleLabel.newTopPadding
-            movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
-        }
-        view.layoutIfNeeded()
+    func searchBarCategoryCollectionHidden(_ searchBar: SearchBar) {
+        titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
+        movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
+        searchBarHeightConstraint.constant = Constants.SearchBar.height
     }
-    
-    func textFieldDidBeginEditing(_ searchBar: SearchBar) {
-        
-    }
-    
-    func textFieldDidEndEditing(_ searchBar: SearchBar) {
-        
+    func searchBarCategoryCollectionShown(_ searchBar: SearchBar) {
+        titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
+        movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
+        searchBarHeightConstraint.constant = Constants.SearchBar.newHeight
     }
 }
 
@@ -228,45 +184,24 @@ extension HomeViewController: NavigationBarDelegate {
 // MARK: - Collection View DataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView === categoryCollectionView ? 2 : 10
+        return 10
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView === categoryCollectionView {
-            return collectionView.dequeueReusableCell(
-                withReuseIdentifier: Constants.CategoryCollectionView.cell,
-                for: indexPath) as! CategoryCell
-        } else if collectionView === moviesCollectionView {
             let movieCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: Constants.MovieCollectionView.cell,
                 for: indexPath) as! MovieCell
             movieCell.delegate = self
             return movieCell
-        }
-        return UICollectionViewCell()
     }
 }
 
 // MARK: - Collection View Delegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView === categoryCollectionView {
-            if let categoryCell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-                categoryCell.isSelectedCategoryCell = true
-            }
-        } else if collectionView === moviesCollectionView {
-            if collectionView.cellForItem(at: indexPath) is MovieCell {
-                let detailsViewController = DetailsViewController()
-                navigationController?.pushViewController(detailsViewController, animated: false)
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if collectionView === categoryCollectionView {
-            if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-                cell.isSelectedCategoryCell = false
-            }
+        if collectionView.cellForItem(at: indexPath) is MovieCell {
+            let detailsViewController = DetailsViewController()
+            navigationController?.pushViewController(detailsViewController, animated: false)
         }
     }
 }
@@ -274,19 +209,11 @@ extension HomeViewController: UICollectionViewDelegate {
 // MARK: Collection View Delegate Flow Layout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView === moviesCollectionView {
-            let width = (collectionView.frame.size.width
-                         - Constants.MovieCollectionView.leadingPadding
-                         - Constants.MovieCollectionView.trailingPadding
-                         - Constants.MovieCollectionView.spacing) / 2
-            return CGSize(width: width, height: width * Constants.MovieCollectionView.aspectRatio)
-        } else if collectionView === categoryCollectionView {
-            let categoryCell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.CategoryCollectionView.cell, for: indexPath) as! CategoryCell
-            categoryCell.layoutIfNeeded()
-            let cellSize = categoryCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-            return cellSize
-        }
-        return CGSize()
+        let width = (collectionView.frame.size.width
+                     - Constants.MovieCollectionView.leadingPadding
+                     - Constants.MovieCollectionView.trailingPadding
+                     - Constants.MovieCollectionView.spacing) / 2
+        return CGSize(width: width, height: width * Constants.MovieCollectionView.aspectRatio)
     }
 }
 
@@ -300,12 +227,7 @@ private extension HomeViewController {
             static let cornerRadius = 25.0
             static let placeholderText = "Search"
             static let height = 36.0
-        }
-        enum CategoryCollectionView {
-            static let topPadding = 8.0
-            static let leadingPadding = 20.0
-            static let cell = "CategoryCell"
-            static let height = 27.0
+            static let newHeight = 65.0
         }
         enum MovieCollectionView {
             static let cell = "MovieCell"
@@ -323,7 +245,6 @@ private extension HomeViewController {
             static let text = "Movies"
             static let height = 18.0
             static let topPadding = 22.0
-            static let newTopPadding = 62.0
             static let leadingPadding = 16.0
         }
         enum Color {

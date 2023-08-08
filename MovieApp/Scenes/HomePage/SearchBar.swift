@@ -8,9 +8,8 @@
 import UIKit
 
 protocol SearchBarDelegate: AnyObject {
-    func filterButtonTap(_ searchBar: SearchBar)
-    func textFieldDidBeginEditing(_ searchBar: SearchBar)
-    func textFieldDidEndEditing(_ searchBar: SearchBar)
+    func searchBarCategoryCollectionHidden(_ searchBar: SearchBar)
+    func searchBarCategoryCollectionShown(_ searchBar: SearchBar)
 }
 
 class SearchBar: UIView {
@@ -18,6 +17,21 @@ class SearchBar: UIView {
     weak var delegate: SearchBarDelegate?
     
     // MARK: - Properties
+    private lazy var categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CategoryCell.self)
+        collectionView.backgroundColor = .clear
+        collectionView.clipsToBounds = true
+        collectionView.isHidden = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
+    
     private let searchBar: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = Constants.Color.searchBar
@@ -73,6 +87,7 @@ class SearchBar: UIView {
         setUpCancelButton()
         setUpSearchBarSpaces()
         setUpPlaceholder()
+        setUpCategoryCollectionView()
     }
     
     private func setUpSearchBar() {
@@ -145,7 +160,14 @@ class SearchBar: UIView {
     
     @objc private func filterButtonTap() {
         filterButton.isSelected.toggle()
-        delegate?.filterButtonTap(self)
+        categoryCollectionView.isHidden.toggle()
+        
+        if categoryCollectionView.isHidden {
+            delegate?.searchBarCategoryCollectionHidden(self)
+        } else {
+            delegate?.searchBarCategoryCollectionShown(self)
+        }
+        layoutIfNeeded()
     }
     
     private func setUpCancelButton() {
@@ -174,6 +196,27 @@ class SearchBar: UIView {
         cancelButton.isHidden = true
         filterButton.isHidden = false
     }
+    
+    private func setUpCategoryCollectionView() {
+        addSubview(categoryCollectionView)
+        
+        NSLayoutConstraint.activate([
+            categoryCollectionView.topAnchor.constraint(
+                equalTo: searchBar.bottomAnchor,
+                constant: Constants.CategoryCollectionView.topPadding
+            ),
+            categoryCollectionView.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: Constants.CategoryCollectionView.leadingPadding
+            ),
+            categoryCollectionView.trailingAnchor.constraint(
+                greaterThanOrEqualTo: trailingAnchor
+            ),
+            categoryCollectionView.heightAnchor.constraint(
+                equalToConstant: Constants.CategoryCollectionView.height
+            )
+        ])
+    }
 }
 
 // MARK: - Text Field Delegate
@@ -181,15 +224,57 @@ extension SearchBar: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         filterButton.isHidden = true
         cancelButton.isHidden = false
-        delegate?.textFieldDidBeginEditing(self)
+        
+        if filterButton.isSelected {
+            filterButton.isSelected = false
+            categoryCollectionView.isHidden = true
+            delegate?.searchBarCategoryCollectionHidden(self)
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let searchText = searchBar.text, searchText.isEmpty {
             filterButton.isHidden = false
             cancelButton.isHidden = true
-            delegate?.textFieldDidEndEditing(self)
         }
+    }
+}
+
+// MARK: - Collection View DataSource
+extension SearchBar: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(
+            withReuseIdentifier: Constants.CategoryCollectionView.cell,
+            for: indexPath) as! CategoryCell
+    }
+}
+
+// MARK: Collection View Delegate
+extension SearchBar: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let categoryCell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+            categoryCell.isSelectedCategoryCell = true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+                cell.isSelectedCategoryCell = false
+        }
+    }
+}
+
+// MARK: Collection View Delegate Flow Layout
+extension SearchBar: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let categoryCell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.CategoryCollectionView.cell, for: indexPath) as! CategoryCell
+        categoryCell.layoutIfNeeded()
+        let cellSize = categoryCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        return cellSize
     }
 }
 
@@ -218,6 +303,12 @@ private extension SearchBar {
             static let leadingPadding = 5.0
             static let trailingPadding = 4.0
             static let topPadding = 4.0
+        }
+        enum CategoryCollectionView {
+            static let topPadding = 8.0
+            static let leadingPadding = 4.0
+            static let cell = "CategoryCell"
+            static let height = 27.0
         }
         enum Color {
             static let searchBar = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
