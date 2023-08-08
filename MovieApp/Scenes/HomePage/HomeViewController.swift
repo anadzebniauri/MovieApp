@@ -18,7 +18,6 @@ class HomeViewController: UIViewController {
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self

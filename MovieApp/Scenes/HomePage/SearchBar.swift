@@ -48,6 +48,7 @@ class SearchBar: UIView {
         cancelButton.titleLabel?.textColor = .white
         cancelButton.titleLabel?.font = Constants.Font.medium
         cancelButton.backgroundColor = .clear
+        cancelButton.isHidden = true
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         return cancelButton
     }()
@@ -67,13 +68,14 @@ class SearchBar: UIView {
         setUpSearchBar()
         setUpSearchIconImageView()
         setUpFilterButton()
-//        setUpCancelButton()
+        setUpCancelButton()
         setUpSearchBarSpaces()
         setUpPlaceholder()
     }
     
     private func setUpSearchBar() {
         addSubview(searchBar)
+        searchBar.delegate = self
         
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
@@ -166,6 +168,25 @@ class SearchBar: UIView {
     
     @objc private func cancelButtonTap() {
         cancelButton.isSelected.toggle()
+        searchBar.text = ""
+        cancelButton.isHidden = true
+        filterButton.isHidden = false
+    }
+    
+
+}
+
+extension SearchBar: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        filterButton.isHidden = true
+        cancelButton.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let searchText = searchBar.text, searchText.isEmpty {
+            filterButton.isHidden = false
+            cancelButton.isHidden = true
+        }
     }
 }
 
