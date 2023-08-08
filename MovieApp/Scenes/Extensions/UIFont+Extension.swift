@@ -8,10 +8,13 @@
 import UIKit
 
 extension UIFont {
-    enum Font {
-        static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
-        static let medium = UIFont(name: "Montserrat-Medium", size: 14)
-        static let regular = UIFont(name: "Montserrat-Regular", size: 12)
-        static let bold = UIFont(name: "Montserrat-SemiBold", size: 20)
+    private static func customFont(name: String, size: CGFloat) -> UIFont {
+        let font = UIFont(name: name, size: size)
+        assert(font != nil, "Can't load font: \(name)")
+        return font ?? UIFont.systemFont(ofSize: size)
+    }
+    
+    static func mainFont(ofSize size: CGFloat) -> UIFont {
+        return customFont(name: "MyLovely-CustomFont", size: size)
     }
 }
