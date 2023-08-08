@@ -9,63 +9,63 @@ import UIKit
 
 class MovieView: UIView {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let movieImage: UIImageView = {
-        let movieImage = UIImageView()
-        movieImage.image = Constants.Image.movieImage
-        movieImage.translatesAutoresizingMaskIntoConstraints = false
-        return movieImage
+        let imageView = UIImageView()
+        imageView.image = Constants.Image.movieImage
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let categoryLabel: UILabel = {
-        let categoryLabel = UILabel()
-        categoryLabel.clipsToBounds = true
-        categoryLabel.backgroundColor = Constants.Color.categoryLabel
-        categoryLabel.layer.cornerRadius = Constants.CategoryLabel.cornerRadius
-        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        return categoryLabel
+        let label = UILabel()
+        label.clipsToBounds = true
+        label.backgroundColor = Constants.Color.categoryLabel
+        label.layer.cornerRadius = Constants.CategoryLabel.cornerRadius
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let categoryText: UILabel = {
-        let categoryText = UILabel()
-        categoryText.text = Constants.CategoryLabel.text
-        categoryText.textColor = .black
-        categoryText.textAlignment = .center
-        categoryText.font = Constants.Font.semiBold
-        categoryText.translatesAutoresizingMaskIntoConstraints = false
-        return categoryText
+        let label = UILabel()
+        label.text = Constants.CategoryLabel.text
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = Constants.Font.semiBold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let movieName: UILabel = {
-        let movieName = UILabel()
-        movieName.text = Constants.MovieName.text
-        movieName.textColor = .white
-        movieName.textAlignment = .left
-        movieName.font = Constants.Font.medium
-        movieName.setHeight(Constants.MovieName.height)
-        movieName.translatesAutoresizingMaskIntoConstraints = false
-        return movieName
+        let label = UILabel()
+        label.text = Constants.MovieName.text
+        label.textColor = .white
+        label.textAlignment = .left
+        label.font = Constants.Font.medium
+        label.setHeight(Constants.MovieName.height)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let movieYear: UILabel = {
-        let movieYear = UILabel()
-        movieYear.text = Constants.MovieYear.text
-        movieYear.textColor = Constants.Color.movieYear
-        movieYear.textAlignment = .left
-        movieYear.font = Constants.Font.regular
-        movieYear.translatesAutoresizingMaskIntoConstraints = false
-        return movieYear
+        let label = UILabel()
+        label.text = Constants.MovieYear.text
+        label.textColor = Constants.Color.movieYear
+        label.textAlignment = .left
+        label.font = Constants.Font.regular
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let favoritesButton: UIButton = {
-        let favoritesButton = UIButton()
-        favoritesButton.setImage(Constants.Image.favoritesButton, for: .normal)
-        favoritesButton.setImage(Constants.Image.checkedFavoritesButton, for: .selected)
-        favoritesButton.translatesAutoresizingMaskIntoConstraints = false
-        return favoritesButton
+        let button = UIButton()
+        button.setImage(Constants.Image.favoritesButton, for: .normal)
+        button.setImage(Constants.Image.checkedFavoritesButton, for: .selected)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
-    //MARK: - Init
+    // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -75,7 +75,7 @@ class MovieView: UIView {
         setUp()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     private func setUp() {
         setUpMovieImage()
         setUpCategoryLabel()
@@ -174,15 +174,15 @@ class MovieView: UIView {
                 constant: Constants.FavoritesButton.trailingPadding
             )
         ])
-        favoritesButton.addTarget(self, action: #selector(favoritesButtonTap), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(navigationBarFavoritesButtonTap), for: .touchUpInside)
     }
     
-    @objc private func favoritesButtonTap() {
+    @objc private func navigationBarFavoritesButtonTap() {
         favoritesButton.isSelected.toggle()
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension MovieView {
     enum Constants {
         enum MovieImage{

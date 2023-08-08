@@ -7,18 +7,18 @@
 
 import UIKit
 
-class LoadingViewController: UIViewController {
-
-    //MARK: - Properties
+final class LoadingViewController: UIViewController {
+    
+    // MARK: - Properties
     var loadingView: UIView!
-
-    //MARK: - Override Func
+    
+    // MARK: - Override Func
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
     }
-
-    //MARK: - SetUp
+    
+    // MARK: - SetUp
     private func setUp() {
         view.backgroundColor = .black
         setupLoadingView()
@@ -39,7 +39,7 @@ class LoadingViewController: UIViewController {
                          ))
         loadingView.backgroundColor = .clear
         view.addSubview(loadingView)
-
+        
         let imageView = UIImageView(
             frame: CGRect(x: 0, y: 0,
                           width: loadingSize,
@@ -49,17 +49,17 @@ class LoadingViewController: UIViewController {
         imageView.image = Constants.Image.spinner
         loadingView.addSubview(imageView)
     }
-
+    
     func animateLoading() {
         let imageView = loadingView.subviews.first as? UIImageView
-
+        
         let rotationAnimation = CABasicAnimation(keyPath: Constants.Animation.rotationAnimationKey)
         rotationAnimation.fromValue = 0
         rotationAnimation.toValue = CGFloat.pi * 2
         rotationAnimation.duration = 2.0
         rotationAnimation.repeatCount = .infinity
         imageView?.layer.add(rotationAnimation, forKey: Constants.Animation.rotationAnimation)
-
+        
         let opacityAnimation = CABasicAnimation(keyPath: Constants.Animation.opacityAnimationKey)
         opacityAnimation.fromValue = 1.0
         opacityAnimation.toValue = 0.1
@@ -67,10 +67,10 @@ class LoadingViewController: UIViewController {
         opacityAnimation.repeatCount = .infinity
         imageView?.layer.add(opacityAnimation, forKey: Constants.Animation.opacityAnimation)
     }
-
+    
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension LoadingViewController {
     enum Constants {
         enum Loader {

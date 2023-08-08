@@ -7,45 +7,45 @@
 
 import UIKit
 
-class FavoriteMoviesViewController: UIViewController {
+final class FavoriteMoviesViewController: UIViewController {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let navigationBar = NavigationBar()
     private let noMovies = NoMovies()
     
     private let titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = Constants.Title.navigationBarTitle
-        titleLabel.textColor = .white
-        titleLabel.textAlignment = .center
-        titleLabel.font = Constants.Font.semiBold
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        return titleLabel
+        let label = UILabel()
+        label.text = Constants.Title.navigationBarTitle
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = Constants.Font.semiBold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private lazy var favoriteMoviesCollectionView: UICollectionView = {
-        let favoriteMoviesCollectionView = UICollectionViewFlowLayout()
-        favoriteMoviesCollectionView.scrollDirection = .vertical
-        favoriteMoviesCollectionView.minimumInteritemSpacing = 16
-        favoriteMoviesCollectionView.minimumLineSpacing = 16
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.scrollDirection = .vertical
+        collectionViewLayout.minimumInteritemSpacing = 16
+        collectionViewLayout.minimumLineSpacing = 16
         
-        let moviesCollectionView = UICollectionView(
+        let collectionView = UICollectionView(
             frame: .zero,
-            collectionViewLayout: favoriteMoviesCollectionView
+            collectionViewLayout: collectionViewLayout
         )
-        moviesCollectionView.delegate = self
-        moviesCollectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        moviesCollectionView.register(
+        collectionView.register(
             MovieCell.self,
             forCellWithReuseIdentifier: Constants.FavoriteMoviesCollectionView.cell
         )
-        moviesCollectionView.backgroundColor = .clear
-        moviesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        return moviesCollectionView
+        collectionView.backgroundColor = .clear
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
 
-    //MARK: - Override Func
+    // MARK: - Override Func
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -120,30 +120,27 @@ class FavoriteMoviesViewController: UIViewController {
     }
 }
 
-//MARK: - Navigation Bar Buttons
+// MARK: - Navigation Bar Buttons
 extension FavoriteMoviesViewController: NavigationBarDelegate {
-    func homeButtonTap() {
-        let homeViewController = HomeViewController()
-        navigationController?.pushViewController(homeViewController, animated: false)
+    func navigationBarHomeButtonTap(_ navigationBar: NavigationBar) {
+        navigationController?.pushViewController(HomeViewController(), animated: false)
     }
     
-    func favoritesButtonTap() {
-        let favoriteMoviesViewController = FavoriteMoviesViewController()
-        navigationController?.pushViewController(favoriteMoviesViewController, animated: false)
+    func navigationBarFavoritesButtonTap(_ navigationBar: NavigationBar) {
+        navigationController?.pushViewController(FavoriteMoviesViewController(), animated: false)
     }
 }
 
-//MARK: - Favorite Movies Collection View
+// MARK: - Favorite Movies Collection View
 extension FavoriteMoviesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let movieCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Constants.FavoriteMoviesCollectionView.cell,
-            for: indexPath) as! MovieCell
-        return movieCell
+        return collectionView.dequeueReusableCell(
+                   withReuseIdentifier: Constants.FavoriteMoviesCollectionView.cell,
+                   for: indexPath) as! MovieCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -154,15 +151,18 @@ extension FavoriteMoviesViewController: UICollectionViewDataSource, UICollection
     }
 }
 
-//MARK: - Favorites Collection View Delegate Flow Layout
+// MARK: - Favorites Collection View Delegate Flow Layout
 extension FavoriteMoviesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.size.width - Constants.FavoriteMoviesCollectionView.leadingPadding - Constants.FavoriteMoviesCollectionView.trailingPadding - Constants.FavoriteMoviesCollectionView.spacing) / 2
+        let width = (collectionView.frame.size.width
+                     - Constants.FavoriteMoviesCollectionView.leadingPadding
+                     - Constants.FavoriteMoviesCollectionView.trailingPadding
+                     - Constants.FavoriteMoviesCollectionView.spacing) / 2
         return CGSize(width: width, height: width * 1.64)
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension FavoriteMoviesViewController {
     enum Constants {
         enum Title {

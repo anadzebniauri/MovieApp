@@ -7,21 +7,20 @@
 
 import UIKit
 
-class SplashViewController: UIViewController {
+final class SplashViewController: UIViewController {
 
-    //MARK: - Properties
+    // MARK: - Properties
     private let imdbLogo: UIImageView = {
-        let imdbLogo = UIImageView()
-        imdbLogo.image = Constants.Logo.image
-        imdbLogo.translatesAutoresizingMaskIntoConstraints = false
-        return imdbLogo
+        let imageView = UIImageView()
+        imageView.image = Constants.Logo.image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
-    //MARK: - Init
+    // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-        setUpImdbLogo()
+        setUp()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -32,13 +31,18 @@ class SplashViewController: UIViewController {
         }
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
+    private func setUp() {
+        view.backgroundColor = .black
+        setUpIMDBLogo()
+    }
+    
     private func navigateToHomeScreen() {
         let homeViewController = HomeViewController()
         navigationController?.pushViewController(homeViewController, animated: false)
     }
     
-    private func setUpImdbLogo() {
+    private func setUpIMDBLogo() {
         view.addSubview(imdbLogo)
         
         NSLayoutConstraint.activate([
@@ -49,7 +53,7 @@ class SplashViewController: UIViewController {
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension SplashViewController {
     enum Constants {
         enum Logo {

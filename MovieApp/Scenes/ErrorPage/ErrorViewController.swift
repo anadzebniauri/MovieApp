@@ -7,69 +7,69 @@
 
 import UIKit
 
-class ErrorViewController: UIViewController {
+final class ErrorViewController: UIViewController {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let errorIcon: UIImageView = {
-        let errorIcon = UIImageView()
-        errorIcon.image = Constants.Image.errorIcon
-        errorIcon.translatesAutoresizingMaskIntoConstraints = false
-        return errorIcon
+        let imageView = UIImageView()
+        imageView.image = Constants.Image.errorIcon
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let dataLabel: UILabel = {
-        let dataLabel = UILabel()
-        dataLabel.text = Constants.Text.dataText
-        dataLabel.textColor = .white
-        dataLabel.font = Constants.Font.bold
-        dataLabel.translatesAutoresizingMaskIntoConstraints = false
-        return dataLabel
+        let label = UILabel()
+        label.text = Constants.Text.dataText
+        label.textColor = .white
+        label.font = Constants.Font.bold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let internetLabel: UILabel = {
-        let internetLabel = UILabel()
-        internetLabel.text = Constants.Text.internetText
-        internetLabel.textColor = .white
-        internetLabel.textAlignment = .center
-        internetLabel.lineBreakMode = .byTruncatingMiddle
-        internetLabel.numberOfLines = 0
-        internetLabel.font = Constants.Font.medium
-        internetLabel.translatesAutoresizingMaskIntoConstraints = false
-        return internetLabel
+        let label = UILabel()
+        label.text = Constants.Text.internetText
+        label.textColor = .white
+        label.textAlignment = .center
+        label.lineBreakMode = .byTruncatingMiddle
+        label.numberOfLines = 0
+        label.font = Constants.Font.medium
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let refreshButton: UIButton = {
-        let refreshButton = UIButton()
-        refreshButton.clipsToBounds = true
-        refreshButton.backgroundColor = Constants.Color.buttonColor
-        refreshButton.layer.cornerRadius = Constants.refreshButton.cornerRadius
-        refreshButton.translatesAutoresizingMaskIntoConstraints = false
-        return refreshButton
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.backgroundColor = Constants.Color.button
+        button.layer.cornerRadius = Constants.refreshButton.cornerRadius
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private let refreshLabel: UILabel = {
-        let refreshLabel = UILabel()
-        refreshLabel.text = Constants.Text.buttonText
-        refreshLabel.textColor = .black
-        refreshLabel.font = Constants.Font.semiBold
-        refreshLabel.translatesAutoresizingMaskIntoConstraints = false
-        return refreshLabel
+        let label = UILabel()
+        label.text = Constants.Text.buttonText
+        label.textColor = .black
+        label.font = Constants.Font.semiBold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let refreshIcon: UIImageView = {
-        let refreshIcon = UIImageView()
-        refreshIcon.image = Constants.Image.refresh
-        refreshIcon.translatesAutoresizingMaskIntoConstraints = false
-        return refreshIcon
+        let imageView = UIImageView()
+        imageView.image = Constants.Image.refresh
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
-    //MARK: - Override Func
+    // MARK: - Override Func
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
     }
 
-    //MARK: - SetUp
+    // MARK: - SetUp
     private func setUp() {
         view.backgroundColor = .black
         setUpErrorIcon()
@@ -137,6 +137,7 @@ class ErrorViewController: UIViewController {
     }
     
     @objc private func refreshButtonTap() {
+        // TODO: implement
     }
     
     private func setUpRefreshLabel() {
@@ -186,7 +187,7 @@ class ErrorViewController: UIViewController {
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension ErrorViewController {
     enum Constants {
         enum Text {
@@ -226,7 +227,7 @@ private extension ErrorViewController {
             static let refresh = UIImage(named: "Refresh")
         }
         enum Color {
-            static let buttonColor = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
+            static let button = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
         }
         enum Font {
             static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)

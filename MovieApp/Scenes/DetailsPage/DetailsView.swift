@@ -9,7 +9,7 @@ import UIKit
 
 class DetailsView: UIView {
 
-    //MARK: - Init
+    // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -19,23 +19,23 @@ class DetailsView: UIView {
         setUp()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     private func setUp() {
         clipsToBounds = true
-        backgroundColor = Constants.Color.backgroundViewColor
+        backgroundColor = Constants.Color.backgroundView
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = Constants.backgroundView.cornerRadius
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension DetailsView {
     enum Constants {
         enum backgroundView {
             static let cornerRadius = 15.0
         }
         enum Color {
-            static let backgroundViewColor = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
+            static let backgroundView = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
         }
     }
 }

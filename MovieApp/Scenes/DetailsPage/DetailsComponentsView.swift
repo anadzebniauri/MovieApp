@@ -9,22 +9,22 @@ import UIKit
 
 class DetailsComponentsView: UIView {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let movieName: UILabel = {
-        let movieName = UILabel()
-        movieName.text = Constants.Title.movieName
-        movieName.textColor = .white
-        movieName.font = Constants.Font.bold
-        movieName.translatesAutoresizingMaskIntoConstraints = false
-        return movieName
+        let label = UILabel()
+        label.text = Constants.Title.movieName
+        label.textColor = .white
+        label.font = Constants.Font.bold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let favoritesButton: UIButton = {
-        let favoritesButton = UIButton()
-        favoritesButton.setImage(Constants.Image.detailsFavorites, for: .normal)
-        favoritesButton.setImage(Constants.Image.detailsCheckedFavorites, for: .selected)
-        favoritesButton.translatesAutoresizingMaskIntoConstraints = false
-        return favoritesButton
+        let button = UIButton()
+        button.setImage(Constants.Image.detailsFavorites, for: .normal)
+        button.setImage(Constants.Image.detailsCheckedFavorites, for: .selected)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private let imdbView = DetailsView()
@@ -33,56 +33,56 @@ class DetailsComponentsView: UIView {
     private let yearView = DetailsView()
     
     private let imdbStar: UIImageView = {
-        let imdbStar = UIImageView()
-        imdbStar.image = Constants.Image.imdbStar
-        imdbStar.translatesAutoresizingMaskIntoConstraints = false
-        return imdbStar
+        let imageView = UIImageView()
+        imageView.image = Constants.Image.imdbStar
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let imdbLabel: UILabel = {
-        let imdbLabel = UILabel()
-        imdbLabel.text = Constants.Title.imdb
-        imdbLabel.textColor = Constants.Color.componentsColor
-        imdbLabel.font = Constants.Font.medium
-        imdbLabel.translatesAutoresizingMaskIntoConstraints = false
-        return imdbLabel
+        let label = UILabel()
+        label.text = Constants.Title.imdb
+        label.textColor = Constants.Color.component
+        label.font = Constants.Font.medium
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let genreLabel: UILabel = {
-        let genreLabel = UILabel()
-        genreLabel.text = Constants.Title.genre
-        genreLabel.textColor = Constants.Color.componentsColor
-        genreLabel.font = Constants.Font.medium
-        genreLabel.translatesAutoresizingMaskIntoConstraints = false
-        return genreLabel
+        let label = UILabel()
+        label.text = Constants.Title.genre
+        label.textColor = Constants.Color.component
+        label.font = Constants.Font.medium
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let clockImage: UIImageView = {
-        let hourImage = UIImageView()
-        hourImage.image = Constants.Image.clock
-        hourImage.translatesAutoresizingMaskIntoConstraints = false
-        return hourImage
+        let imageView = UIImageView()
+        imageView.image = Constants.Image.clock
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let hourLabel: UILabel = {
-        let hourLabel = UILabel()
-        hourLabel.text = Constants.Title.hour
-        hourLabel.textColor = Constants.Color.componentsColor
-        hourLabel.font = Constants.Font.medium
-        hourLabel.translatesAutoresizingMaskIntoConstraints = false
-        return hourLabel
+        let label = UILabel()
+        label.text = Constants.Title.hour
+        label.textColor = Constants.Color.component
+        label.font = Constants.Font.medium
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let yearLabel: UILabel = {
-        let yearLabel = UILabel()
-        yearLabel.text = Constants.Title.year
-        yearLabel.textColor = Constants.Color.componentsColor
-        yearLabel.font = Constants.Font.medium
-        yearLabel.translatesAutoresizingMaskIntoConstraints = false
-        return yearLabel
+        let label = UILabel()
+        label.text = Constants.Title.year
+        label.textColor = Constants.Color.component
+        label.font = Constants.Font.medium
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
-    //MARK: - Init
+    // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -92,7 +92,7 @@ class DetailsComponentsView: UIView {
         setUp()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     private func setUp() {
         setUpMovieName()
         setUpFavoritesButton()
@@ -124,21 +124,21 @@ class DetailsComponentsView: UIView {
             favoritesButton.topAnchor.constraint(equalTo: topAnchor),
             favoritesButton.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
-        favoritesButton.addTarget(self, action: #selector(favoritesButtonTap), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(navigationBarFavoritesButtonTap), for: .touchUpInside)
     }
 
-    @objc private func favoritesButtonTap() {
+    @objc private func navigationBarFavoritesButtonTap() {
         favoritesButton.isSelected.toggle()
     }
     
-    //MARK: - IMDB Rating
+    // MARK: - IMDB Rating
     private func setUpImdbView() {
         addSubview(imdbView)
         
         NSLayoutConstraint.activate([
             imdbView.topAnchor.constraint(
                 equalTo: movieName.bottomAnchor,
-                constant: Constants.imdbView.topPadding
+                constant: Constants.IMDBView.topPadding
             ),
             imdbView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imdbView.bottomAnchor.constraint(equalTo: bottomAnchor)
@@ -152,11 +152,11 @@ class DetailsComponentsView: UIView {
         NSLayoutConstraint.activate([
             imdbStar.topAnchor.constraint(
                 equalTo: imdbView.topAnchor,
-                constant: Constants.imdbStar.topPadding
+                constant: Constants.IMDBStar.topPadding
             ),
             imdbStar.leadingAnchor.constraint(
                 equalTo: imdbView.leadingAnchor,
-                constant: Constants.imdbStar.leadingPadding
+                constant: Constants.IMDBStar.leadingPadding
             )
         ])
     }
@@ -167,24 +167,24 @@ class DetailsComponentsView: UIView {
         NSLayoutConstraint.activate([
             imdbLabel.topAnchor.constraint(
                 equalTo: imdbView.topAnchor,
-                constant: Constants.imdbLabel.topPadding
+                constant: Constants.IMDBLabel.topPadding
             ),
             imdbLabel.leadingAnchor.constraint(
                 equalTo: imdbStar.trailingAnchor,
-                constant: Constants.imdbLabel.leadingPadding
+                constant: Constants.IMDBLabel.leadingPadding
             ),
             imdbLabel.trailingAnchor.constraint(
                 lessThanOrEqualTo: imdbView.trailingAnchor,
-                constant: Constants.imdbLabel.trailingPadding
+                constant: Constants.IMDBLabel.trailingPadding
             ),
             imdbLabel.bottomAnchor.constraint(
                 equalTo: imdbView.bottomAnchor,
-                constant: Constants.imdbLabel.bottomPadding
+                constant: Constants.IMDBLabel.bottomPadding
             )
         ])
     }
     
-    //MARK: - Genre
+    // MARK: - Genre
     private func setUpGenreView() {
         addSubview(genreView)
         
@@ -223,7 +223,7 @@ class DetailsComponentsView: UIView {
         ])
     }
     
-    //MARK: - Movie Duration
+    // MARK: - Movie Duration
     private func setUpTimeView() {
         addSubview(timeView)
         
@@ -279,7 +279,7 @@ class DetailsComponentsView: UIView {
         ])
     }
     
-    //MARK: - Movie Year
+    // MARK: - Movie Year
     private func setUpYearView() {
         addSubview(yearView)
         
@@ -321,7 +321,7 @@ class DetailsComponentsView: UIView {
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension DetailsComponentsView {
     enum Constants {
         enum Title {
@@ -331,14 +331,14 @@ private extension DetailsComponentsView {
             static let hour = "1h 50m"
             static let year = "2007"
         }
-        enum imdbView {
+        enum IMDBView {
             static let topPadding = 12.0
         }
-        enum imdbStar {
+        enum IMDBStar {
             static let topPadding = 6.0
             static let leadingPadding = 10.0
         }
-        enum imdbLabel {
+        enum IMDBLabel {
             static let topPadding = 4.0
             static let leadingPadding = 4.0
             static let trailingPadding = -10.0
@@ -385,8 +385,8 @@ private extension DetailsComponentsView {
             static let clock = UIImage(named: "Clock")
         }
         enum Color {
-            static let componentsColor = UIColor(red: 202, green: 202, blue: 202, alpha: 1)
-            static let backgroundViewColor = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
+            static let component = UIColor(red: 202, green: 202, blue: 202, alpha: 1)
+            static let backgroundView = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
         }
         enum Font {
             static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)

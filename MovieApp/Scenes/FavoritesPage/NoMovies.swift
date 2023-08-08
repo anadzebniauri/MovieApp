@@ -9,25 +9,25 @@ import UIKit
 
 class NoMovies: UIView {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let noMoviesTitle: UILabel = {
-       let noMoviesTitle = UILabel()
-        noMoviesTitle.text = Constants.Title.noMovies
-        noMoviesTitle.textColor = Constants.Color.noMoviesColor
-        noMoviesTitle.textAlignment = .center
-        noMoviesTitle.font = Constants.Font.semiBold
-        noMoviesTitle.translatesAutoresizingMaskIntoConstraints = false
-        return noMoviesTitle
+       let label = UILabel()
+        label.text = Constants.Title.noMovies
+        label.textColor = Constants.Color.noMovies
+        label.textAlignment = .center
+        label.font = Constants.Font.semiBold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let noMoviesIcon: UIImageView = {
-       let noMoviesIcon = UIImageView()
-        noMoviesIcon.image = Constants.Image.noMovies
-        noMoviesIcon.translatesAutoresizingMaskIntoConstraints = false
-        return noMoviesIcon
+       let imageView = UIImageView()
+        imageView.image = Constants.Image.noMovies
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
 
-    //MARK: - Init
+    // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,7 +37,7 @@ class NoMovies: UIView {
         setUp()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     private func setUp() {
         setUpNoMoviesIcon()
         setUpNoMoviesTitle()
@@ -66,7 +66,7 @@ class NoMovies: UIView {
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension NoMovies {
     enum Constants {
         enum Title {
@@ -77,7 +77,7 @@ private extension NoMovies {
             static let noMovies = UIImage(named: "No Results")
         }
         enum Color {
-            static let noMoviesColor = UIColor(red: 93, green: 93, blue: 93, alpha: 1)
+            static let noMovies = UIColor(red: 93, green: 93, blue: 93, alpha: 1)
         }
         enum Font {
             static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)

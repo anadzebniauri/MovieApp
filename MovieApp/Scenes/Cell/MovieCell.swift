@@ -8,38 +8,37 @@
 import UIKit
 
 protocol MovieCellDelegate: AnyObject {
-    func movieViewTap()
+    func movieViewTap(_ movieCell: MovieCell)
 }
 
-class MovieCell: UICollectionViewCell {
+final class MovieCell: UICollectionViewCell {
     
     weak var delegate: MovieCellDelegate?
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let movieView = MovieView()
     
-    //<MARK: - Init
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        selectedBackgroundView = .none
-        backgroundColor = .clear
-        setUpMovieView()
+        setUp()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
+    
+    private func setUp() {
+        selectedBackgroundView = .none
+        backgroundColor = .clear
+        setUpMovieView()
+    }
+    
     private func setUpMovieView() {
         addSubview(movieView)
-        
-        NSLayoutConstraint.activate([
-            movieView.topAnchor.constraint(equalTo: topAnchor),
-            movieView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            movieView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            movieView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        movieView.stretchOnParent()
         movieView.translatesAutoresizingMaskIntoConstraints = false
     }
 }

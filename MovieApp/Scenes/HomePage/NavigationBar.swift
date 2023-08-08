@@ -8,15 +8,15 @@
 import UIKit
 
 protocol NavigationBarDelegate: AnyObject {
-    func homeButtonTap()
-    func favoritesButtonTap()
+    func navigationBarHomeButtonTap(_ navigationBar: NavigationBar)
+    func navigationBarFavoritesButtonTap(_ navigationBar: NavigationBar)
 }
 
 class NavigationBar: UIView {
     
     weak var delegate: NavigationBarDelegate?
     
-    //MARK: - Properties
+    // MARK: - Properties
     var config: UIButton.Configuration = {
         var config = UIButton.Configuration.plain()
         config.contentInsets = Constants.Config.contentInsets
@@ -27,38 +27,38 @@ class NavigationBar: UIView {
     }()
     
     lazy var homeButton: UIButton = {
-        let homeButton = UIButton(configuration: config)
-        homeButton.clipsToBounds = true
-        homeButton.layer.cornerRadius = Constants.HomeButton.cornerRadius
-        homeButton.setImage(Constants.Image.selectedHome, for: .selected)
-        homeButton.setImage(Constants.Image.home, for: .normal)
-        homeButton.backgroundColor = Constants.Color.grey
-        homeButton.addTarget(self, action: #selector(homeButtonTap), for: .touchUpInside)
-        return homeButton
+        let button = UIButton(configuration: config)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = Constants.HomeButton.cornerRadius
+        button.setImage(Constants.Image.selectedHome, for: .selected)
+        button.setImage(Constants.Image.home, for: .normal)
+        button.backgroundColor = Constants.Color.nonSelected
+        button.addTarget(self, action: #selector(navigationBarHomeButtonTap), for: .touchUpInside)
+        return button
     }()
     
     lazy var favoritesButton: UIButton = {
-        let favoritesButton = UIButton(configuration: config)
-        favoritesButton.clipsToBounds = true
-        favoritesButton.layer.cornerRadius = Constants.FavoritesButton.cornerRadius
-        favoritesButton.setImage(Constants.Image.favorites, for: .normal)
-        favoritesButton.setImage(Constants.Image.selectedFavorites, for: .selected)
-        favoritesButton.backgroundColor = Constants.Color.grey
-        favoritesButton.addTarget(self, action: #selector(favoritesButtonTap), for: .touchUpInside)
-        return favoritesButton
+        let button = UIButton(configuration: config)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = Constants.FavoritesButton.cornerRadius
+        button.setImage(Constants.Image.favorites, for: .normal)
+        button.setImage(Constants.Image.selectedFavorites, for: .selected)
+        button.backgroundColor = Constants.Color.nonSelected
+        button.addTarget(self, action: #selector(navigationBarFavoritesButtonTap), for: .touchUpInside)
+        return button
     }()
     
     private let buttonStackView: UIStackView = {
-        let buttonStackView = UIStackView()
-        buttonStackView.spacing = Constants.ButtonStackView.spacing
-        buttonStackView.distribution = .fillEqually
-        buttonStackView.isLayoutMarginsRelativeArrangement = true
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        buttonStackView.layoutMargins = Constants.ButtonStackView.layoutMargins
-        return buttonStackView
+        let stackView = UIStackView()
+        stackView.spacing = Constants.ButtonStackView.spacing
+        stackView.distribution = .fillEqually
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.layoutMargins = Constants.ButtonStackView.layoutMargins
+        return stackView
     }()
     
-    //MARK: - Init
+    // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -68,7 +68,7 @@ class NavigationBar: UIView {
         setUp()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     private func setUp() {
         backgroundColor = .black
         setUpHomeButtonTitle()
@@ -87,25 +87,26 @@ class NavigationBar: UIView {
         ]
         
         let normalAttributedTitle = NSAttributedString(
-         string: Constants.HomeButton.text,
-         attributes: normalAttributes
+            string: Constants.HomeButton.text,
+            attributes: normalAttributes
         )
         let selectedAttributedTitle = NSAttributedString(
-         string: Constants.HomeButton.text,
-         attributes: selectedAttributes
+            string: Constants.HomeButton.text,
+            attributes: selectedAttributes
         )
         homeButton.setAttributedTitle(normalAttributedTitle, for: .normal)
         homeButton.setAttributedTitle(selectedAttributedTitle, for: .selected)
     }
     
-    @objc private func homeButtonTap() {
-        if !homeButton.isSelected {
-            homeButton.isSelected = true
-            favoritesButton.isSelected = false
-            homeButton.backgroundColor = Constants.Color.yellow
-            favoritesButton.backgroundColor = Constants.Color.grey
-            delegate?.homeButtonTap()
+    @objc private func navigationBarHomeButtonTap() {
+        guard !homeButton.isSelected else {
+            return
         }
+        homeButton.isSelected = true
+        favoritesButton.isSelected = false
+        homeButton.backgroundColor = Constants.Color.selected
+        favoritesButton.backgroundColor = Constants.Color.nonSelected
+        delegate?.navigationBarHomeButtonTap(self)
     }
     
     private func setUpFavoritesButtonTitle() {
@@ -119,27 +120,28 @@ class NavigationBar: UIView {
         ]
         
         let normalAttributedTitle = NSAttributedString(
-         string: Constants.FavoritesButton.text,
-         attributes: normalAttributes
+            string: Constants.FavoritesButton.text,
+            attributes: normalAttributes
         )
         let selectedAttributedTitle = NSAttributedString(
-         string: Constants.FavoritesButton.text,
-         attributes: selectedAttributes
+            string: Constants.FavoritesButton.text,
+            attributes: selectedAttributes
         )
         favoritesButton.setAttributedTitle(normalAttributedTitle, for: .normal)
         favoritesButton.setAttributedTitle(selectedAttributedTitle, for: .selected)
     }
     
-    @objc private func favoritesButtonTap() {
-        if !favoritesButton.isSelected {
-            favoritesButton.isSelected = true
-            homeButton.isSelected = false
-            favoritesButton.backgroundColor = Constants.Color.yellow
-            homeButton.backgroundColor = Constants.Color.grey
-            delegate?.favoritesButtonTap()
+    @objc private func navigationBarFavoritesButtonTap() {
+        guard !favoritesButton.isSelected else {
+            return
         }
+        favoritesButton.isSelected = true
+        homeButton.isSelected = false
+        favoritesButton.backgroundColor = Constants.Color.selected
+        homeButton.backgroundColor = Constants.Color.nonSelected
+        delegate?.navigationBarFavoritesButtonTap(self)
     }
-    
+
     private func setUpButtonStackView() {
         addSubview(buttonStackView)
         buttonStackView.stretchOnParent()
@@ -148,7 +150,7 @@ class NavigationBar: UIView {
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension NavigationBar {
     enum Constants {
         enum Config {
@@ -181,8 +183,8 @@ private extension NavigationBar {
             static let selectedFavorites = UIImage(named: "SelectedFavorites")
         }
         enum Color {
-            static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
-            static let grey = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
+            static let selected = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
+            static let nonSelected = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
         }
         enum Font {
             static let medium = UIFont(name: "Montserrat-Medium", size: 14)!

@@ -9,38 +9,42 @@ import UIKit
 
 final class CategoryCell: UICollectionViewCell {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private lazy var categoryLabel: UILabel = {
-        let categoryLabel = UILabel()
-        categoryLabel.clipsToBounds = true
-        categoryLabel.text = Constants.CategoryLabel.text
-        categoryLabel.textColor = .white
-        categoryLabel.font = Constants.Font.medium
-        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        return categoryLabel
+        let label = UILabel()
+        label.clipsToBounds = true
+        label.text = Constants.CategoryLabel.text
+        label.textColor = .white
+        label.font = Constants.Font.medium
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    //<MARK: - Init
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
-        setUpCategoryCellConstraints()
-        setUpCategoryLabelConstraints()
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //MARK: - Methods
+    // MARK: - Methods
     private func setUp() {
+        setUpConstraints()
         clipsToBounds = true
         selectedBackgroundView = .none
         backgroundColor = .clear
         layer.cornerRadius = Constants.CategoryLabel.cornerRadius
         layer.borderWidth = Constants.CategoryLabel.borderWidth
-        layer.borderColor = Constants.Color.borderColor
         translatesAutoresizingMaskIntoConstraints = false
-        layer.borderColor = isSelectedCategoryCell ? UIColor.clear.cgColor : Constants.Color.borderColor
+        layer.borderColor = isSelectedCategoryCell ? UIColor.clear.cgColor : Constants.Color.border
+    }
+    
+    private func setUpConstraints() {
+        setUpCategoryLabelConstraints()
+        setUpCategoryCellConstraints()
     }
     
     var isSelectedCategoryCell: Bool = false {
@@ -51,13 +55,13 @@ final class CategoryCell: UICollectionViewCell {
     
     private func updateSelectedCell() {
         if isSelectedCategoryCell {
-            backgroundColor = Constants.Color.filledButtonColor
+            backgroundColor = Constants.Color.filledButton
             layer.borderWidth = 0
             categoryLabel.textColor = .black
         } else {
             backgroundColor = .clear
             layer.borderWidth = Constants.CategoryLabel.borderWidth
-            layer.borderColor = Constants.Color.borderColor
+            layer.borderColor = Constants.Color.border
             categoryLabel.textColor = .white
         }
     }
@@ -95,7 +99,7 @@ final class CategoryCell: UICollectionViewCell {
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension CategoryCell {
     enum Constants {
         enum CategoryLabel {
@@ -108,9 +112,9 @@ private extension CategoryCell {
             static let bottomPadding = -4.0
         }
         enum Color {
-            static let borderColor = CGColor(red: 234, green: 234, blue: 234, alpha: 1)
-            static let textColor = UIColor(red: 234, green: 234, blue: 234, alpha: 1)
-            static let filledButtonColor = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
+            static let border = CGColor(red: 234, green: 234, blue: 234, alpha: 1)
+            static let text = UIColor(red: 234, green: 234, blue: 234, alpha: 1)
+            static let filledButton = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
         }
         enum Font {
             static let medium = UIFont(name: "Montserrat-Medium", size: 15)

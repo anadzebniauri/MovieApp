@@ -7,65 +7,65 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController {
+final class DetailsViewController: UIViewController {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let scrollView = UIScrollView()
     private let detailsComponentsView = DetailsComponentsView()
     
     private let navigationBar = NavigationBar()
     private let backButton: UIButton = {
-        let backButton = UIButton()
-        backButton.setImage(Constants.Image.backArrow, for: .normal)
-        backButton.imageView?.tintColor = .white
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        return backButton
+        let button = UIButton()
+        button.setImage(Constants.Image.backArrow, for: .normal)
+        button.imageView?.tintColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private let detailsLabel: UILabel = {
-        let detailsLabel = UILabel()
-        detailsLabel.text = Constants.Title.detailsTitle
-        detailsLabel.textColor = .white
-        detailsLabel.font = Constants.Font.semiBold
-        detailsLabel.translatesAutoresizingMaskIntoConstraints = false
-        return detailsLabel
+        let label = UILabel()
+        label.text = Constants.Title.detailsTitle
+        label.textColor = .white
+        label.font = Constants.Font.semiBold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let movieImage: UIImageView = {
-        let movieImage = UIImageView()
-        movieImage.image = Constants.Image.movieDetailsImage
-        movieImage.translatesAutoresizingMaskIntoConstraints = false
-        return movieImage
+        let imageView = UIImageView()
+        imageView.image = Constants.Image.movieDetailsImage
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let aboutMovieLabel: UILabel = {
-        let aboutMovieLabel = UILabel()
-        aboutMovieLabel.text = Constants.Title.aboutMovie
-        aboutMovieLabel.textColor = .white
-        aboutMovieLabel.font = Constants.Font.semiBold
-        aboutMovieLabel.translatesAutoresizingMaskIntoConstraints = false
-        return aboutMovieLabel
+        let label = UILabel()
+        label.text = Constants.Title.aboutMovie
+        label.textColor = .white
+        label.font = Constants.Font.semiBold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     private let movieDescription: UILabel = {
-        let movieTextView = UILabel()
-        movieTextView.text = Constants.Title.movieDescription
-        movieTextView.textColor = .white
-        movieTextView.textAlignment = .left
-        movieTextView.lineBreakMode = .byClipping
-        movieTextView.numberOfLines = 0
-        movieTextView.font = Constants.Font.medium
-        movieTextView.translatesAutoresizingMaskIntoConstraints = false
-        return movieTextView
+        let label = UILabel()
+        label.text = Constants.Title.movieDescription
+        label.textColor = .white
+        label.textAlignment = .left
+        label.lineBreakMode = .byClipping
+        label.numberOfLines = 0
+        label.font = Constants.Font.medium
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
-    //MARK: - Override Func
+    // MARK: - Override Func
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
     }
 
-    //MARK: - SetUp
+    // MARK: - SetUp
     private func setUp() {
         setUpBackButton()
         setUpDetailsTitle()
@@ -192,7 +192,7 @@ class DetailsViewController: UIViewController {
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension DetailsViewController {
     enum Constants {
         enum Title {
@@ -225,9 +225,6 @@ private extension DetailsViewController {
             static let leadingPadding = 16.0
             static let trailingPadding = -16.0
             static let width = -32.0
-        }
-        enum Color {
-            static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
         }
         enum Image {
             static let backArrow = UIImage(named: "back arrow")

@@ -8,52 +8,54 @@
 import UIKit
 
 protocol SearchBarDelegate: AnyObject {
-    func filterButtonTap()
+    func filterButtonTap(_ searchBar: SearchBar)
+    func textFieldDidBeginEditing(_ searchBar: SearchBar)
+    func textFieldDidEndEditing(_ searchBar: SearchBar)
 }
 
 class SearchBar: UIView {
     
     weak var delegate: SearchBarDelegate?
     
-    //MARK: - Properties
+    // MARK: - Properties
     private let searchBar: UITextField = {
-        let searchBar = UITextField()
-        searchBar.backgroundColor = Constants.Color.searchBar
-        searchBar.textColor = Constants.Color.textColor
-        searchBar.setHeight(Constants.SearchBar.height)
-        searchBar.textAlignment = .left
-        searchBar.layer.cornerRadius = Constants.SearchBar.cornerRadius
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchBar
+        let textField = UITextField()
+        textField.backgroundColor = Constants.Color.searchBar
+        textField.textColor = Constants.Color.text
+        textField.setHeight(Constants.SearchBar.height)
+        textField.textAlignment = .left
+        textField.layer.cornerRadius = Constants.SearchBar.cornerRadius
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }()
     
     private let filterButton: UIButton = {
-        let filterButton = UIButton()
-        filterButton.setImage(Constants.Image.filterIcon, for: .normal)
-        filterButton.setImage(Constants.Image.filterIconClicked, for: .selected)
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        return filterButton
+        let button = UIButton()
+        button.setImage(Constants.Image.filterIcon, for: .normal)
+        button.setImage(Constants.Image.filterIconClicked, for: .selected)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private let searchIconImageView: UIImageView = {
-       let searchIconImageView = UIImageView()
-        searchIconImageView.image = Constants.Image.searchIcon
-        searchIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        return searchIconImageView
+       let imageView = UIImageView()
+        imageView.image = Constants.Image.searchIcon
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let cancelButton: UIButton = {
-        let cancelButton = UIButton()
-        cancelButton.setTitle(Constants.CancelButton.text, for: .normal)
-        cancelButton.titleLabel?.textColor = .white
-        cancelButton.titleLabel?.font = Constants.Font.medium
-        cancelButton.backgroundColor = .clear
-        cancelButton.isHidden = true
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        return cancelButton
+        let button = UIButton()
+        button.setTitle(Constants.CancelButton.text, for: .normal)
+        button.titleLabel?.textColor = .white
+        button.titleLabel?.font = Constants.Font.medium
+        button.backgroundColor = .clear
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
-    //MARK: - Init
+    // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -63,7 +65,7 @@ class SearchBar: UIView {
         setUp()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     private func setUp() {
         setUpSearchBar()
         setUpSearchIconImageView()
@@ -117,7 +119,7 @@ class SearchBar: UIView {
         
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
-            .foregroundColor: Constants.Color.textColor,
+            .foregroundColor: Constants.Color.text,
             .font: font ?? .systemFont(ofSize: 40)
         ]
         let attributedPlaceholder = NSAttributedString(
@@ -143,7 +145,7 @@ class SearchBar: UIView {
     
     @objc private func filterButtonTap() {
         filterButton.isSelected.toggle()
-        delegate?.filterButtonTap()
+        delegate?.filterButtonTap(self)
     }
     
     private func setUpCancelButton() {
@@ -172,25 +174,26 @@ class SearchBar: UIView {
         cancelButton.isHidden = true
         filterButton.isHidden = false
     }
-    
-
 }
 
+// MARK: - Text Field Delegate
 extension SearchBar: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         filterButton.isHidden = true
         cancelButton.isHidden = false
+        delegate?.textFieldDidBeginEditing(self)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let searchText = searchBar.text, searchText.isEmpty {
             filterButton.isHidden = false
             cancelButton.isHidden = true
+            delegate?.textFieldDidEndEditing(self)
         }
     }
 }
 
-//MARK: - Constants
+// MARK: - Constants
 private extension SearchBar {
     enum Constants {
         enum SearchBar {
@@ -218,7 +221,7 @@ private extension SearchBar {
         }
         enum Color {
             static let searchBar = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
-            static let textColor = UIColor(red: 165, green: 165, blue: 165, alpha: 1)
+            static let text = UIColor(red: 165, green: 165, blue: 165, alpha: 1)
         }
         enum Image {
             static let searchIcon = UIImage(named: "searchIcon")
