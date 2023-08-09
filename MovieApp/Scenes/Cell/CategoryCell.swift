@@ -15,7 +15,7 @@ final class CategoryCell: UICollectionViewCell {
         label.clipsToBounds = true
         label.text = Constants.CategoryLabel.text
         label.textColor = .white
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.CategoryLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,7 +55,7 @@ final class CategoryCell: UICollectionViewCell {
     
     private func updateSelectedCell() {
         if isSelectedCategoryCell {
-            backgroundColor = Constants.Color.filledButton
+            backgroundColor = UIColor.appYellow()
             layer.borderWidth = 0
             categoryLabel.textColor = .black
         } else {
@@ -110,14 +110,11 @@ private extension CategoryCell {
             static let leadingPadding = 12.0
             static let trailingPadding = -12.0
             static let bottomPadding = -4.0
+            static let fontSize = 15.0
         }
         enum Color {
             static let border = CGColor(red: 234, green: 234, blue: 234, alpha: 1)
             static let text = UIColor(red: 234, green: 234, blue: 234, alpha: 1)
-            static let filledButton = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
-        }
-        enum Font {
-            static let medium = UIFont(name: "Montserrat-Medium", size: 15)
         }
     }
 }

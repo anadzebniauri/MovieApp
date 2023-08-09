@@ -15,7 +15,7 @@ class NoMovies: UIView {
         label.text = Constants.Title.noMovies
         label.textColor = Constants.Color.noMovies
         label.textAlignment = .center
-        label.font = Constants.Font.semiBold
+        label.font = UIFont.semiBold(ofSize: Constants.Title.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,15 +72,13 @@ private extension NoMovies {
         enum Title {
             static let noMovies = "No movies added yet"
             static let topPadding = 25.0
+            static let fontSize = 14.0
         }
         enum Image {
             static let noMovies = UIImage(named: "No Results")
         }
         enum Color {
             static let noMovies = UIColor(red: 93, green: 93, blue: 93, alpha: 1)
-        }
-        enum Font {
-            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
         }
     }
 }

@@ -18,7 +18,7 @@ final class FavoriteMoviesViewController: UIViewController {
         label.text = Constants.Title.navigationBarTitle
         label.textColor = .white
         label.textAlignment = .center
-        label.font = Constants.Font.semiBold
+        label.font = UIFont.semiBold(ofSize: Constants.Title.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -64,7 +64,7 @@ final class FavoriteMoviesViewController: UIViewController {
         view.addSubview(navigationBar)
         navigationBar.delegate = self
         navigationBar.favoritesButton.isSelected = true
-        navigationBar.favoritesButton.backgroundColor = Constants.Color.yellow
+        navigationBar.favoritesButton.backgroundColor = UIColor.appYellow()
         
         NSLayoutConstraint.activate([
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -168,6 +168,7 @@ private extension FavoriteMoviesViewController {
         enum Title {
             static let navigationBarTitle = "Favorite Movies"
             static let topPadding = 11.0
+            static let fontSize = 16.0
         }
         enum FavoriteMoviesCollectionView {
             static let cell = "MovieCell"
@@ -176,12 +177,6 @@ private extension FavoriteMoviesViewController {
             static let trailingPadding = -16.0
             static let bottomPadding = -62.0
             static let spacing = 16.0
-        }
-        enum Color {
-            static let yellow = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
-        }
-        enum Font {
-            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 16)
         }
     }
 }

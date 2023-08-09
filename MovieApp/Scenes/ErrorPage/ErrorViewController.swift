@@ -21,7 +21,7 @@ final class ErrorViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.Text.dataText
         label.textColor = .white
-        label.font = Constants.Font.bold
+        label.font = UIFont.bold(ofSize: Constants.DataLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -33,7 +33,7 @@ final class ErrorViewController: UIViewController {
         label.textAlignment = .center
         label.lineBreakMode = .byTruncatingMiddle
         label.numberOfLines = 0
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.InternetLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,7 +41,7 @@ final class ErrorViewController: UIViewController {
     private let refreshButton: UIButton = {
         let button = UIButton()
         button.clipsToBounds = true
-        button.backgroundColor = Constants.Color.button
+        button.backgroundColor = UIColor.appYellow()
         button.layer.cornerRadius = Constants.refreshButton.cornerRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -51,7 +51,7 @@ final class ErrorViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.Text.buttonText
         label.textColor = .black
-        label.font = Constants.Font.semiBold
+        label.font = UIFont.semiBold(ofSize: Constants.refreshLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -200,11 +200,13 @@ private extension ErrorViewController {
         }
         enum DataLabel {
             static let topPadding = 28.0
+            static let fontSize = 18.0
         }
         enum InternetLabel {
             static let topPadding = 23.0
             static let leadingPadding = 64.0
             static let trailingPadding = -64.0
+            static let fontSize = 16.0
         }
         enum refreshButton {
             static let cornerRadius = 16.0
@@ -215,6 +217,7 @@ private extension ErrorViewController {
             static let leadingPadding = 30.0
             static let trailingPadding = -48.0
             static let bottomPadding = -14.0
+            static let fontSize = 14.0
         }
         enum refreshIcon {
             static let topPadding = 14.0
@@ -225,14 +228,6 @@ private extension ErrorViewController {
         enum Image {
             static let errorIcon = UIImage(named: "Caution")
             static let refresh = UIImage(named: "Refresh")
-        }
-        enum Color {
-            static let button = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
-        }
-        enum Font {
-            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
-            static let medium = UIFont(name: "Montserrat-Medium", size: 16)
-            static let bold = UIFont(name: "Montserrat-Bold", size: 18)
         }
     }
 }

@@ -19,9 +19,9 @@ final class HomeViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.TitleLabel.text
-        label.textColor = Constants.Color.titleLabel
+        label.textColor = UIColor.appYellow()
         label.setHeight(Constants.TitleLabel.height)
-        label.font = Constants.Font.semiBold
+        label.font = UIFont.semiBold(ofSize: Constants.TitleLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -137,7 +137,7 @@ final class HomeViewController: UIViewController {
         view.addSubview(navigationBar)
         navigationBar.delegate = self
         navigationBar.homeButton.isSelected = true
-        navigationBar.homeButton.backgroundColor = Constants.Color.selected
+        navigationBar.homeButton.backgroundColor = UIColor.appYellow()
         
         NSLayoutConstraint.activate([
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -246,15 +246,10 @@ private extension HomeViewController {
             static let height = 18.0
             static let topPadding = 22.0
             static let leadingPadding = 16.0
+            static let fontSize = 18.0
         }
         enum Color {
-            static let titleLabel = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
-            static let homeButton = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
             static let favoritesButton = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
-            static let selected = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
-        }
-        enum Font {
-            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 18)
         }
     }
 }

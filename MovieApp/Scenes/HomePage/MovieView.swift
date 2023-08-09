@@ -20,7 +20,7 @@ class MovieView: UIView {
     private let categoryLabel: UILabel = {
         let label = UILabel()
         label.clipsToBounds = true
-        label.backgroundColor = Constants.Color.categoryLabel
+        label.backgroundColor = UIColor.appYellow()
         label.layer.cornerRadius = Constants.CategoryLabel.cornerRadius
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,7 +31,7 @@ class MovieView: UIView {
         label.text = Constants.CategoryLabel.text
         label.textColor = .black
         label.textAlignment = .center
-        label.font = Constants.Font.semiBold
+        label.font = UIFont.semiBold(ofSize: Constants.CategoryText.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,7 +41,7 @@ class MovieView: UIView {
         label.text = Constants.MovieName.text
         label.textColor = .white
         label.textAlignment = .left
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.MovieName.fontSize)
         label.setHeight(Constants.MovieName.height)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,7 +52,7 @@ class MovieView: UIView {
         label.text = Constants.MovieYear.text
         label.textColor = Constants.Color.movieYear
         label.textAlignment = .left
-        label.font = Constants.Font.regular
+        label.font = UIFont.regular(ofSize: Constants.MovieYear.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -200,17 +200,20 @@ private extension MovieView {
             static let leadingPadding = 12.0
             static let trailingPadding = -12.0
             static let bottomPadding = -4.0
+            static let fontSize = 14.0
         }
         enum MovieName {
             static let height = 23.0
             static let text = "The Boss Baby"
             static let topPadding = 4.0
             static let leadingPadding = 5.0
+            static let fontSize = 16.0
         }
         enum MovieYear {
             static let height = 16.0
             static let text = "2017"
             static let leadingPadding = 5.0
+            static let fontSize = 12.0
         }
         enum FavoritesButton {
             static let height = 20.0
@@ -219,17 +222,11 @@ private extension MovieView {
         }
         enum Color {
             static let movieYear = UIColor(red: 128, green: 128, blue: 128, alpha: 1)
-            static let categoryLabel = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
         }
         enum Image {
             static let movieImage = UIImage(named: "homeMovieImage")
             static let favoritesButton = UIImage(named: "homeFavoritesButton")
             static let checkedFavoritesButton = UIImage(named: "homeFavoritesCheckedButton")
-        }
-        enum Font {
-            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
-            static let medium = UIFont(name: "Montserrat-Medium", size: 16)
-            static let regular = UIFont(name: "Montserrat-Regular", size: 12)
         }
     }
 }

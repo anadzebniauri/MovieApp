@@ -78,11 +78,11 @@ class NavigationBar: UIView {
     
     private func setUpHomeButtonTitle() {
         let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: Constants.Font.medium,
+            .font: UIFont.medium(ofSize: Constants.HomeButton.fontSize),
             .foregroundColor: UIColor.white
         ]
         let selectedAttributes: [NSAttributedString.Key: Any] = [
-            .font: Constants.Font.medium,
+            .font: UIFont.medium(ofSize: Constants.HomeButton.fontSize),
             .foregroundColor: UIColor.black
         ]
         
@@ -104,18 +104,18 @@ class NavigationBar: UIView {
         }
         homeButton.isSelected = true
         favoritesButton.isSelected = false
-        homeButton.backgroundColor = Constants.Color.selected
+        homeButton.backgroundColor = UIColor.appYellow()
         favoritesButton.backgroundColor = Constants.Color.nonSelected
         delegate?.navigationBarHomeButtonTap(self)
     }
     
     private func setUpFavoritesButtonTitle() {
         let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: Constants.Font.medium,
+            .font: UIFont.medium(ofSize: Constants.FavoritesButton.fontSize),
             .foregroundColor: UIColor.white
         ]
         let selectedAttributes: [NSAttributedString.Key: Any] = [
-            .font: Constants.Font.medium,
+            .font: UIFont.medium(ofSize: Constants.FavoritesButton.fontSize),
             .foregroundColor: UIColor.black
         ]
         
@@ -137,7 +137,7 @@ class NavigationBar: UIView {
         }
         favoritesButton.isSelected = true
         homeButton.isSelected = false
-        favoritesButton.backgroundColor = Constants.Color.selected
+        favoritesButton.backgroundColor = UIColor.appYellow()
         homeButton.backgroundColor = Constants.Color.nonSelected
         delegate?.navigationBarFavoritesButtonTap(self)
     }
@@ -163,6 +163,7 @@ private extension NavigationBar {
             static let topPadding = 12.0
             static let leadingPadding = 16.0
             static let bottomPadding = -12.0
+            static let fontSize = 14.0
         }
         enum FavoritesButton {
             static let cornerRadius = 8.0
@@ -171,6 +172,7 @@ private extension NavigationBar {
             static let leadingPadding = 16.0
             static let trailingPadding = -16.0
             static let bottomPadding = -12.0
+            static let fontSize = 14.0
         }
         enum ButtonStackView {
             static let spacing = 16.0
@@ -183,11 +185,7 @@ private extension NavigationBar {
             static let selectedFavorites = UIImage(named: "SelectedFavorites")
         }
         enum Color {
-            static let selected = UIColor(red: 245, green: 197, blue: 24, alpha: 1)
             static let nonSelected = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
-        }
-        enum Font {
-            static let medium = UIFont(name: "Montserrat-Medium", size: 14)!
         }
     }
 }

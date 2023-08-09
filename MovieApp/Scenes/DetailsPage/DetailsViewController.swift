@@ -26,7 +26,7 @@ final class DetailsViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.Title.detailsTitle
         label.textColor = .white
-        label.font = Constants.Font.semiBold
+        label.font = UIFont.semiBold(ofSize: Constants.DetailsTitle.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,7 +42,7 @@ final class DetailsViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.Title.aboutMovie
         label.textColor = .white
-        label.font = Constants.Font.semiBold
+        label.font = UIFont.semiBold(ofSize: Constants.AboutMovieLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,7 +54,7 @@ final class DetailsViewController: UIViewController {
         label.textAlignment = .left
         label.lineBreakMode = .byClipping
         label.numberOfLines = 0
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.MovieDescription.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -210,6 +210,7 @@ private extension DetailsViewController {
         }
         enum DetailsTitle {
             static let topPadding = 8.0
+            static let fontSize = 16.0
         }
         enum DetailsComponentsView {
             static let topPadding = 26.0
@@ -219,20 +220,18 @@ private extension DetailsViewController {
         enum AboutMovieLabel {
             static let topPadding = 26.0
             static let leadingPadding = 16.0
+            static let fontSize = 16.0
         }
         enum MovieDescription {
             static let topPadding = 8.0
             static let leadingPadding = 16.0
             static let trailingPadding = -16.0
             static let width = -32.0
+            static let fontSize = 14.0
         }
         enum Image {
             static let backArrow = UIImage(named: "back arrow")
             static let movieDetailsImage = UIImage(named: "movieDetailsImage")
-        }
-        enum Font {
-            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 16)
-            static let medium = UIFont(name: "Montserrat-Medium", size: 14)
         }
     }
 }

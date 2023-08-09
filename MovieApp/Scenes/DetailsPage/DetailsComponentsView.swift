@@ -14,7 +14,7 @@ class DetailsComponentsView: UIView {
         let label = UILabel()
         label.text = Constants.Title.movieName
         label.textColor = .white
-        label.font = Constants.Font.bold
+        label.font = UIFont.bold(ofSize: Constants.Title.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,7 +43,7 @@ class DetailsComponentsView: UIView {
         let label = UILabel()
         label.text = Constants.Title.imdb
         label.textColor = Constants.Color.component
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.IMDBLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -52,7 +52,7 @@ class DetailsComponentsView: UIView {
         let label = UILabel()
         label.text = Constants.Title.genre
         label.textColor = Constants.Color.component
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.GenreLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -68,7 +68,7 @@ class DetailsComponentsView: UIView {
         let label = UILabel()
         label.text = Constants.Title.hour
         label.textColor = Constants.Color.component
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.HourLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -77,7 +77,7 @@ class DetailsComponentsView: UIView {
         let label = UILabel()
         label.text = Constants.Title.year
         label.textColor = Constants.Color.component
-        label.font = Constants.Font.medium
+        label.font = UIFont.medium(ofSize: Constants.YearLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -330,6 +330,7 @@ private extension DetailsComponentsView {
             static let genre = "Romance"
             static let hour = "1h 50m"
             static let year = "2007"
+            static let fontSize = 20.0
         }
         enum IMDBView {
             static let topPadding = 12.0
@@ -343,6 +344,7 @@ private extension DetailsComponentsView {
             static let leadingPadding = 4.0
             static let trailingPadding = -10.0
             static let bottomPadding = -4.0
+            static let fontSize = 14.0
         }
         enum GenreView {
             static let topPadding = 12.0
@@ -353,6 +355,7 @@ private extension DetailsComponentsView {
             static let leadingPadding = 10.0
             static let trailingPadding = -10.0
             static let bottomPadding = -4.0
+            static let fontSize = 14.0
         }
         enum TimeView {
             static let topPadding = 12.0
@@ -367,6 +370,7 @@ private extension DetailsComponentsView {
             static let leadingPadding = 4.0
             static let trailingPadding = -10.0
             static let bottomPadding = -4.0
+            static let fontSize = 14.0
         }
         enum YearView {
             static let topPadding = 12.0
@@ -377,6 +381,7 @@ private extension DetailsComponentsView {
             static let leadingPadding = 10.0
             static let trailingPadding = -10.0
             static let bottomPadding = -4.0
+            static let fontSize = 14.0
         }
         enum Image {
             static let detailsFavorites = UIImage(named: "DetailsFavorites")
@@ -387,12 +392,6 @@ private extension DetailsComponentsView {
         enum Color {
             static let component = UIColor(red: 202, green: 202, blue: 202, alpha: 1)
             static let backgroundView = UIColor(red: 28, green: 28, blue: 28, alpha: 1)
-        }
-        enum Font {
-            static let semiBold = UIFont(name: "Montserrat-SemiBold", size: 14)
-            static let medium = UIFont(name: "Montserrat-Medium", size: 14)
-            static let regular = UIFont(name: "Montserrat-Regular", size: 12)
-            static let bold = UIFont(name: "Montserrat-SemiBold", size: 20)
         }
     }
 }

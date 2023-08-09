@@ -62,7 +62,7 @@ class SearchBar: UIView {
         let button = UIButton()
         button.setTitle(Constants.CancelButton.text, for: .normal)
         button.titleLabel?.textColor = .white
-        button.titleLabel?.font = Constants.Font.medium
+        button.titleLabel?.font = UIFont.medium(ofSize: Constants.CancelButton.fontSize)
         button.backgroundColor = .clear
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -130,7 +130,7 @@ class SearchBar: UIView {
     
     private func setUpPlaceholder() {
         let paragraphStyle = NSMutableParagraphStyle()
-        let font = Constants.Font.placeholder
+        let font = UIFont.medium(ofSize: Constants.SearchBar.placeholderFontSize)
         
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
@@ -289,6 +289,7 @@ private extension SearchBar {
             static let searchBarSpace = CGRect(x: 0, y: 0, width: 44, height: 18)
             static let imageWidth = 14.0
             static let imageHeight = 14.0
+            static let placeholderFontSize = 16.0
         }
         enum FilterButton {
             static let leadingPadding = 8.0
@@ -303,6 +304,7 @@ private extension SearchBar {
             static let leadingPadding = 5.0
             static let trailingPadding = 4.0
             static let topPadding = 4.0
+            static let fontSize = 12.0
         }
         enum CategoryCollectionView {
             static let topPadding = 8.0
@@ -318,11 +320,6 @@ private extension SearchBar {
             static let searchIcon = UIImage(named: "searchIcon")
             static let filterIcon = UIImage(named: "filterIcon")
             static let filterIconClicked = UIImage(named: "filterIconClicked")
-        }
-        enum Font {
-            static let medium = UIFont(name: "Montserrat-Medium", size: 12)
-            static let placeholder = UIFont(name: "Montserrat-Medium", size: 16)
-            static let regular = UIFont(name: "Montserrat-Regular", size: 14)
         }
     }
 }

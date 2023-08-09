@@ -14,7 +14,16 @@ extension UIFont {
         return font ?? UIFont.systemFont(ofSize: size)
     }
     
-    static func mainFont(ofSize size: CGFloat) -> UIFont {
-        return customFont(name: "MyLovely-CustomFont", size: size)
+    static func semiBold(ofSize size: CGFloat) -> UIFont {
+        customFont(name: "Montserrat-SemiBold", size: size)
+    }
+    static func medium(ofSize size: CGFloat) -> UIFont {
+        customFont(name: "Montserrat-Medium", size: size)
+    }
+    static func regular(ofSize size: CGFloat) -> UIFont {
+        customFont(name: "Montserrat-Regular", size: size)
+    }
+    static func bold(ofSize size: CGFloat) -> UIFont {
+        customFont(name: "Montserrat-Bold", size: size)
     }
 }
