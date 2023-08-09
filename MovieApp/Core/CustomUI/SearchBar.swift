@@ -69,6 +69,8 @@ class SearchBar: UIView {
         return button
     }()
     
+    var selectedIndex:IndexPath?
+    
     // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -135,7 +137,7 @@ class SearchBar: UIView {
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
             .foregroundColor: Constants.Color.text,
-            .font: font ?? .systemFont(ofSize: 40)
+            .font: font
         ]
         let attributedPlaceholder = NSAttributedString(
             string: Constants.SearchBar.placeholderText,
@@ -247,9 +249,16 @@ extension SearchBar: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(
+        let categoryCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Constants.CategoryCollectionView.cell,
             for: indexPath) as! CategoryCell
+        switch selectedIndex == indexPath {
+        case true:
+            categoryCell.isSelectedCategoryCell = true
+        case false:
+            categoryCell.isSelectedCategoryCell = false
+        }
+        return categoryCell
     }
 }
 
@@ -257,13 +266,13 @@ extension SearchBar: UICollectionViewDataSource {
 extension SearchBar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let categoryCell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-            categoryCell.isSelectedCategoryCell = true
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-            if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-                cell.isSelectedCategoryCell = false
+            switch selectedIndex == indexPath {
+            case true:
+                selectedIndex = nil
+            case false:
+                selectedIndex = indexPath
+            }
+            collectionView.reloadData()
         }
     }
 }
@@ -282,7 +291,7 @@ extension SearchBar: UICollectionViewDelegateFlowLayout {
 private extension SearchBar {
     enum Constants {
         enum SearchBar {
-            static let cornerRadius = 22.0
+            static let cornerRadius = 18.0
             static let trailingPadding = -44.0
             static let placeholderText = "Search"
             static let height = 36.0

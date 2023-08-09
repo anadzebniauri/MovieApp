@@ -103,7 +103,7 @@ final class CategoryCell: UICollectionViewCell {
 private extension CategoryCell {
     enum Constants {
         enum CategoryLabel {
-            static let cornerRadius = 15.0
+            static let cornerRadius = 14.0
             static let text = "drama"
             static let borderWidth = 1.0
             static let topPadding = 4.0

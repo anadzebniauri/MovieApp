@@ -56,8 +56,8 @@ final class HomeViewController: UIViewController {
         keyboardDismiss()
         setUpSearchBar()
         setUpTitleLabel()
-        setUpMovieCollectionView()
         setUpNavigationBar()
+        setUpMovieCollectionView()
     }
     
     private func keyboardDismiss() {
@@ -127,8 +127,7 @@ final class HomeViewController: UIViewController {
                 constant: Constants.MovieCollectionView.trailingPadding
             ),
             moviesCollectionView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor,
-                constant: Constants.MovieCollectionView.bottomPadding
+                equalTo: navigationBar.topAnchor
             )
         ])
     }
@@ -238,7 +237,6 @@ private extension HomeViewController {
             static let cellHeight = 270.0
             static let leadingPadding = 16.0
             static let trailingPadding = -16.0
-            static let bottomPadding = -62.0
             static let aspectRatio = 1.64
         }
         enum TitleLabel {

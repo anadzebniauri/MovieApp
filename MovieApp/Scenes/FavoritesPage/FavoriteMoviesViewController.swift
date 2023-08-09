@@ -69,7 +69,7 @@ final class FavoriteMoviesViewController: UIViewController {
         NSLayoutConstraint.activate([
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            navigationBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -103,9 +103,7 @@ final class FavoriteMoviesViewController: UIViewController {
                 constant: Constants.FavoriteMoviesCollectionView.trailingPadding
             ),
             favoriteMoviesCollectionView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor,
-                constant: Constants.FavoriteMoviesCollectionView.bottomPadding
-            )
+                equalTo: navigationBar.topAnchor            )
         ])
     }
     
@@ -175,7 +173,6 @@ private extension FavoriteMoviesViewController {
             static let topPadding = 11.0
             static let leadingPadding = 16.0
             static let trailingPadding = -16.0
-            static let bottomPadding = -62.0
             static let spacing = 16.0
         }
     }
