@@ -42,7 +42,7 @@ final class MovieCell: UICollectionViewCell {
         movieView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func fillCellWithData(_ model: MovieData) {
+    func fillCellWithData(_ model: Films) {
         movieView.fillMovieCell(model)
     }
 }

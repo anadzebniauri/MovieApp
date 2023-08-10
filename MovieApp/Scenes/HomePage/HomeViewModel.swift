@@ -9,7 +9,7 @@ import Foundation
 
 class HomeViewModel {
     var movieNetworkManager: MovieNetworkManager
-    var movieData: [MovieData]?
+    var movieData: [Films]?
     var reloadCollectionView: (() -> Void)?
     
     init(movieNetworkManager: MovieNetworkManager) {
@@ -20,7 +20,7 @@ class HomeViewModel {
 }
 
 extension HomeViewModel: MovieNetworkManagerDelegate {
-    func didUpdateMovie(_ movieNetworkManager: MovieNetworkManager, movieData: [MovieData]?) {
+    func didUpdateMovie(_ movieNetworkManager: MovieNetworkManager, movieData: [Films]?) {
         DispatchQueue.main.async { [weak self] in
             self?.movieData = movieData
             self?.reloadCollectionView?()

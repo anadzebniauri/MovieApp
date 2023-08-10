@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MovieView: UIView {
     
@@ -181,8 +182,9 @@ class MovieView: UIView {
         favoritesButton.isSelected.toggle()
     }
     
-    func fillMovieCell(_ model: MovieData) {
+    func fillMovieCell(_ model: Films) {
         movieName.text = model.film_name
+        movieImage.sd_setImage(with: URL(string: model.image))
     }
 }
 

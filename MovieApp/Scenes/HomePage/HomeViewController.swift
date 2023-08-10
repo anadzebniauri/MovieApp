@@ -207,7 +207,6 @@ extension HomeViewController: UICollectionViewDataSource {
         guard let data = viewModel?.movieData?[indexPath.row] else {
             return UICollectionViewCell()
         }
-        
         guard let movieCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Constants.MovieCollectionView.cell,
             for: indexPath) as? MovieCell else {

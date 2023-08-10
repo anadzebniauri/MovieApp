@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MovieNetworkManagerDelegate: AnyObject {
-    func didUpdateMovie(_ movieNetworkManager: MovieNetworkManager, movieData: [MovieData]?)
+    func didUpdateMovie(_ movieNetworkManager: MovieNetworkManager, movieData: [Films]?)
     func didFailWithError(error: Error)
 }
 
@@ -55,7 +55,7 @@ class MovieNetworkManager {
     }
     
     
-    func parseJSON(movieNetworkData: Data) -> [MovieData]? {
+    func parseJSON(movieNetworkData: Data) -> [Films]? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(MovieNetworkData.self, from: movieNetworkData)
