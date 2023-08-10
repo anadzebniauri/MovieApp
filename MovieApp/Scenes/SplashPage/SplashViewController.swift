@@ -38,7 +38,7 @@ final class SplashViewController: UIViewController {
     }
     
     private func navigateToHomeScreen() {
-        let homeViewController = HomeViewController()
+        let homeViewController = HomeViewController(viewModel: HomeViewModel(movieNetworkManager: MovieNetworkManager()))
         navigationController?.pushViewController(homeViewController, animated: false)
     }
     

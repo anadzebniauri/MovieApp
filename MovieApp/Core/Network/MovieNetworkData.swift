@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+struct MovieNetworkData: Codable {
+    let films: [MovieData]
+    
+//    enum CodingKeys: String, CodingKey {
+//        case movieData = "films"
+//    }
+}
+
+struct MovieData: Codable {
+    let film_name: String
+}

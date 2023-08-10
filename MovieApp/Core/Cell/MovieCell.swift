@@ -41,4 +41,8 @@ final class MovieCell: UICollectionViewCell {
         movieView.stretchOnParent()
         movieView.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    func fillCellWithData(_ model: MovieData) {
+        movieView.fillMovieCell(model)
+    }
 }

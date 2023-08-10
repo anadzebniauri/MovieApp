@@ -121,7 +121,7 @@ final class FavoriteMoviesViewController: UIViewController {
 // MARK: - Navigation Bar Buttons
 extension FavoriteMoviesViewController: NavigationBarDelegate {
     func navigationBarHomeButtonTap(_ navigationBar: NavigationBar) {
-        navigationController?.pushViewController(HomeViewController(), animated: false)
+        navigationController?.pushViewController(HomeViewController(viewModel: HomeViewModel(movieNetworkManager: MovieNetworkManager())), animated: false)
     }
     
     func navigationBarFavoritesButtonTap(_ navigationBar: NavigationBar) {
