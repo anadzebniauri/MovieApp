@@ -19,6 +19,10 @@
 		C15764FC2A66B7EF000D9C08 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15764FB2A66B7EF000D9C08 /* CategoryCell.swift */; };
 		C166E01D2A837E68007AE958 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C166E01C2A837E68007AE958 /* Montserrat-Bold.ttf */; };
 		C166E01F2A837E8C007AE958 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C166E01E2A837E8C007AE958 /* Montserrat-Regular.ttf */; };
+		C166E0322A84CE61007AE958 /* MovieNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C166E0312A84CE61007AE958 /* MovieNetworkManager.swift */; };
+		C166E0342A84CE72007AE958 /* MovieNetworkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C166E0332A84CE72007AE958 /* MovieNetworkData.swift */; };
+		C166E0362A84D70B007AE958 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C166E0352A84D70B007AE958 /* HomeViewModel.swift */; };
+		C166E0382A84DB26007AE958 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C166E0372A84DB26007AE958 /* HomeModel.swift */; };
 		C1A053C22A77DEBC000A1009 /* Montserrat in Resources */ = {isa = PBXBuildFile; fileRef = C1A053C12A77DEBC000A1009 /* Montserrat */; };
 		C1A053C42A77FC3C000A1009 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */; };
 		C1A053C62A78E578000A1009 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A053C52A78E577000A1009 /* LoadingViewController.swift */; };
@@ -51,6 +55,10 @@
 		C15764FB2A66B7EF000D9C08 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		C166E01C2A837E68007AE958 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		C166E01E2A837E8C007AE958 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		C166E0312A84CE61007AE958 /* MovieNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNetworkManager.swift; sourceTree = "<group>"; };
+		C166E0332A84CE72007AE958 /* MovieNetworkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNetworkData.swift; sourceTree = "<group>"; };
+		C166E0352A84D70B007AE958 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C166E0372A84DB26007AE958 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		C1A053C12A77DEBC000A1009 /* Montserrat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Montserrat; sourceTree = "<group>"; };
 		C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		C1A053C52A78E577000A1009 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				C1032AF82A6555C000DC8C7F /* HomeViewController.swift */,
+				C166E0352A84D70B007AE958 /* HomeViewModel.swift */,
+				C166E0372A84DB26007AE958 /* HomeModel.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -184,6 +194,8 @@
 		C166E0232A83DFAD007AE958 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C166E0312A84CE61007AE958 /* MovieNetworkManager.swift */,
+				C166E0332A84CE72007AE958 /* MovieNetworkData.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -356,7 +368,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C166E0322A84CE61007AE958 /* MovieNetworkManager.swift in Sources */,
 				C1A9670A2A65438E00694CC7 /* SplashViewController.swift in Sources */,
+				C166E0342A84CE72007AE958 /* MovieNetworkData.swift in Sources */,
 				C1A967062A65438E00694CC7 /* AppDelegate.swift in Sources */,
 				C1F7726E2A6BDF95009BD0B8 /* FavoriteMoviesViewController.swift in Sources */,
 				C1032AF92A6555C000DC8C7F /* HomeViewController.swift in Sources */,
@@ -373,9 +387,11 @@
 				C15764FC2A66B7EF000D9C08 /* CategoryCell.swift in Sources */,
 				C1B2DCCA2A82659C00702250 /* UICollectionView+Extension.swift in Sources */,
 				C11B66FB2A728242006D320E /* DetailsComponentsView.swift in Sources */,
+				C166E0362A84D70B007AE958 /* HomeViewModel.swift in Sources */,
 				C11B66FD2A72863D006D320E /* DetailsView.swift in Sources */,
 				C1F772642A6840C7009BD0B8 /* MovieView.swift in Sources */,
 				C1B2DCC82A822F7A00702250 /* UIFont+Extension.swift in Sources */,
+				C166E0382A84DB26007AE958 /* HomeModel.swift in Sources */,
 				C11B66F92A714104006D320E /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
