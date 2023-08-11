@@ -10,7 +10,7 @@ import UIKit
 final class CategoryCell: UICollectionViewCell {
     
     // MARK: - Properties
-    private lazy var categoryLabel: UILabel = {
+    private let categoryLabel: UILabel = {
         let label = UILabel()
         label.clipsToBounds = true
         label.text = Constants.CategoryLabel.text

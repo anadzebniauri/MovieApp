@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsComponentsView: UIView {
+final class DetailsComponentsView: UIView {
     
     // MARK: - Properties
     private let movieName: UILabel = {

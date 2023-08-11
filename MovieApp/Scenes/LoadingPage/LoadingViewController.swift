@@ -10,7 +10,7 @@ import UIKit
 final class LoadingViewController: UIViewController {
     
     // MARK: - Properties
-    var loadingView: UIView!
+    private var loadingView = UIView()
     
     // MARK: - Override Func
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ final class LoadingViewController: UIViewController {
         animateLoading()
     }
     
-    func setupLoadingView() {
+    private func setupLoadingView() {
         let loadingSize = Constants.Loader.size
         let loadingOrigin = CGPoint(
             x: (view.frame.width - loadingSize) / 2,
@@ -50,7 +50,7 @@ final class LoadingViewController: UIViewController {
         loadingView.addSubview(imageView)
     }
     
-    func animateLoading() {
+    private func animateLoading() {
         let imageView = loadingView.subviews.first as? UIImageView
         
         let rotationAnimation = CABasicAnimation(keyPath: Constants.Animation.rotationAnimationKey)
