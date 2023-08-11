@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 final class MovieView: UIView {
     
@@ -64,7 +65,7 @@ final class MovieView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     // MARK: - Init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -179,6 +180,11 @@ final class MovieView: UIView {
     
     @objc private func navigationBarFavoritesButtonTap() {
         favoritesButton.isSelected.toggle()
+    }
+    
+    func fillMovieCell(_ model: Films) {
+        movieName.text = model.film_name
+        movieImage.sd_setImage(with: URL(string: model.image))
     }
 }
 

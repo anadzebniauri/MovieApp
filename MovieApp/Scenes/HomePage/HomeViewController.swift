@@ -15,6 +15,7 @@ final class HomeViewController: UIViewController {
     private var titleLabelTopConstraint: NSLayoutConstraint!
     private var movieCollectionViewTopConstraint: NSLayoutConstraint!
     private var searchBarHeightConstraint: NSLayoutConstraint!
+    private let viewModel: HomeViewModel?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -48,7 +49,16 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setUp()
     }
-
+    
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - SetUp
     private func setUp() {
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -58,6 +68,7 @@ final class HomeViewController: UIViewController {
         setUpTitleLabel()
         setUpNavigationBar()
         setUpMovieCollectionView()
+        reloadCollectionView()
     }
     
     private func keyboardDismiss() {
@@ -144,6 +155,12 @@ final class HomeViewController: UIViewController {
         ])
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    private func reloadCollectionView() {
+        viewModel?.reloadCollectionView = { [weak self]  in
+            self?.moviesCollectionView.reloadData()
+        }
+    }
 }
 
 // MARK: - Search Bar Delegate
@@ -171,7 +188,7 @@ extension HomeViewController: MovieCellDelegate {
 // MARK: - Navigation Bar Buttons
 extension HomeViewController: NavigationBarDelegate {
     func navigationBarHomeButtonTap(_ navigationBar: NavigationBar) {
-        navigationController?.pushViewController(HomeViewController(), animated: false)
+        navigationController?.pushViewController(HomeViewController(viewModel: HomeViewModel(movieNetworkManager: MovieNetworkManager())), animated: false)
     }
     
     func navigationBarFavoritesButtonTap(_ navigationBar: NavigationBar) {
@@ -182,15 +199,21 @@ extension HomeViewController: NavigationBarDelegate {
 // MARK: - Collection View DataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        viewModel?.movieData?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let movieCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Constants.MovieCollectionView.cell,
-                for: indexPath) as! MovieCell
-            movieCell.delegate = self
-            return movieCell
+        guard let data = viewModel?.movieData?[indexPath.row] else {
+            return UICollectionViewCell()
+        }
+        guard let movieCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Constants.MovieCollectionView.cell,
+            for: indexPath) as? MovieCell else {
+            return UICollectionViewCell()
+        }
+        movieCell.delegate = self
+        movieCell.fillCellWithData(data)
+        return movieCell
     }
 }
 
