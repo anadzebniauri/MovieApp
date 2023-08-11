@@ -188,7 +188,9 @@ extension HomeViewController: MovieCellDelegate {
 // MARK: - Navigation Bar Buttons
 extension HomeViewController: NavigationBarDelegate {
     func navigationBarHomeButtonTap(_ navigationBar: NavigationBar) {
-        navigationController?.pushViewController(HomeViewController(viewModel: HomeViewModel(movieNetworkManager: MovieNetworkManager())), animated: false)
+        navigationController?.pushViewController(
+            HomeViewController(viewModel: HomeViewModel(
+                movieNetworkManager: MovieNetworkManager())), animated: false)
     }
     
     func navigationBarFavoritesButtonTap(_ navigationBar: NavigationBar) {

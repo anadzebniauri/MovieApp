@@ -19,6 +19,9 @@ struct Films: Codable {
     var image: String {
         images.poster.the1.medium.film_image
     }
+    var year: String {
+        release_dates.first?.release_date ?? "Error"
+    }
 }
 
 struct Images: Codable {
@@ -45,4 +48,4 @@ struct ReleaseDates: Codable {
     let release_date: String
 }
 
-//$.films.[0].release_dates.[0].release_date
+

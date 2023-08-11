@@ -14,6 +14,8 @@ final class MovieView: UIView {
     private let movieImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.Image.movieImage
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = Constants.MovieImage.cornerRadius
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -43,7 +45,8 @@ final class MovieView: UIView {
         label.textColor = .white
         label.textAlignment = .left
         label.font = UIFont.medium(ofSize: Constants.MovieName.fontSize)
-        label.setHeight(Constants.MovieName.height)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byClipping
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,11 +82,11 @@ final class MovieView: UIView {
     // MARK: - Methods
     private func setUp() {
         setUpMovieImage()
+        setUpFavoritesButton()
         setUpCategoryLabel()
         setUpCategoryText()
         setUpMovieName()
         setUpMovieYear()
-        setUpFavoritesButton()
     }
     
     private func setUpMovieImage() {
@@ -145,7 +148,10 @@ final class MovieView: UIView {
             movieName.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
                 constant: Constants.MovieName.leadingPadding
-            )
+            ),
+            movieName.trailingAnchor.constraint(
+                equalTo: favoritesButton.leadingAnchor,
+                constant: Constants.MovieName.trailingPadding)
         ])
     }
     
@@ -185,6 +191,7 @@ final class MovieView: UIView {
     func fillMovieCell(_ model: Films) {
         movieName.text = model.film_name
         movieImage.sd_setImage(with: URL(string: model.image))
+        movieYear.text = String(model.year.dropLast(6))
     }
 }
 
@@ -193,6 +200,7 @@ private extension MovieView {
     enum Constants {
         enum MovieImage{
             static let height = 226.0
+            static let cornerRadius = 16.0
         }
         enum CategoryLabel {
             static let height = 21.0
@@ -214,6 +222,7 @@ private extension MovieView {
             static let topPadding = 4.0
             static let leadingPadding = 5.0
             static let fontSize = 16.0
+            static let trailingPadding = 6.0
         }
         enum MovieYear {
             static let height = 16.0
