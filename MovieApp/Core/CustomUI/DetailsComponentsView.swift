@@ -14,6 +14,8 @@ final class DetailsComponentsView: UIView {
         let label = UILabel()
         label.text = Constants.Title.movieName
         label.textColor = .white
+        label.numberOfLines = 0
+        label.lineBreakMode = .byClipping
         label.font = UIFont.bold(ofSize: Constants.Title.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -94,8 +96,8 @@ final class DetailsComponentsView: UIView {
     
     // MARK: - Methods
     private func setUp() {
-        setUpMovieName()
         setUpFavoritesButton()
+        setUpMovieName()
         setUpImdbView()
         setUpImdbStar()
         setUpImdbLabel()
@@ -113,12 +115,16 @@ final class DetailsComponentsView: UIView {
         
         NSLayoutConstraint.activate([
             movieName.topAnchor.constraint(equalTo: topAnchor),
-            movieName.leadingAnchor.constraint(equalTo: leadingAnchor)
+            movieName.leadingAnchor.constraint(equalTo: leadingAnchor),
+            movieName.trailingAnchor.constraint(
+                equalTo: favoritesButton.leadingAnchor,
+                constant: -6)
         ])
     }
     
     private func setUpFavoritesButton() {
         addSubview(favoritesButton)
+        
         
         NSLayoutConstraint.activate([
             favoritesButton.topAnchor.constraint(equalTo: topAnchor),
@@ -318,6 +324,10 @@ final class DetailsComponentsView: UIView {
                 constant: Constants.YearLabel.bottomPadding
             )
         ])
+    }
+    
+    func fillDetails(_ model: DetailsNetworkData) {
+        movieName.text = model.film_name
     }
 }
 

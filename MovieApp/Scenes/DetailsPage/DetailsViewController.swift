@@ -9,6 +9,18 @@ import UIKit
 
 final class DetailsViewController: UIViewController {
     
+    private let viewModel: DetailsViewModel
+    
+    init(viewModel: DetailsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     // MARK: - Properties
     private let scrollView = UIScrollView()
     private let detailsComponentsView = DetailsComponentsView()
@@ -74,6 +86,18 @@ final class DetailsViewController: UIViewController {
         setUpDetailsComponentsView()
         setUpAboutMovieLabel()
         setUpMovieTextView()
+        fillWithNetworkData()
+        viewModel.makeNetworkCalls()
+    }
+    
+    private func fillWithNetworkData() {
+        viewModel.reloadPage = { [weak self] model in
+            guard let model else { return }
+            DispatchQueue.main.async {
+                self?.detailsComponentsView.fillDetails(model)
+                self?.fillDetails(model)
+            }
+        }
     }
     
     private func setUpScrollView() {
@@ -189,6 +213,10 @@ final class DetailsViewController: UIViewController {
                 constant: Constants.MovieDescription.width
             )
         ])
+    }
+    
+    func fillDetails(_ model: DetailsNetworkData) {
+        movieImage.sd_setImage(with: URL(string: model.image))
     }
 }
 

@@ -15,6 +15,7 @@ final class MovieView: UIView {
         let imageView = UIImageView()
         imageView.image = Constants.Image.movieImage
         imageView.clipsToBounds = true
+        imageView.setHeight(Constants.MovieImage.height)
         imageView.layer.cornerRadius = Constants.MovieImage.cornerRadius
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -31,7 +32,6 @@ final class MovieView: UIView {
     
     private let categoryText: UILabel = {
         let label = UILabel()
-        label.text = Constants.CategoryLabel.text
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont.semiBold(ofSize: Constants.CategoryText.fontSize)
@@ -45,8 +45,6 @@ final class MovieView: UIView {
         label.textColor = .white
         label.textAlignment = .left
         label.font = UIFont.medium(ofSize: Constants.MovieName.fontSize)
-        label.numberOfLines = 0
-        label.lineBreakMode = .byClipping
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -63,11 +61,14 @@ final class MovieView: UIView {
     
     private let favoritesButton: UIButton = {
         let button = UIButton()
+        button.setWidth(Constants.FavoritesButton.width)
         button.setImage(Constants.Image.favoritesButton, for: .normal)
         button.setImage(Constants.Image.checkedFavoritesButton, for: .selected)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    private let genres:[String] = ["Comedy", "Horror", "Romance", "Science Fiction", "Western", "Drama", "Adventure"]
 
     // MARK: - Init
     required init?(coder: NSCoder) {
@@ -82,9 +83,10 @@ final class MovieView: UIView {
     // MARK: - Methods
     private func setUp() {
         setUpMovieImage()
-        setUpFavoritesButton()
         setUpCategoryLabel()
+        setUpCategoryTextConstraints()
         setUpCategoryText()
+        setUpFavoritesButton()
         setUpMovieName()
         setUpMovieYear()
     }
@@ -114,7 +116,7 @@ final class MovieView: UIView {
         ])
     }
     
-    private func setUpCategoryText() {
+    private func setUpCategoryTextConstraints() {
         categoryLabel.addSubview(categoryText)
         
         NSLayoutConstraint.activate([
@@ -135,6 +137,12 @@ final class MovieView: UIView {
                 constant: Constants.CategoryText.bottomPadding
             )
         ])
+    }
+    
+    private func setUpCategoryText() {
+        let randomIndex = Int.random(in: 0..<genres.count)
+        let randomGenre = genres[randomIndex]
+        categoryText.text = randomGenre
     }
     
     private func setUpMovieName() {
@@ -179,7 +187,7 @@ final class MovieView: UIView {
             favoritesButton.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
                 constant: Constants.FavoritesButton.trailingPadding
-            )
+            ),
         ])
         favoritesButton.addTarget(self, action: #selector(navigationBarFavoritesButtonTap), for: .touchUpInside)
     }
@@ -221,8 +229,8 @@ private extension MovieView {
             static let text = "The Boss Baby"
             static let topPadding = 4.0
             static let leadingPadding = 5.0
-            static let fontSize = 16.0
-            static let trailingPadding = 6.0
+            static let fontSize = 14.0
+            static let trailingPadding = -6.0
         }
         enum MovieYear {
             static let height = 16.0
@@ -232,6 +240,7 @@ private extension MovieView {
         }
         enum FavoritesButton {
             static let height = 20.0
+            static let width = 21.0
             static let topPadding = 3.5
             static let trailingPadding = -4.0
         }

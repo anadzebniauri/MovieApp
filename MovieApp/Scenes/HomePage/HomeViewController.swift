@@ -69,6 +69,9 @@ final class HomeViewController: UIViewController {
         setUpNavigationBar()
         setUpMovieCollectionView()
         reloadCollectionView()
+        viewModel?.loadNextScreen = { [weak self] viewController in
+            self?.navigationController?.pushViewController(viewController, animated: false)
+        }
     }
     
     private func keyboardDismiss() {
@@ -158,7 +161,9 @@ final class HomeViewController: UIViewController {
     
     private func reloadCollectionView() {
         viewModel?.reloadCollectionView = { [weak self]  in
-            self?.moviesCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self?.moviesCollectionView.reloadData()
+            }
         }
     }
 }
@@ -180,8 +185,8 @@ extension HomeViewController: SearchBarDelegate {
 // MARK: - Movie Cell Delegate
 extension HomeViewController: MovieCellDelegate {
     func movieViewTap(_ movieCell: MovieCell) {
-        let detailsViewController = DetailsViewController()
-        navigationController?.pushViewController(detailsViewController, animated: false)
+//        let detailsViewController = DetailsViewController()
+//        navigationController?.pushViewController(detailsViewController, animated: false)
     }
 }
 
@@ -222,10 +227,11 @@ extension HomeViewController: UICollectionViewDataSource {
 // MARK: - Collection View Delegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView.cellForItem(at: indexPath) is MovieCell {
-            let detailsViewController = DetailsViewController()
-            navigationController?.pushViewController(detailsViewController, animated: false)
-        }
+//        if collectionView.cellForItem(at: indexPath) is MovieCell {
+//            let detailsViewController = DetailsViewController()
+//            navigationController?.pushViewController(detailsViewController, animated: false)
+//        }
+        self.viewModel?.didSelect(at: indexPath.row)
     }
 }
 

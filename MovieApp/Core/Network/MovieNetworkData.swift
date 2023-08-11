@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct MovieNetworkData: Codable {
+struct MovieNetworkData: Decodable {
     let films: [Films]
 }
 
-struct Films: Codable {
+struct Films: Decodable {
     let film_name: String
     let images: Images
     let release_dates: [ReleaseDates]
+    let film_id: Int
     
     var image: String {
         images.poster.the1.medium.film_image
@@ -24,11 +25,11 @@ struct Films: Codable {
     }
 }
 
-struct Images: Codable {
+struct Images: Decodable {
     let poster: Poster
 }
 
-struct Poster: Codable {
+struct Poster: Decodable {
     let the1: Poster1
 
     enum CodingKeys: String, CodingKey {
@@ -36,15 +37,15 @@ struct Poster: Codable {
     }
 }
 
-struct Poster1: Codable {
+struct Poster1: Decodable {
     let medium: Medium
 }
 
-struct Medium: Codable {
+struct Medium: Decodable {
     let film_image: String
 }
 
-struct ReleaseDates: Codable {
+struct ReleaseDates: Decodable {
     let release_date: String
 }
 

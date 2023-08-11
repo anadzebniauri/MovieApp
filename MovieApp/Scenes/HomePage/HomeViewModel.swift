@@ -11,23 +11,25 @@ class HomeViewModel {
     var movieNetworkManager: MovieNetworkManager
     var movieData: [Films]?
     var reloadCollectionView: (() -> Void)?
+    var loadNextScreen: ((DetailsViewController) -> Void)?
     
     init(movieNetworkManager: MovieNetworkManager) {
         self.movieNetworkManager = movieNetworkManager
-        self.movieNetworkManager.delegate = self
-        self.movieNetworkManager.fetchFilmsNowShowing()
-    }
-}
-
-extension HomeViewModel: MovieNetworkManagerDelegate {
-    func didUpdateMovie(_ movieNetworkManager: MovieNetworkManager, movieData: [Films]?) {
-        DispatchQueue.main.async { [weak self] in
-            self?.movieData = movieData
-            self?.reloadCollectionView?()
+        self.movieNetworkManager.fetchFilmsNowShowing { [weak self] result in
+            switch result {
+            case .success(let movieNetworkData):
+                self?.movieData = movieNetworkData.films
+                self?.reloadCollectionView?()
+            case .failure(let error):
+                print(error)
+            }
         }
     }
-
-    func didFailWithError(error: Error) {
-        print(error)
+    
+    func didSelect(at index: Int) {
+        guard let filmId = movieData?[index].film_id else { return }
+        let detailsViewModel = DetailsViewModel(movieId: filmId, movieNetworkManager: movieNetworkManager)
+        let detailsViewController = DetailsViewController(viewModel: detailsViewModel)
+        loadNextScreen?(detailsViewController)
     }
 }

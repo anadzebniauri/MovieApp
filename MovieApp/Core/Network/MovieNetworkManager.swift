@@ -7,24 +7,23 @@
 
 import Foundation
 
-protocol MovieNetworkManagerDelegate: AnyObject {
-    func didUpdateMovie(_ movieNetworkManager: MovieNetworkManager, movieData: [Films]?)
-    func didFailWithError(error: Error)
-}
-
 class MovieNetworkManager {
-
-    weak var delegate: MovieNetworkManagerDelegate?
     
 // MARK: - Properties
     let filmsNowShowingURL = "https://api-gate2.movieglu.com/filmsNowShowing?n=10"
+    let filmDetailsURL = "https://api-gate2.movieglu.com/filmDetails/"
     
-// MARK: - -Methods
-    func fetchFilmsNowShowing() {
-        performRequest(with: filmsNowShowingURL)
+    func detailsURL(id: Int, completion: @escaping (Result<DetailsNetworkData, Error>) -> Void) {
+        let urlString = "\(filmDetailsURL)?film_id=\(id)"
+        performRequest(with: urlString, type: DetailsNetworkData.self, completion: completion)
     }
     
-    func performRequest(with urlString: String) {
+// MARK: - Methods
+    func fetchFilmsNowShowing(completion: @escaping (Result<MovieNetworkData, Error>) -> Void) {
+        performRequest(with: filmsNowShowingURL, type: MovieNetworkData.self, completion: completion)
+    }
+
+    func performRequest<T: Decodable>(with urlString: String, type: T.Type, completion: @escaping ((Result<T, Error>) -> Void)) {
         if let url = URL(string: urlString) {
             let configuration = URLSessionConfiguration.default
             configuration.httpAdditionalHeaders = [
@@ -37,33 +36,36 @@ class MovieNetworkManager {
             ]
             
             let session = URLSession(configuration: configuration)
-            
+    
             let task = session.dataTask(with: url) { data, response, error in
-                if error != nil {
-                    self.delegate?.didFailWithError(error: error!)
+                if let error {
+                    completion(.failure(error))
                     return
                 }
                 if let safeData = data {
-                    if let movieData = self.parseJSON(movieNetworkData: safeData) {
-                        self.delegate?.didUpdateMovie(self, movieData: movieData)
+                    if let movieData = self.parseJSON(movieNetworkData: safeData, type: T.self) {
+                        completion(.success(movieData))
+                    } else {
+                        completion(.failure(AnaError.ParsingError))
                     }
                 }
             }
             task.resume()
         }
-//        Result<[MovieData, Error>]
     }
     
-    
-    func parseJSON(movieNetworkData: Data) -> [Films]? {
+    func parseJSON<T: Decodable>(movieNetworkData: Data, type: T.Type) -> T? {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(MovieNetworkData.self, from: movieNetworkData)
-            let movieData = decodedData.films
-            return movieData
+            let decodedData = try decoder.decode(T.self, from: movieNetworkData)
+            return decodedData
         } catch {
-            delegate?.didFailWithError(error: error)
             return nil
         }
     }
+}
+
+enum AnaError: Error {
+    case ParsingError
+    case ClientError
 }

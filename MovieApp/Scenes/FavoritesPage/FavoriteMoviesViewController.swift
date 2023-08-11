@@ -141,10 +141,11 @@ extension FavoriteMoviesViewController: UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView.cellForItem(at: indexPath) is MovieCell {
-            let detailsViewController = DetailsViewController()
-            navigationController?.pushViewController(detailsViewController, animated: false)
-        }
+        
+//        if collectionView.cellForItem(at: indexPath) is MovieCell {
+//            let detailsViewController = DetailsViewController(viewModel: DetailsViewModel(movieId: <#T##String#>, movieNetworkManager: <#T##MovieNetworkManager#>))
+//            navigationController?.pushViewController(detailsViewController, animated: false)
+//        }
     }
 }
 
