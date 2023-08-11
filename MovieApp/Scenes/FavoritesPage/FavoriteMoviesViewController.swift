@@ -63,8 +63,7 @@ final class FavoriteMoviesViewController: UIViewController {
     private func setUpNavigationBar() {
         view.addSubview(navigationBar)
         navigationBar.delegate = self
-        navigationBar.favoritesButton.isSelected = true
-        navigationBar.favoritesButton.backgroundColor = UIColor.appYellow()
+        navigationBar.setDefaultFavoriteButton()
         
         NSLayoutConstraint.activate([
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),

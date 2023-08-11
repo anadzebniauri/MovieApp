@@ -146,8 +146,7 @@ final class HomeViewController: UIViewController {
     private func setUpNavigationBar() {
         view.addSubview(navigationBar)
         navigationBar.delegate = self
-        navigationBar.homeButton.isSelected = true
-        navigationBar.homeButton.backgroundColor = UIColor.appYellow()
+        navigationBar.setDefaultHomeButton()
         
         NSLayoutConstraint.activate([
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),

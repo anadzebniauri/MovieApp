@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsView: UIView {
+final class DetailsView: UIView {
 
     // MARK: - Init
     required init?(coder: NSCoder) {

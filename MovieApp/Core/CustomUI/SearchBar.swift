@@ -12,7 +12,7 @@ protocol SearchBarDelegate: AnyObject {
     func searchBarCategoryCollectionShown(_ searchBar: SearchBar)
 }
 
-class SearchBar: UIView {
+final class SearchBar: UIView {
     
     weak var delegate: SearchBarDelegate?
     
@@ -32,8 +32,9 @@ class SearchBar: UIView {
         return collectionView
     }()
     
-    private let searchBar: UITextField = {
+    private lazy var searchBar: UITextField = {
         let textField = UITextField()
+        textField.delegate = self
         textField.backgroundColor = Constants.Color.searchBar
         textField.textColor = Constants.Color.text
         textField.setHeight(Constants.SearchBar.height)
@@ -69,7 +70,7 @@ class SearchBar: UIView {
         return button
     }()
     
-    var selectedIndex:IndexPath?
+    private var selectedIndex:IndexPath?
     
     // MARK: - Init
     required init?(coder: NSCoder) {
@@ -94,7 +95,6 @@ class SearchBar: UIView {
     
     private func setUpSearchBar() {
         addSubview(searchBar)
-        searchBar.delegate = self
         
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
@@ -245,7 +245,7 @@ extension SearchBar: UITextFieldDelegate {
 // MARK: - Collection View DataSource
 extension SearchBar: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

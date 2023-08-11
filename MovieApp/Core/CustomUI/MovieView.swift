@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class MovieView: UIView {
+final class MovieView: UIView {
     
     // MARK: - Properties
     private let movieImage: UIImageView = {

@@ -12,12 +12,12 @@ protocol NavigationBarDelegate: AnyObject {
     func navigationBarFavoritesButtonTap(_ navigationBar: NavigationBar)
 }
 
-class NavigationBar: UIView {
+final class NavigationBar: UIView {
     
     weak var delegate: NavigationBarDelegate?
     
     // MARK: - Properties
-    var config: UIButton.Configuration = {
+    private var config: UIButton.Configuration = {
         var config = UIButton.Configuration.plain()
         config.contentInsets = Constants.Config.contentInsets
         config.imagePadding = Constants.Config.imagePadding
@@ -26,7 +26,7 @@ class NavigationBar: UIView {
         return config
     }()
     
-    lazy var homeButton: UIButton = {
+    private lazy var homeButton: UIButton = {
         let button = UIButton(configuration: config)
         button.clipsToBounds = true
         button.layer.cornerRadius = Constants.HomeButton.cornerRadius
@@ -37,7 +37,7 @@ class NavigationBar: UIView {
         return button
     }()
     
-    lazy var favoritesButton: UIButton = {
+    private lazy var favoritesButton: UIButton = {
         let button = UIButton(configuration: config)
         button.clipsToBounds = true
         button.layer.cornerRadius = Constants.FavoritesButton.cornerRadius
@@ -147,6 +147,16 @@ class NavigationBar: UIView {
         buttonStackView.stretchOnParent()
         buttonStackView.addArrangedSubview(homeButton)
         buttonStackView.addArrangedSubview(favoritesButton)
+    }
+    
+    func setDefaultHomeButton() {
+        homeButton.isSelected = true
+        homeButton.backgroundColor = UIColor.appYellow()
+    }
+    
+    func setDefaultFavoriteButton() {
+        favoritesButton.isSelected = true
+        favoritesButton.backgroundColor = UIColor.appYellow()
     }
 }
 

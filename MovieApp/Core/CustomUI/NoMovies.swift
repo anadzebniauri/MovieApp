@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoMovies: UIView {
+final class NoMovies: UIView {
     
     // MARK: - Properties
     private let noMoviesTitle: UILabel = {
