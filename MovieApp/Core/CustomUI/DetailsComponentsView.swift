@@ -326,8 +326,37 @@ final class DetailsComponentsView: UIView {
         ])
     }
     
+    private func trimGenreName(_ genre: String) -> String {
+        var trimmedGenre = ""
+        if let index = genre.firstIndex(of: "/") {
+            let trimmedString = String(genre[..<index])
+            trimmedGenre.append(trimmedString)
+        } else {
+            trimmedGenre.append(genre)
+        }
+        return trimmedGenre
+    }
+    
+    private func convertDuration(_ duration: Int) -> String {
+        let hours = duration / 60
+        let remainingMinutes = duration % 60
+
+        var formattedTime = ""
+        if hours > 0 {
+            formattedTime += "\(hours)h "
+        }
+        if remainingMinutes > 0 {
+            formattedTime += "\(remainingMinutes)m"
+        }
+        return formattedTime
+    }
+    
     func fillDetails(_ model: DetailsNetworkData) {
         movieName.text = model.film_name
+        yearLabel.text = String(model.year.dropLast(6))
+        genreLabel.text = trimGenreName(model.genre)
+        hourLabel.text = convertDuration(model.duration_mins)
+        imdbLabel.text = String(model.review_stars)
     }
 }
 

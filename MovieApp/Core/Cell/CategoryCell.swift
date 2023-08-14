@@ -13,13 +13,12 @@ final class CategoryCell: UICollectionViewCell {
     private let categoryLabel: UILabel = {
         let label = UILabel()
         label.clipsToBounds = true
-        label.text = Constants.CategoryLabel.text
         label.textColor = .white
         label.font = UIFont.medium(ofSize: Constants.CategoryLabel.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+        
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,14 +96,17 @@ final class CategoryCell: UICollectionViewCell {
             bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
+    func fillCategoryLabel(with category: String) {
+        categoryLabel.text = category
+    }
 }
 
 // MARK: - Constants
 private extension CategoryCell {
     enum Constants {
         enum CategoryLabel {
-            static let cornerRadius = 14.0
-            static let text = "drama"
+            static let cornerRadius = 11.0
             static let borderWidth = 1.0
             static let topPadding = 4.0
             static let leadingPadding = 12.0

@@ -48,5 +48,3 @@ struct Medium: Decodable {
 struct ReleaseDates: Decodable {
     let release_date: String
 }
-
-

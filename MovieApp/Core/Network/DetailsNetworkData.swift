@@ -10,10 +10,21 @@ import Foundation
 struct DetailsNetworkData: Decodable {
     let film_id: Int
     let film_name: String
+    let duration_mins: Int
+    let review_stars: Double
     let images: LandscapeImages
+    let release_dates: [DetailsReleaseDates]
+    let genres: [Genres]
+    let synopsis_long: String
     
     var image: String {
         images.poster.the1.medium.film_image
+    }
+    var year: String {
+        release_dates.first?.release_date ?? "Date"
+    }
+    var genre: String {
+        genres.first?.genre_name ?? "Genre"
     }
 }
 
@@ -35,4 +46,12 @@ struct Still1: Decodable {
 
 struct MediumLandscape: Decodable {
     let film_image: String
+}
+
+struct DetailsReleaseDates: Decodable {
+    let release_date: String
+}
+
+struct Genres: Decodable {
+    let genre_name: String
 }

@@ -71,6 +71,13 @@ final class SearchBar: UIView {
     }()
     
     private var selectedIndex:IndexPath?
+//
+//    private let categoryList: [GenreModel] = [
+//        GenreModel(title: "Now Showing"),
+//        GenreModel(title: "Coming Soon")
+//    ]
+    
+    private let categoryList = ["Now Showing", "Coming Soon"]
     
     // MARK: - Init
     required init?(coder: NSCoder) {
@@ -245,19 +252,23 @@ extension SearchBar: UITextFieldDelegate {
 // MARK: - Collection View DataSource
 extension SearchBar: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        2
+        categoryList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let categoryCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Constants.CategoryCollectionView.cell,
             for: indexPath) as! CategoryCell
-        switch selectedIndex == indexPath {
-        case true:
-            categoryCell.isSelectedCategoryCell = true
-        case false:
-            categoryCell.isSelectedCategoryCell = false
+
+        let category = categoryList[indexPath.row]
+        categoryCell.fillCategoryLabel(with: category)
+        
+        if selectedIndex == nil {
+            categoryCell.isSelectedCategoryCell = indexPath.row == 0
+        } else {
+            categoryCell.isSelectedCategoryCell = indexPath == selectedIndex
         }
+        
         return categoryCell
     }
 }
@@ -265,14 +276,12 @@ extension SearchBar: UICollectionViewDataSource {
 // MARK: Collection View Delegate
 extension SearchBar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let categoryCell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-            switch selectedIndex == indexPath {
-            case true:
-                selectedIndex = nil
-            case false:
+        if collectionView.cellForItem(at: indexPath) is CategoryCell {
+            
+            if indexPath != selectedIndex {
                 selectedIndex = indexPath
+                collectionView.reloadData()
             }
-            collectionView.reloadData()
         }
     }
 }
@@ -281,6 +290,8 @@ extension SearchBar: UICollectionViewDelegate {
 extension SearchBar: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let categoryCell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: Constants.CategoryCollectionView.cell, for: indexPath) as! CategoryCell
+        let category = categoryList[indexPath.row]
+        categoryCell.fillCategoryLabel(with: category)
         categoryCell.layoutIfNeeded()
         let cellSize = categoryCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         return cellSize

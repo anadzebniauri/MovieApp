@@ -32,7 +32,7 @@ class MovieNetworkManager {
                 "territory": "XX",
                 "api-version": "v200",
                 "Authorization": "Basic U1BBQ18wX1hYOkJaRFdwdHdkcXl5Vg==",
-                "device-datetime": "2023-08-10"
+                "device-datetime": "2023-08-12"
             ]
             
             let session = URLSession(configuration: configuration)

@@ -217,6 +217,7 @@ final class DetailsViewController: UIViewController {
     
     func fillDetails(_ model: DetailsNetworkData) {
         movieImage.sd_setImage(with: URL(string: model.image))
+        movieDescription.text = model.synopsis_long
     }
 }
 
