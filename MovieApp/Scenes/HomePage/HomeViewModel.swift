@@ -61,7 +61,6 @@ class HomeViewModel {
     }
 }
 
-
 enum MovieCategory {
     case nowShowing
     case comingSoon

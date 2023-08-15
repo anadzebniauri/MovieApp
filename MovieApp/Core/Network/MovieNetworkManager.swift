@@ -33,14 +33,7 @@ class MovieNetworkManager {
     func performRequest<T: Decodable>(with urlString: String, type: T.Type, completion: @escaping ((Result<T, Error>) -> Void)) {
         if let url = URL(string: urlString) {
             let configuration = URLSessionConfiguration.default
-            configuration.httpAdditionalHeaders = [
-                "Client": "SPAC_0",
-                "x-api-key": "CNmOP1lNPg6jWGF4eQ8jZ4bPKsbtivE5Wfpv3wAc",
-                "territory": "XX",
-                "api-version": "v200",
-                "Authorization": "Basic U1BBQ18wX1hYOkJaRFdwdHdkcXl5Vg==",
-                "device-datetime": "2023-08-14"
-            ]
+            configuration.httpAdditionalHeaders = Constants.Header.data
             
             let session = URLSession(configuration: configuration)
     
@@ -76,4 +69,19 @@ class MovieNetworkManager {
 enum CustomError: Error {
     case ParsingError
     case ClientError
+}
+
+private extension MovieNetworkManager {
+    enum Constants {
+        enum Header {
+           static let data = [
+                "Client": "SPAC_0",
+                "x-api-key": "CNmOP1lNPg6jWGF4eQ8jZ4bPKsbtivE5Wfpv3wAc",
+                "territory": "XX",
+                "api-version": "v200",
+                "Authorization": "Basic U1BBQ18wX1hYOkJaRFdwdHdkcXl5Vg==",
+                "device-datetime": "\(formattedTodayDate)"
+            ]
+        }
+    }
 }

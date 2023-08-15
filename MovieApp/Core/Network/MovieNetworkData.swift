@@ -18,7 +18,6 @@ struct Films: Decodable {
     let film_id: Int?
     
     var image: String? {
-//        images?.poster?.the1?.medium?.film_image ?? "image_error"
         switch images?.poster {
         case .posterClass(let poster):
             return poster.the1?.medium?.film_image ?? nil

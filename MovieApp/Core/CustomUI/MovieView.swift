@@ -44,6 +44,7 @@ final class MovieView: UIView {
         label.text = Constants.MovieName.text
         label.textColor = .white
         label.textAlignment = .left
+        label.setHeight(Constants.MovieName.height)
         label.font = UIFont.medium(ofSize: Constants.MovieName.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,6 +55,7 @@ final class MovieView: UIView {
         label.text = Constants.MovieYear.text
         label.textColor = Constants.Color.movieYear
         label.textAlignment = .left
+        label.setHeight(Constants.MovieYear.height)
         label.font = UIFont.regular(ofSize: Constants.MovieYear.fontSize)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -183,7 +183,6 @@ extension HomeViewController: SearchBarDelegate {
         viewModel?.fetchDataForSelectedCategory()
     }
     
-    
     func searchBarCategoryCollectionHidden(_ searchBar: SearchBar) {
         titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
         movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
