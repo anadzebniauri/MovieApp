@@ -216,8 +216,15 @@ final class DetailsViewController: UIViewController {
     }
     
     func fillDetails(_ model: DetailsNetworkData) {
-        movieImage.sd_setImage(with: URL(string: model.image))
+//        movieImage.sd_setImage(with: URL(string: model.image))
         movieDescription.text = model.synopsis_long
+        
+        if let imageName =  model.image, let imageURL = URL(string: imageName) {
+            movieImage.sd_setImage(with: imageURL, placeholderImage: Constants.Image.noImage)
+        } else {
+            movieImage.image = Constants.Image.noImage
+        }
+
     }
 }
 
@@ -261,6 +268,7 @@ private extension DetailsViewController {
         enum Image {
             static let backArrow = UIImage(named: "back arrow")
             static let movieDetailsImage = UIImage(named: "movieDetailsImage")
+            static let noImage = UIImage(named: "no_image")
         }
     }
 }

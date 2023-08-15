@@ -198,8 +198,14 @@ final class MovieView: UIView {
     
     func fillMovieCell(_ model: Films) {
         movieName.text = model.film_name
-        movieImage.sd_setImage(with: URL(string: model.image))
         movieYear.text = String(model.year.dropLast(6))
+//        movieImage.sd_setImage(with: URL(string: model.image))
+        
+        if let imageName =  model.image, let imageURL = URL(string: imageName) {
+            movieImage.sd_setImage(with: imageURL, placeholderImage: Constants.Image.noImage)
+        } else {
+            movieImage.image = Constants.Image.noImage
+        }
     }
 }
 
@@ -251,6 +257,7 @@ private extension MovieView {
             static let movieImage = UIImage(named: "homeMovieImage")
             static let favoritesButton = UIImage(named: "homeFavoritesButton")
             static let checkedFavoritesButton = UIImage(named: "homeFavoritesCheckedButton")
+            static let noImage = UIImage(named: "no_image")
         }
     }
 }

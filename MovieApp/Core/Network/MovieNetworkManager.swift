@@ -12,17 +12,24 @@ class MovieNetworkManager {
 // MARK: - Properties
     let filmsNowShowingURL = "https://api-gate2.movieglu.com/filmsNowShowing?n=10"
     let filmDetailsURL = "https://api-gate2.movieglu.com/filmDetails/"
+    let filmsComingSoonURL = "https://api-gate2.movieglu.com/filmsComingSoon/?n=10"
+    
+
+// MARK: - Methods
+    func fetchFilmsNowShowing(completion: @escaping (Result<MovieNetworkData, Error>) -> Void) {
+        performRequest(with: filmsNowShowingURL, type: MovieNetworkData.self, completion: completion)
+    }
     
     func detailsURL(id: Int, completion: @escaping (Result<DetailsNetworkData, Error>) -> Void) {
         let urlString = "\(filmDetailsURL)?film_id=\(id)"
         performRequest(with: urlString, type: DetailsNetworkData.self, completion: completion)
     }
     
-// MARK: - Methods
-    func fetchFilmsNowShowing(completion: @escaping (Result<MovieNetworkData, Error>) -> Void) {
-        performRequest(with: filmsNowShowingURL, type: MovieNetworkData.self, completion: completion)
+    func fetchFilmsComingSoon(completion: @escaping (Result<MovieNetworkData, Error>) -> Void) {
+        performRequest(with: filmsComingSoonURL, type: MovieNetworkData.self, completion: completion)
     }
-
+    
+    // MARK: - API request
     func performRequest<T: Decodable>(with urlString: String, type: T.Type, completion: @escaping ((Result<T, Error>) -> Void)) {
         if let url = URL(string: urlString) {
             let configuration = URLSessionConfiguration.default
@@ -32,7 +39,7 @@ class MovieNetworkManager {
                 "territory": "XX",
                 "api-version": "v200",
                 "Authorization": "Basic U1BBQ18wX1hYOkJaRFdwdHdkcXl5Vg==",
-                "device-datetime": "2023-08-12"
+                "device-datetime": "2023-08-14"
             ]
             
             let session = URLSession(configuration: configuration)
@@ -46,7 +53,7 @@ class MovieNetworkManager {
                     if let movieData = self.parseJSON(movieNetworkData: safeData, type: T.self) {
                         completion(.success(movieData))
                     } else {
-                        completion(.failure(AnaError.ParsingError))
+                        completion(.failure(CustomError.ParsingError))
                     }
                 }
             }
@@ -60,12 +67,13 @@ class MovieNetworkManager {
             let decodedData = try decoder.decode(T.self, from: movieNetworkData)
             return decodedData
         } catch {
+            print(error.localizedDescription)
             return nil
         }
     }
 }
 
-enum AnaError: Error {
+enum CustomError: Error {
     case ParsingError
     case ClientError
 }

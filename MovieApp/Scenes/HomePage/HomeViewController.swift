@@ -69,6 +69,7 @@ final class HomeViewController: UIViewController {
         setUpNavigationBar()
         setUpMovieCollectionView()
         reloadCollectionView()
+        //TODO: navigation has to change
         viewModel?.loadNextScreen = { [weak self] viewController in
             self?.navigationController?.pushViewController(viewController, animated: false)
         }
@@ -170,6 +171,19 @@ final class HomeViewController: UIViewController {
 
 // MARK: - Search Bar Delegate
 extension HomeViewController: SearchBarDelegate {
+    func searchBarDidSelectCategory(_ searchBar: SearchBar, _ category: String) {
+        switch category {
+        case "Now Showing":
+            viewModel?.selectedCategory = .nowShowing
+        case "Coming Soon":
+            viewModel?.selectedCategory = .comingSoon
+        default:
+            viewModel?.selectedCategory = .nowShowing
+        }
+        viewModel?.fetchDataForSelectedCategory()
+    }
+    
+    
     func searchBarCategoryCollectionHidden(_ searchBar: SearchBar) {
         titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
         movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding

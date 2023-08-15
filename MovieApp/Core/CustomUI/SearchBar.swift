@@ -10,6 +10,7 @@ import UIKit
 protocol SearchBarDelegate: AnyObject {
     func searchBarCategoryCollectionHidden(_ searchBar: SearchBar)
     func searchBarCategoryCollectionShown(_ searchBar: SearchBar)
+    func searchBarDidSelectCategory(_ searchBar: SearchBar, _ category: String)
 }
 
 final class SearchBar: UIView {
@@ -71,12 +72,6 @@ final class SearchBar: UIView {
     }()
     
     private var selectedIndex:IndexPath?
-//
-//    private let categoryList: [GenreModel] = [
-//        GenreModel(title: "Now Showing"),
-//        GenreModel(title: "Coming Soon")
-//    ]
-    
     private let categoryList = ["Now Showing", "Coming Soon"]
     
     // MARK: - Init
@@ -177,7 +172,7 @@ final class SearchBar: UIView {
             delegate?.searchBarCategoryCollectionShown(self)
         }
         layoutIfNeeded()
-    }
+      }
     
     private func setUpCancelButton() {
         addSubview(cancelButton)
@@ -259,7 +254,7 @@ extension SearchBar: UICollectionViewDataSource {
         let categoryCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Constants.CategoryCollectionView.cell,
             for: indexPath) as! CategoryCell
-
+        
         let category = categoryList[indexPath.row]
         categoryCell.fillCategoryLabel(with: category)
         
@@ -277,9 +272,11 @@ extension SearchBar: UICollectionViewDataSource {
 extension SearchBar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.cellForItem(at: indexPath) is CategoryCell {
-            
             if indexPath != selectedIndex {
                 selectedIndex = indexPath
+                if !categoryCollectionView.isHidden, let selectedIndex = selectedIndex {
+                    delegate?.searchBarDidSelectCategory(self, categoryList[selectedIndex.row])
+                }
                 collectionView.reloadData()
             }
         }
