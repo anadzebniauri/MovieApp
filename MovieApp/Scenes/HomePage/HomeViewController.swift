@@ -182,7 +182,7 @@ extension HomeViewController: SearchBarDelegate {
         }
         viewModel?.fetchDataForSelectedCategory()
     }
-    
+
     func searchBarCategoryCollectionHidden(_ searchBar: SearchBar) {
         titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
         movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
@@ -192,6 +192,14 @@ extension HomeViewController: SearchBarDelegate {
         titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
         movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
         searchBarHeightConstraint.constant = Constants.SearchBar.newHeight
+    }
+    
+    func searchEndEditing(_ searchBar: SearchBar) {
+        viewModel?.fetchDataForSelectedCategory()
+    }
+    
+    func textFieldChange(_ searchBar: SearchBar, textDidChange: String) {
+        viewModel?.fetchLiveSearchResults(query: textDidChange)
     }
 }
 

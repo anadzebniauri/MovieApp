@@ -44,6 +44,18 @@ class HomeViewModel {
         }
     }
     
+    func fetchLiveSearchResults(query: String) {
+        movieNetworkManager.fetchFilmLiveSearch(query: query) { [weak self] result in
+            switch result {
+            case .success(let movieNetworkData):
+                self?.movieData = movieNetworkData.films
+                self?.reloadCollectionView?()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func fetchDataForSelectedCategory() {
         switch selectedCategory {
         case .nowShowing:

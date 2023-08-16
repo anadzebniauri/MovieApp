@@ -13,6 +13,7 @@ class MovieNetworkManager {
     let filmsNowShowingURL = "https://api-gate2.movieglu.com/filmsNowShowing?n=10"
     let filmDetailsURL = "https://api-gate2.movieglu.com/filmDetails/"
     let filmsComingSoonURL = "https://api-gate2.movieglu.com/filmsComingSoon/?n=10"
+    let filmLiveSearch = "https://api-gate2.movieglu.com/filmLiveSearch/"
     
 
 // MARK: - Methods
@@ -27,6 +28,12 @@ class MovieNetworkManager {
     
     func fetchFilmsComingSoon(completion: @escaping (Result<MovieNetworkData, Error>) -> Void) {
         performRequest(with: filmsComingSoonURL, type: MovieNetworkData.self, completion: completion)
+    }
+    
+    func fetchFilmLiveSearch(query: String, completion: @escaping (Result<MovieNetworkData, Error>) -> Void) {
+        let urlString = "\(filmLiveSearch)?query=\(query)&n=10"
+        performRequest(with: urlString, type: MovieNetworkData.self, completion: completion)
+        print(urlString)
     }
     
     // MARK: - API request

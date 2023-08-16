@@ -11,6 +11,8 @@ protocol SearchBarDelegate: AnyObject {
     func searchBarCategoryCollectionHidden(_ searchBar: SearchBar)
     func searchBarCategoryCollectionShown(_ searchBar: SearchBar)
     func searchBarDidSelectCategory(_ searchBar: SearchBar, _ category: String)
+    func textFieldChange(_ searchBar: SearchBar, textDidChange: String)
+    func searchEndEditing(_ searchBar: SearchBar)
 }
 
 final class SearchBar: UIView {
@@ -221,6 +223,11 @@ final class SearchBar: UIView {
             )
         ])
     }
+    
+    func searchBarTextChanged(_ newText: String) {
+        delegate?.textFieldChange(self, textDidChange: newText)
+    }
+
 }
 
 // MARK: - Text Field Delegate
@@ -241,6 +248,20 @@ extension SearchBar: UITextFieldDelegate {
             filterButton.isHidden = false
             cancelButton.isHidden = true
         }
+        delegate?.searchEndEditing(self)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = searchBar.text,
+           let textRange = Range(range, in: text) {
+            let newText = text.replacingCharacters(in: textRange, with: string)
+            searchBarTextChanged(newText)
+            
+            if newText.isEmpty {
+                delegate?.searchEndEditing(self)
+            }
+        }
+        return true
     }
 }
 

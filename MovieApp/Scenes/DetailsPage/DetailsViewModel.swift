@@ -29,7 +29,7 @@ final class DetailsViewModel {
             switch result {
             case .success(let data):
                 self?.detailsData = data
-                print(data)
+//                print(data)
             case .failure(let error):
                 print(error)
             }
