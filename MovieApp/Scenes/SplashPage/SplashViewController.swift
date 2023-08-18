@@ -38,8 +38,7 @@ final class SplashViewController: UIViewController {
     }
     
     private func navigateToHomeScreen() {
-        let homeViewController = HomeViewController(viewModel: HomeViewModel(movieNetworkManager: MovieNetworkManager()))
-        navigationController?.pushViewController(homeViewController, animated: false)
+        MainCoordinator(navigationController: navigationController ?? .init()).start()
     }
     
     private func setUpIMDBLogo() {
@@ -49,7 +48,6 @@ final class SplashViewController: UIViewController {
             imdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imdbLogo.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-        
     }
 }
 

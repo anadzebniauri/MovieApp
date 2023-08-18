@@ -7,13 +7,7 @@
 
 import UIKit
 
-protocol MovieCellDelegate: AnyObject {
-    func movieViewTap(_ movieCell: MovieCell)
-}
-
 final class MovieCell: UICollectionViewCell {
-    
-    weak var delegate: MovieCellDelegate?
     
     // MARK: - Properties
     private let movieView = MovieView()

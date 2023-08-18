@@ -7,20 +7,30 @@
 
 import Foundation
 
+protocol HomeViewModelNavigationDelegate: AnyObject {
+    func didSelectMovie(id: Int)
+}
+
 class HomeViewModel {
     var movieNetworkManager: MovieNetworkManager
     var movieData: [Films]?
     var reloadCollectionView: (() -> Void)?
     var loadNextScreen: ((DetailsViewController) -> Void)?
     var selectedCategory: MovieCategory = .nowShowing
+    private var delegate: HomeViewModelNavigationDelegate?
     
-    init(movieNetworkManager: MovieNetworkManager) {
+    deinit {
+        delegate = nil
+    }
+    
+    init(movieNetworkManager: MovieNetworkManager, delegate: HomeViewModelNavigationDelegate?) {
         self.movieNetworkManager = movieNetworkManager
         self.selectedCategory = .nowShowing
+        self.delegate = delegate
         self.fetchDataForSelectedCategory()
     }
     
-    func fetchNowShowingData() {
+    private func fetchNowShowingData() {
         movieNetworkManager.fetchFilmsNowShowing { [weak self] result in
             switch result {
             case .success(let movieNetworkData):
@@ -32,7 +42,7 @@ class HomeViewModel {
         }
     }
     
-    func fetchComingSoonData() {
+    private func fetchComingSoonData() {
         movieNetworkManager.fetchFilmsComingSoon { [weak self] result in
             switch result {
             case .success(let movieNetworkData):
@@ -67,9 +77,7 @@ class HomeViewModel {
     
     func didSelect(at index: Int) {
         guard let filmId = movieData?[index].film_id else { return }
-        let detailsViewModel = DetailsViewModel(movieId: filmId, movieNetworkManager: movieNetworkManager)
-        let detailsViewController = DetailsViewController(viewModel: detailsViewModel)
-        loadNextScreen?(detailsViewController)
+        self.delegate?.didSelectMovie(id: filmId)
     }
 }
 

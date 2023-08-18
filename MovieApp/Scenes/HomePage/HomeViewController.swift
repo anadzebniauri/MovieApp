@@ -69,10 +69,6 @@ final class HomeViewController: UIViewController {
         setUpNavigationBar()
         setUpMovieCollectionView()
         reloadCollectionView()
-        //TODO: navigation has to change
-        viewModel?.loadNextScreen = { [weak self] viewController in
-            self?.navigationController?.pushViewController(viewController, animated: false)
-        }
     }
     
     private func keyboardDismiss() {
@@ -188,6 +184,7 @@ extension HomeViewController: SearchBarDelegate {
         movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
         searchBarHeightConstraint.constant = Constants.SearchBar.height
     }
+    
     func searchBarCategoryCollectionShown(_ searchBar: SearchBar) {
         titleLabelTopConstraint.constant = Constants.TitleLabel.topPadding
         movieCollectionViewTopConstraint.constant = Constants.MovieCollectionView.topPadding
@@ -203,24 +200,14 @@ extension HomeViewController: SearchBarDelegate {
     }
 }
 
-// MARK: - Movie Cell Delegate
-extension HomeViewController: MovieCellDelegate {
-    func movieViewTap(_ movieCell: MovieCell) {
-//        let detailsViewController = DetailsViewController()
-//        navigationController?.pushViewController(detailsViewController, animated: false)
-    }
-}
-
 // MARK: - Navigation Bar Buttons
 extension HomeViewController: NavigationBarDelegate {
     func navigationBarHomeButtonTap(_ navigationBar: NavigationBar) {
-        navigationController?.pushViewController(
-            HomeViewController(viewModel: HomeViewModel(
-                movieNetworkManager: MovieNetworkManager())), animated: false)
+        MainCoordinator(navigationController: navigationController ?? .init()).start()
     }
     
     func navigationBarFavoritesButtonTap(_ navigationBar: NavigationBar) {
-        navigationController?.pushViewController(FavoriteMoviesViewController(), animated: false)
+        MainCoordinator(navigationController: navigationController ?? .init()).startFavorites()
     }
 }
 
@@ -239,7 +226,6 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath) as? MovieCell else {
             return UICollectionViewCell()
         }
-        movieCell.delegate = self
         movieCell.fillCellWithData(data)
         return movieCell
     }
@@ -248,10 +234,6 @@ extension HomeViewController: UICollectionViewDataSource {
 // MARK: - Collection View Delegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if collectionView.cellForItem(at: indexPath) is MovieCell {
-//            let detailsViewController = DetailsViewController()
-//            navigationController?.pushViewController(detailsViewController, animated: false)
-//        }
         self.viewModel?.didSelect(at: indexPath.row)
     }
 }

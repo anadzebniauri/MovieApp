@@ -79,6 +79,7 @@ final class DetailsViewController: UIViewController {
 
     // MARK: - SetUp
     private func setUp() {
+        view.backgroundColor = .black
         setUpBackButton()
         setUpDetailsTitle()
         setUpScrollView()
@@ -216,7 +217,6 @@ final class DetailsViewController: UIViewController {
     }
     
     func fillDetails(_ model: DetailsNetworkData) {
-//        movieImage.sd_setImage(with: URL(string: model.image))
         movieDescription.text = model.synopsis_long
         
         if let imageName =  model.image, let imageURL = URL(string: imageName) {
