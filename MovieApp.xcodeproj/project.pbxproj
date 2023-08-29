@@ -26,6 +26,8 @@
 		C18E800C2A8BE55100304359 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E800B2A8BE55100304359 /* Date+Extension.swift */; };
 		C18E800F2A8E4F7500304359 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E800E2A8E4F7400304359 /* CoordinatorProtocol.swift */; };
 		C18E80112A8E4FA600304359 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E80102A8E4FA600304359 /* MainCoordinator.swift */; };
+		C18E80132A8FB49600304359 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E80122A8FB49600304359 /* CoreDataManager.swift */; };
+		C18E80152A8FB52E00304359 /* FavoritesCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E80142A8FB52E00304359 /* FavoritesCoreDataManager.swift */; };
 		C1A053C22A77DEBC000A1009 /* Montserrat in Resources */ = {isa = PBXBuildFile; fileRef = C1A053C12A77DEBC000A1009 /* Montserrat */; };
 		C1A053C42A77FC3C000A1009 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */; };
 		C1A053C62A78E578000A1009 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A053C52A78E577000A1009 /* LoadingViewController.swift */; };
@@ -67,6 +69,8 @@
 		C18E800B2A8BE55100304359 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		C18E800E2A8E4F7400304359 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		C18E80102A8E4FA600304359 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		C18E80122A8FB49600304359 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		C18E80142A8FB52E00304359 /* FavoritesCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoreDataManager.swift; sourceTree = "<group>"; };
 		C1A053C12A77DEBC000A1009 /* Montserrat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Montserrat; sourceTree = "<group>"; };
 		C1A053C32A77FC3C000A1009 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		C1A053C52A78E577000A1009 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +204,8 @@
 			isa = PBXGroup;
 			children = (
 				C1A9670E2A65438E00694CC7 /* MovieApp.xcdatamodeld */,
+				C18E80122A8FB49600304359 /* CoreDataManager.swift */,
+				C18E80142A8FB52E00304359 /* FavoritesCoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -409,7 +415,9 @@
 				C1F772662A685DCA009BD0B8 /* MovieCell.swift in Sources */,
 				C1A053C42A77FC3C000A1009 /* ErrorViewController.swift in Sources */,
 				C11B66F72A700DFB006D320E /* NoMovies.swift in Sources */,
+				C18E80152A8FB52E00304359 /* FavoritesCoreDataManager.swift in Sources */,
 				C18E800F2A8E4F7500304359 /* CoordinatorProtocol.swift in Sources */,
+				C18E80132A8FB49600304359 /* CoreDataManager.swift in Sources */,
 				C1A967102A65438E00694CC7 /* MovieApp.xcdatamodeld in Sources */,
 				C1E7CF122A865E6600CDF5A1 /* DetailsNetworkData.swift in Sources */,
 				C18E80112A8E4FA600304359 /* MainCoordinator.swift in Sources */,
